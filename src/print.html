@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll</title>
+</head>
+<body>
+    <div>Name________________________________________________________________</div><div>Job Title:</div>
+    <div>1.  Totla number of meetings you attended as a Haverhill board member (including board meetings): ______</div>
+    <div>Date</div><div>Description of other official meetings that were not the monthly board meetings.</div>
+    <div class="printcontainer">
+        <div class="outputs">
+            <div class="rates" id="rate-id">
+            <div class="rate" id="PERA"></div>
+            <div class="rate" id="medicare"></div>
+            <div class="rate" id="mileage"></div>
+            <div class="rate" id="meetings"></div>
+            <div class="rate" id="phone"></div>
+            <div class="rate" id="internet"></div>
+            <!-- 
+            <div class="button" id="update">Update
+                <div class="calcmenu" id="calcdropdown"></div>
+            </div>
+            -->
+            </div>
+            <div class="oplineitem">
+                <div class="oplabel">Total Wage:</div>
+                <div class="output" id="tw"></div>
+                <div class="empty"></div>
+            </div>
+            <div class="oplineitem">
+                <div class="oplabel">- PERA:</div>
+                <div class="output" id="peraAmt"></div>
+                <div class="empty"></div>
+            </div>
+            <div class="oplineitem">
+                <div class="oplabel">- medicare:</div>
+                <div class="output" id="medicareAmt"></div>
+                <div class="empty"></div>
+            </div>
+            <hr class="line">
+            <div class="oplineitem">
+                <div class="oplabel">NET:</div>
+                <div class="output" id="net"></div>
+                <div class="empty"></div>
+            </div>
+            <div class="oplineitem">
+                <div class="oplabel">+ mileage:</div>
+                <div class="output" id="milesAmt"></div>
+                <div class="empty"></div>
+            </div>
+            <div class="oplineitem">
+                <div class="oplabel">+ ph &amp; int:</div>
+                <div class="output" id="phintAmt"></div>
+                <div class="empty"></div>
+            </div>
+            <div class="oplineitem">
+                <div class="oplabel">+ other:</div>
+                <div class="output" id="otherAmt"></div>
+                <div class="empty"></div>
+            </div>
+            <hr class="line"> 
+            <div class="oplineitem">
+                <div class="oplabel">PAYMENT:</div>
+                <div class="output" id="payment"></div>
+                <div class="empty"></div>
+            </div>
+            <div class="btn">
+                <button id="printbutton">Print</button>
+                <button id="cancelbutton">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer">powered by InControl Technologies, LLC</div>
+</body>
+</html>
