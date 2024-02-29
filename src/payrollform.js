@@ -9,6 +9,16 @@ function PrintPDF() {
   
   const doc = new jsPDF();
 
+  // assign outputs
+  printValue("tw");
+  printValue("peraAmt");
+  printValue("medicareAmt");
+  printValue("net");
+  printValue("milesAmt");
+  printValue("phintAmt");
+  printValue("otherAmt");
+  printValue("payment");
+
   // Add a title
   doc.text("Hello, PDF World!", 10, 10);
 
@@ -27,7 +37,10 @@ function PrintPDF() {
   // Save the PDF
   doc.save("my_first_pdf.pdf");
 }
-
+function printValue (myString) {
+  const div = document.getElementById(`${myString}`)
+  div.textContent = sessionStorage.getItem(myString)
+}
   function Calculate () {
     // set up the rates section
     for (let key in rates) {
@@ -75,9 +88,6 @@ function PrintPDF() {
     div.textContent = msg;   
   };
   
-  function putValue (myString, amt) {
-    const div = document.getElementById(`${myString}`)
-    div.textContent = sessionStorage.getItem(myString)
-  }
+  
 
   
