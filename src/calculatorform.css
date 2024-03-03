@@ -68,26 +68,6 @@ input {
   border-radius: 8px;
   background-color: gainsboro;
 }
-.oplineitem {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 0px;
-}
-.output {
-  font-family: Tahoma, Arial, Helvetica, sans-serif;
-  min-width: 20%;
-  text-align: right;
-  padding-left: 10px;
-  padding-top: 5px;
-}
-.oplabel {
-  text-align:right;
-  padding-top: 5px;
-  min-width: 40%;
-}
-.empty{
-  min-width: 20%;
-}
 .line {
   width: 45%;
   text-align: right;
@@ -106,7 +86,7 @@ input {
 #cancelbutton {
   background-color: red;
 }
-#calcbutton, #printbutton{
+#submitbutton, #printbutton{
   border: blue solid 1px;
   background-color: blue;
   color: white;
@@ -118,4 +98,18 @@ input {
 }
 #update {
   margin-top: 0;
+}
+.printform{
+  display: none;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+th, td{
+  padding: 8px;
+}
+tr{
+  height: 20px;
 }

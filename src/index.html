@@ -11,13 +11,13 @@
     <div class="inputs">
         <p>Quarterly Payroll Inputs</p>
         <div>
-            <label for="job">Select job title:</label>
-            <select name="job" id="job" required="">
-                <option value="Supervisor" selected="">Supervisor</option>
-                <option value="Clerk" selected="">Clerk</option>
-                <option value="Deputy Clerk" selected="">Deputy Clerk</option>
-                <option value="Treasurer" selected="">Treasurer</option>
-                <option value="Deputy Treasurer" selected="">Deputy Treasurer</option>
+            <label for="title">Select job title:</label>
+            <select id="title">
+                <option value="supervisor">Supervisor</option>
+                <option value="clerk" selected>Clerk</option>
+                <option value="deputyclerk" >Deputy Clerk</option>
+                <option value="treasurer">Treasurer</option>
+                <option value="deputytreasurer">Deputy Treasurer</option>
             </select>
         </div>
         <div id="hrs">
@@ -25,19 +25,42 @@
             <input type="number" step="any" id="hours" name="hours" value="0" required="">
         </div>
         <div>
-            <label for="phoneY">Cell phone reimbursement?</label>
-            <input id = "phoneY" type="radio" name="cellphone" value="1" required="">Yes
-            <input id = "phoneN" type="radio" name="cellphone" value="0">No
+            <legend>Haverhill board mtgs attended:</legend> 
+            <input id = "bmtg3" type="radio" name="bmtgs" value="3" required="">
+            <label for="bmtg3">3</label>
+            <input id = "bmtg2" type="radio" name="bmtgs" value="2">
+            <label for="bmtg2">2</label>
+            <input id = "bmtg1" type="radio" name="bmtgs" value="1">
+            <label for="bmtg1">1</label>
+            <input id = "bmtg0" type="radio" name="bmtgs" value="0">
+            <label for="bmtg0">0</label>
         </div>
         <div>
-            <label for="internetY">Internet reimbursement?</label>
-            <input id = "internetY" type="radio" name="internet" value="1" required="">Yes
-            <input id = "internetN" type="radio" name="internet" value="0">No
+            <legend>Other official mtgs attended:</legend>
+            <input id = "omtg3" type="radio" name="omtgs" value="3" required="">
+            <label for="omtg3">3</label>
+            <input id = "omtg2" type="radio" name="omtgs" value="2">
+            <label for="omtg2">2</label>
+            <input id = "omtg1" type="radio" name="omtgs" value="1">
+            <label for="omtg1">1</label>
+            <input id = "omtg0" type="radio" name="omtgs" value="0" checked=true>
+            <label for="omtg0">0</label>
         </div>
         <div>
-            <label for="meetings">Official mtgs attended:</label>
-            <input type="number" step="any" id="meetings" name="meetings" value="0" required="">
+            <legend>Cell phone reimbursement?</legend>
+            <input id = "phoneY" type="radio" name="phone" value="1" required="">
+            <label id = "phoneY">Yes</label>
+            <input id = "phoneN" type="radio" name="phone" value="0">
+            <label id = "phoneN">No</label>
         </div>
+        <div>
+            <legend>Internet reimbursement?</legend> 
+            <input id = "internetY" type="radio" name="internet" value="1" required="">
+            <label id = "internetY">Yes</label>
+            <input id = "internetN" type="radio" name="internet" value="0">
+            <label id = "internetN">No</label>
+        </div>
+       
         <div>
             <label for="miles">Enter reimbursement miles:</label>
             <input type="number" step="any" id="miles" name="miles" value="0" required="">
@@ -47,85 +70,89 @@
             <input type="text" step="any" id="misc" name="misc" value="$0.00" required="">
         </div>
         <div>
-            <label for="peraY">Participant in PERA?</label>
-            <input type="radio" id="peraY" name="pera" value="1" required="">Yes
-            <input type="radio" id="peraN" name="pera" value="0" >No
+            <legend>Participant in PERA?</legend>
+            <input type="radio" id="peraY" name="pera" value="1" required="">
+            <label for="peraY">Yes</label>
+            <input type="radio" id="peraN" name="pera" value="0" >
+            <label for="peraN">No</label>
         </div>
         <div class = "btn">
             <button id="submitbutton">Submit</button>
         </div>
     </div>
     <div class="outputs">
-        <div class="rates" id="rate-id">
-        <div class="rate" id="PERA"></div>
-        <div class="rate" id="medicare"></div>
-        <div class="rate" id="mileage"></div>
-        <div class="rate" id="meetings"></div>
-        <div class="rate" id="phone"></div>
-        <div class="rate" id="internet"></div>
-        <!-- 
-        <div class="button" id="update">Update
-            <div class="calcmenu" id="calcdropdown"></div>
-        </div>
-        -->
-        </div>
-        <div class="oplineitem">
-            <div class="oplabel">Total Wage:</div>
-            <div class="output" id="tw"></div>
-            <div class="empty"></div>
-        </div>
-        <div class="oplineitem">
-            <div class="oplabel">- PERA:</div>
-            <div class="output" id="peraAmt"></div>
-            <div class="empty"></div>
-        </div>
-        <div class="oplineitem">
-            <div class="oplabel">- medicare:</div>
-            <div class="output" id="medicareAmt"></div>
-            <div class="empty"></div>
-        </div>
-        <hr class="line">
-        <div class="oplineitem">
-            <div class="oplabel">NET:</div>
-            <div class="output" id="net"></div>
-            <div class="empty"></div>
-        </div>
-        <div class="oplineitem">
-            <div class="oplabel">+ mileage:</div>
-            <div class="output" id="milesAmt"></div>
-            <div class="empty"></div>
-        </div>
-        <div class="oplineitem">
-            <div class="oplabel">+ ph &amp; int:</div>
-            <div class="output" id="phintAmt"></div>
-            <div class="empty"></div>
-        </div>
-        <div class="oplineitem">
-            <div class="oplabel">+ other:</div>
-            <div class="output" id="otherAmt"></div>
-            <div class="empty"></div>
-        </div>
-        <hr class="line"> 
-        <div class="oplineitem">
-            <div class="oplabel">PAYMENT:</div>
-            <div class="output" id="payment"></div>
-            <div class="empty"></div>
-        </div>
-        <div class="btn">
-            <button id="printbutton">Print</button>
+        <table>
+            <tr>
+                <td id="opsalary"></td>
+                <td>   Salary or Hourly</tdh>
+            </tr>
+            <tr>
+                <td id="opmtgs"></td>
+                <td> + Meetings</tdh>
+            </tr>
+            
+            <tr>
+                <td id="optotalwage"></td>
+                <td> = Total Wages</tdh>
+            </tr>
+            <tr>
+                <td id="oppera"></td>
+                <td> - Pera</tdh>
+            </tr>
+            <tr>
+                <td id="opmedicare"></td>
+                <td> - Medicare</tdh>
+            </tr>
+            <tr>
+                <td id="opnet"></td>
+                <td> = NET Wage </tdh>
+            </tr>
+            <tr>
+                <td id="opmileage"></td>
+                <td> + Mileage</tdh>
+            </tr>
+            <tr>
+                <td id="opphone"></td>
+                <td> + Phone</td>
+            </tr>
+            <tr>
+                <td id="opinternet"></td>
+                <td> + Internet</td>
+            </tr>
+            <tr>
+                <td id="opmisc"></td>
+                <td> + Misc expenses</td>
+            </tr>
+            <tr>
+                <td id="optotalpay"></td>
+                <td> = Total Payment</td>
+            </tr>
+        </table>
+        <div class = "btn">
             <button id="cancelbutton">Cancel</button>
+            <button id="printbutton">Print</button>
         </div>
     </div>
     <div class="printform">
-        <p>1. Total meetings attended (including board meetings): ____</p>
+        <div>
+            <span>Name: ___________________________________</span>
+            <span id="prnttitle"></span>
+        </div>
+        <div>
+            <span>1. Total Haverhill board meetings attended:  </span>
+            <span id="prntbmtgs"></span>
+            <span>1. Total other official meetings attended:  </span>
+            <span id="prntomtgs"></span>
+        </div>
+        <div>
         <table>
             <colgroup>
-                <col width: 1in;/>
-                <col width: 5in/>
+                <col width: 15%;/>
+                <col width: 85%;/>
             </colgroup>
             <tr>
                 <th>Date</th>
-                <th>Description of official meetings (not monthly board meetings)</th>
+                <th>Description of other official meetings (not monthly board meetings)</th>
             </tr>
             <tr>
                 <td></td>
@@ -140,13 +167,15 @@
                 <td></td>
             </tr>
         </table>
-        <p>2. Enter hours (supervisors) and/or miles(all).</p>
+        </div>
+        <div >2. Enter hours and/or miles.</div>
+        <div>
         <table>
             <colgroup>
-                <col width: 1in;/>
-                <col width: 5in/>
-                <col width: 1in/>
-                <col width: 1in/>
+                <col width: 15%;/>
+                <col width: 65%/>
+                <col width: 10%/>
+                <col width: 10%/>
             </colgroup>
             <tr>
                 <th>Date</th>
@@ -185,50 +214,65 @@
                 <td id="totalmiles"></td>
             </tr>
         </table>
-        <p id="item3"></p>
-        <p id="item4"></p>
-        <table>
-            <table>
-                <colgroup>
-                    <col width: 1in;/>
-                    <col width: 5in;/>
-                    <col width: 1in;/>
-                </colgroup>
-                <tr>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Expense</th>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>MISC TOTAL</td>
-                    <td>id="misctotal</td>
-                </tr>
-            </table>
-        </table>
-        <p>id="signature"</p>
+        </div>
+        <div>
+            <span>Phone Reimbursement?   </span>
+            <span id="phonerem"></span>
+            <span>Internet Reimbursement?  </span>
+            <span id="intrem"></span>
+        </div>
+        <div>Enter any misc expsenses and attach receipts.</div>
+        <div>
         <table>
             <colgroup>
-                <col width: 1in;/>
-                <col width: 3in;/>
-                <col width: 1in;/>
-                <col width: 2in;/>
-                <col width: 2in;/>
+                <col width: 15%;/>
+                <col width: 75%;/>
+                <col width: 10%;/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Expense</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">MISC TOTAL</td>
+                    <td id="misctotal"></td>
+                </tr>
+            </tfoot>
+        </table>
+        </div>
+        <div>
+            <span>Signature: ______________________________________</span>
+            <span id="datetoday"></span>
+        </div>
+        <div id="summarytable">
+        <table style="width: 100%">
+            <colgroup>
+                <col width: 15%;/>
+                <col width: 30%;/>
+                <col width: 20%;/>
+                <col width: 20%;/>
+                <col width: 15%;/>
             </colgroup>
             <tr>
                 <th>Amount</th>
@@ -238,8 +282,22 @@
                 <th>Obj Code</th>
             </tr>
             <tr>
+                <td id="sumsalary"></td>
+                <td>   Salary or Hourly</tdh>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td id="summtgs"></td>
+                <td> + Meetings</tdh>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
                 <td id="sumwage"></td>
-                <td>Total Wage (Mtgs + Salary or Hourly Amts)</tdh>
+                <td> = Total Wages</tdh>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -273,14 +331,21 @@
                 <td></td>
             </tr>
             <tr>
-                <td id="sumwint"></td>
-                <td> + Phone + Internet</td>
+                <td id="sumphone"></td>
+                <td> + Phone</td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
-                <td id="sumwmisc"></td>
+                <td id="sumint"></td>
+                <td> + Internet</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td id="summisc"></td>
                 <td> + Misc expenses</td>
                 <td></td>
                 <td></td>
@@ -289,32 +354,41 @@
             </tr>
             <tr>
                 <td id="sumtot"></td>
-                <td> Total Payment</td>
+                <td> = Total Payment</td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
         </table>
-        <table id="ratetable">
+        </div>
+        <div>
+        <table>
             <tr>
+                <th>meetings</th>
                 <th>PERA</th>
                 <th>medicare</th>
                 <th>mileage</th>
-                <th>phone/int</th>
-                <th>meetings</th>
+                <th>phone</th>
+                <th>internet</th>
+            </tr>
+            <tr>
+                <td id="refmeeting"></td>
+                <td id="refpera"></td>
+                <td id="refmedicare"></td>
+                <td id="refmileage"></td>
+                <td id="refphone"></td>
+                <td id="refint"></td>
+        </table>
+        <table>
+            <tr>
                 <th>Supervisor</th>
                 <th>Clerk</th>
                 <th>Dep Clerk</th>
                 <th>Treasurer</th>
-                
-                <th></th>
+                <th>Dep Treasurer</th>
             </tr>
             <tr>
-                <td id="refpera"></td>
-                <td id="refmedicare"></td>
-                <td id="refmileage"></td>
-                <td id="refphoneint"></td>
-                <td id="refmeeting"></td>
+
                 <td id="refsup"></td>
                 <td id="refclerk"></td>
                 <td id="refdepclerk"></td>
@@ -322,6 +396,7 @@
                 <td id="refdeptreas"></td>
             </tr>
         </table>
+        </div>
     </div>
   </div>
   <div class="footer">powered by InControl Technologies, LLC</div>
