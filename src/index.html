@@ -9,16 +9,10 @@
 <body>
   <div class="container">
     <div class="inputs">
-        <p>Quarterly Payroll Inputs</p>
+        <div class="title">Quarterly Payroll Input</div> 
         <div>
-            <label for="title">Select job title:</label>
-            <select id="title">
-                <option value="supervisor">Supervisor</option>
-                <option value="clerk" selected>Clerk</option>
-                <option value="deputyclerk" >Deputy Clerk</option>
-                <option value="treasurer">Treasurer</option>
-                <option value="deputytreasurer">Deputy Treasurer</option>
-            </select>
+            <label for="dropdownList">Name:</label>
+            <select id="dropdownList"></select>
         </div>
         <div id="hrs">
             <label for="hours">Enter total hours:</label>
@@ -135,135 +129,36 @@
     </div>
     <div class="printform">
         <div>
-            <span>Name: ___________________________________</span>
+            <span>Name:  </span>
+            <span id="prntname"></span>
+            <span>                   Title:  </span>
             <span id="prnttitle"></span>
         </div>
         <div>
             <span>1. Total Haverhill board meetings attended:  </span>
             <span id="prntbmtgs"></span>
-            <span>1. Total other official meetings attended:  </span>
+            <span>Total other official meetings attended:  </span>
             <span id="prntomtgs"></span>
         </div>
+        <div id="tblmtgs"></div>
         <div>
-        <table>
-            <colgroup>
-                <col width: 15%;/>
-                <col width: 85%;/>
-            </colgroup>
-            <tr>
-                <th>Date</th>
-                <th>Description of other official meetings (not monthly board meetings)</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
+            <span>2. Enter hours (supervisors) and/or miles (all): </span>
+            <span id="prnthoursmiles"></span>
         </div>
-        <div >2. Enter hours and/or miles.</div>
+        <div id="tblhoursmiles"></div>
         <div>
-        <table>
-            <colgroup>
-                <col width: 15%;/>
-                <col width: 65%/>
-                <col width: 10%/>
-                <col width: 10%/>
-            </colgroup>
-            <tr>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Hours</th>
-                <th>Miles</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>TOTALS</td>
-                <td id="totalhours"></td>
-                <td id="totalmiles"></td>
-            </tr>
-        </table>
+            <span>3. Phone Reimbursement?   </span>
+            <span id="prntphone"></span>
+            <span>             Internet Reimbursement?  </span>
+            <span id="prntinternet"></span>
         </div>
         <div>
-            <span>Phone Reimbursement?   </span>
-            <span id="phonerem"></span>
-            <span>Internet Reimbursement?  </span>
-            <span id="intrem"></span>
-        </div>
-        <div>Enter any misc expsenses and attach receipts.</div>
-        <div>
-        <table>
-            <colgroup>
-                <col width: 15%;/>
-                <col width: 75%;/>
-                <col width: 10%;/>
-            </colgroup>
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Expense</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2">MISC TOTAL</td>
-                    <td id="misctotal"></td>
-                </tr>
-            </tfoot>
-        </table>
+            <span>4.  Enter any miscellaneous expenses (attach receipts):  </span>
+            <span id="prntmisc"></span> 
         </div>
         <div>
-            <span>Signature: ______________________________________</span>
-            <span id="datetoday"></span>
+            <span>Signature: ______________________________________  Date:  </span>
+            <span id="prntdate"></span>
         </div>
         <div id="summarytable">
         <table style="width: 100%">

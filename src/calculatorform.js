@@ -1,4 +1,4 @@
-import {rates, salaries} from './constants.js';
+import {rates, salaries, board} from './constants.js';
 import jsPDF from "jspdf";
 let userpay = {
   "mtgs": 0,
@@ -14,6 +14,7 @@ let userpay = {
   "totalpay": 0
   };
 let userinputs = {
+  "name": "-",
   "title": "-",
   "hours": 0,
   "bmtgs": 0,
@@ -25,28 +26,24 @@ let userinputs = {
   "miles": 0,
   "misc":0
 }
+
 const submitButton = document.getElementById('submitbutton');
 const cancelButton = document.getElementById('cancelbutton');
 const printButton = document.getElementById('printbutton');
-const jobtitle = document.getElementById('title');
+let usernames = document.getElementById('dropdownList');
 
 submitButton.addEventListener('click', CheckInputs);
 cancelButton.addEventListener('click', Cancel);
 printButton.addEventListener('click', PrintPDF);
-jobtitle.addEventListener('change', UpdateJob);
 
-function UpdateJob() {
-  userinputs["title"] = document.getElementById('title').value;
-  
-  // get and show hours table if appropriate
-  const div = document.getElementById("hrs");
-  console.log({div});
-  console.log(userinputs.title)
-  if (userinputs.title === "supervisor") {
-    div.style.display = "block";
-  }
-  else {
-    div.style.display = "none";
+dropDownItems();
+
+function dropDownItems() {
+  for (const [key, value] of Object.entries(board)) {
+    let opt = document.createElement("option");
+    opt.textContent = key;
+    //opt.value = value;
+    usernames.add(opt);
   }
 }
 //operator functions on most recent 2 numbers
@@ -69,17 +66,35 @@ function PrintPDF() {
   // const printform = document.querySelector(".printform");
   // printform.style.display = "block";
 
-  //update the pdf fields saved in session storage
-   //const bmtgs= multiply(userinputs.bmtgs, rates.meetings.rate );
-   //const omtgs= multiply(userinputs.omtgs, rates.meetings.rate);
-  let item = document.getElementById("prnttitle");
-  item.textContent = userinputs.title; 
-  item = document.getElementById("prntbmtgs");
-  item.textContent = userinputs.bmtgs; 
-  item = document.getElementById("prntomtgs");
-  item.textContent = userinputs.omtgs;
+  // complete prnt section 
+  InputPDF();
+  // add any needed tables
+  if (userinputs.omtgs > 0) {
+    const item = document.getElementById("tblmtgs");
+    addTable(userinputs.omtgs, 2);
+    item.appendChild(addTable(3,3));
+  }
+  // complete the hours for supervisors
+  if (userinputs.hours > 0 || userinputs.miles > 0) {
+    const item = document.getElementById("tblhoursmiles");
+    item.appendChild(addTable(3,4));
+  }
+  else{
+    const item = document.getElementById("prnthoursmiles")
+    item.textContent = "None";
+  }
+  // complete the misc section
+  if (userinputs.misc > 0) {
+    const item = document.getElementById("tblmisc");
+    item.appendChild(addTable(3,3));
+  }
+  else {
+    const item = document.getAnimations("prntmisc")
+    item.textContent = "None";
+  }
+  
   //update the payroll amounts
-  item = document.getElementById("sumwage");
+  let item = document.getElementById("sumwage");
   item.textContent = userpay.totalwage
   item = document.getElementById("sumpera");
   item.textContent = userpay.pera
@@ -140,7 +155,8 @@ function PrintPDF() {
 function CheckInputs()  {
   let field = "complete";
   //check all inputs are completed
-  userinputs["title"] = document.getElementById("title").value;
+  userinputs["name"] = document.getElementById("dropdownList").value;
+  userinputs["title"] = board[userinputs.name];
   userinputs["hours"] = GetValue("hours");
   userinputs["bmtgs"] = Number(document.querySelector("input[name=bmtgs]:checked").value);
   userinputs["omtgs"] = Number(document.querySelector("input[name=omtgs]:checked").value);
@@ -169,7 +185,6 @@ function Calculate () {
   userpay["totalwage"] = Number(sum(userpay.salary, userpay.mtgs).toFixed(2));
   userpay["pera"] = Number(multiply(userpay.totalwage, rates.pera.rate*userinputs.pera).toFixed(2));
   userpay["medicare"] = Number(multiply(userpay.totalwage, rates.medicare.rate).toFixed(2));
-  console.log(userpay);
   userpay["net"] = Number(subtract(userpay.totalwage, sum(userpay.pera, userpay.medicare)).toFixed(2));
   userpay["phone"] = Number(multiply(userinputs.phone, rates.phone.rate).toFixed(2));
   userpay["internet"] = Number(multiply(userinputs.internet, rates.internet.rate).toFixed(2));
@@ -185,12 +200,25 @@ function Calculate () {
   // assign outputs
   AssignOutputs();
 }
-
 function GetValue (myString) {
   const input = document.getElementById(`${myString}`);
   let amtString = input.value;
   if (amtString.charAt(0) === "$") {amtString = amtString.substring(1)};
   return Number(amtString);
+}
+function InputPDF () {
+  const entries = Object.entries(userinputs);
+  for (const [key, value] of entries) {
+    const myString = "prnt" + key
+    const div = document.getElementById(`${myString}`);
+    if (div) {
+      div.textContent = value;
+      if (key === "phone" || key === "internet") {
+        div.textContent = 'NO';
+        if (value === 1) {div.textContent = 'YES'};  
+      };
+    };
+  };
 }
 function AssignOutputs () {
   const entries = Object.entries(userpay);
@@ -206,14 +234,33 @@ function AssignOutputs () {
   }  
 }
 const getSalary = () => {
-  let myvalue;
+  const str = userinputs.title.replace(/\s/g, "").toLowerCase();
+  console.log({str});
   for (const [key, value] of Object.entries(salaries)) {
-    if (userinputs.title === key) {
-      myvalue = value.rate
+    console.log({key},{value});
+    if (str === key) {
+      console.log({key},{value});
+      console.log(value.rate);
+      if (key === "supervisor") {
+        return Number(multiply(userinputs.hours, value.rate).toFixed(2));
+    } 
+      return Number((value.rate).toFixed(2));
     }
   }
-  if (userinputs.title === "supervisor") {
-    myvalue = multiply(userinputs.hours, value);
-  }
-  return myvalue;
 }; 
+function addTable(myrows,mycols){
+  let tbl = document.createElement('table');
+  let tblbody = document.createElement('body');
+  tbl.appendChild(tblbody);
+
+  for (let i=0; i<=myrows; i++) {
+    let mytr = document.createElement('tr');
+    tblbody.appendChild(mytr);
+    for (let j=0; j<mycols; j++) {
+      let mytd = document.createElement('td');
+      mytd.innerText = "Cell" + i + "," + j;
+      mytr.appendChild(mytd);
+    }
+  }
+  return tbl;
+}
