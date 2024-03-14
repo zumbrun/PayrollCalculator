@@ -1,5 +1,7 @@
 import {rates, salaries, board} from './constants.js';
 import jsPDF from "jspdf";
+import accounting from "accounting-js";
+
 let userpay = {
   "mtgs": 0,
   "salary": 0,
@@ -36,9 +38,9 @@ submitButton.addEventListener('click', CheckInputs);
 cancelButton.addEventListener('click', Cancel);
 printButton.addEventListener('click', PrintPDF);
 
-dropDownItems();
+DropDownItems();
 
-function dropDownItems() {
+function DropDownItems() {
   for (const [key, value] of Object.entries(board)) {
     let opt = document.createElement("option");
     opt.textContent = key;
@@ -95,9 +97,9 @@ function PrintPDF() {
   
   //update the payroll amounts
   let item = document.getElementById("sumwage");
-  item.textContent = userpay.totalwage
+  item.textContent = userpay.totalwage.toLocaleString();
   item = document.getElementById("sumpera");
-  item.textContent = userpay.pera
+  item.textContent = userpay.pera.toLocaleString();
   item = document.getElementById("summedicare");
   item.textContent = userpay.medicare;
   item = document.getElementById("sumnet");
@@ -156,6 +158,7 @@ function CheckInputs()  {
   let field = "complete";
   //check all inputs are completed
   userinputs["name"] = document.getElementById("dropdownList").value;
+  console.log(userinputs.name);
   userinputs["title"] = board[userinputs.name];
   userinputs["hours"] = GetValue("hours");
   userinputs["bmtgs"] = Number(document.querySelector("input[name=bmtgs]:checked").value);
@@ -185,7 +188,7 @@ function Calculate () {
   userpay["totalwage"] = Number(sum(userpay.salary, userpay.mtgs).toFixed(2));
   userpay["pera"] = Number(multiply(userpay.totalwage, rates.pera.rate*userinputs.pera).toFixed(2));
   userpay["medicare"] = Number(multiply(userpay.totalwage, rates.medicare.rate).toFixed(2));
-  userpay["net"] = Number(subtract(userpay.totalwage, sum(userpay.pera, userpay.medicare)).toFixed(2));
+  userpay["net"] = Number(sum(userpay.totalwage, sum(userpay.pera, userpay.medicare)).toFixed(2));
   userpay["phone"] = Number(multiply(userinputs.phone, rates.phone.rate).toFixed(2));
   userpay["internet"] = Number(multiply(userinputs.internet, rates.internet.rate).toFixed(2));
   userpay["mileage"] = Number(multiply(userinputs.miles, rates.mileage.rate).toFixed(2));
@@ -225,12 +228,7 @@ function AssignOutputs () {
   for (const [key, value] of entries) {
     const myString = "op" + key
     const div = document.getElementById(`${myString}`);
-    if (key === "pera" || key === "medicare") {
-      div.textContent = "$ " + "(" + value + ")";
-    }
-    else {
-      div.textContent = "$ " + value;
-    }
+    div.textContent = value.toFixed(2);
   }  
 }
 const getSalary = () => {

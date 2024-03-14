@@ -1,6 +1,6 @@
 const rates = {
-    pera: {unit: "%", rate:0.05},
-    medicare: {unit: "%", rate:0.0145},
+    pera: {unit: "%", rate:-0.05},
+    medicare: {unit: "%", rate:-0.0145},
     meetings: {unit: "/mtg", rate:100},
     mileage: {unit: "/mile", rate: 0.670},
     phone: {unit: "/qtr", rate: 30},
