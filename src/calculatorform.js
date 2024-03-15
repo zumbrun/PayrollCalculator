@@ -37,15 +37,27 @@ let usernames = document.getElementById('dropdownList');
 submitButton.addEventListener('click', CheckInputs);
 cancelButton.addEventListener('click', Cancel);
 printButton.addEventListener('click', PrintPDF);
+usernames.addEventListener('click', AddHours);
 
 DropDownItems();
+AddHours();
 
 function DropDownItems() {
   for (const [key, value] of Object.entries(board)) {
     let opt = document.createElement("option");
     opt.textContent = key;
-    //opt.value = value;
     usernames.add(opt);
+  }
+}
+function AddHours() {
+  const div = document.getElementById("hrs");
+  if (board[usernames.value] === "Supervisor"){
+    div.style.display = "block";
+    // move user to enter hours page
+    //window.location.href = "./../src/hours.html";
+  }
+  else {
+    div.style.display = "none";
   }
 }
 //operator functions on most recent 2 numbers
@@ -63,71 +75,67 @@ function Cancel() {
 }
 //print payroll form
 function PrintPDF() {
-  // const outputs = document.querySelector(".outputs");
-  // outputs.style.display = "none";
-  // const printform = document.querySelector(".printform");
-  // printform.style.display = "block";
-
+  // clear any previous created tables
+  RemoveCreatedTable("tblmtgs");
+  RemoveCreatedTable("tblhours");
+  RemoveCreatedTable("tblmiles");
+  RemoveCreatedTable("tblmisc");
   // complete prnt section 
   InputPDF();
   // add any needed tables
   if (userinputs.omtgs > 0) {
-    const item = document.getElementById("tblmtgs");
-    addTable(userinputs.omtgs, 2);
-    item.appendChild(addTable(3,3));
+    let item = document.getElementById("tblmtgs");
+    if (item.hasChildNodes) {item.removeChild};
+    let tbl = addTable(userinputs.omtgs, 2, ["Date", "Other Official Meeting Description"], ["15%", "85%"]);
+    item.appendChild(tbl);
   }
   // complete the hours for supervisors
-  if (userinputs.hours > 0 || userinputs.miles > 0) {
-    const item = document.getElementById("tblhoursmiles");
-    item.appendChild(addTable(3,4));
-  }
-  else{
-    const item = document.getElementById("prnthoursmiles")
-    item.textContent = "None";
-  }
-  // complete the misc section
-  if (userinputs.misc > 0) {
-    const item = document.getElementById("tblmisc");
-    item.appendChild(addTable(3,3));
+  
+  if (userinputs.title === "Supervisor") {
+    let item = document.getElementById("supervisors");
+    item.style.display = "block";
+    if (userinputs.hours > 0) {
+      item = document.getElementById("tblhours");
+      if (item.hasChildNodes) {item.removeChild};
+      let tbl = addTable(4, 3, ["Date", "Description", "Hours"], ["15%", "75%", "10%"]);
+      item.appendChild(tbl);
+    }
   }
   else {
-    const item = document.getAnimations("prntmisc")
-    item.textContent = "None";
+    const item = document.getElementById("supervisors");
+    item.style.display = "none";
+  }
+  // complete the miles section
+  if (userinputs.miles > 0) {
+    const item = document.getElementById("tblmiles");
+    if (item.hasChildNodes) {item.removeChild};
+    let tbl = addTable(3, 3, ["Date", "Description", "Miles"], ["15%", "75%", "10%"]);
+    item.appendChild(tbl);
+  }
+   // complete the miscs section
+   if (userinputs.misc > 0) {
+    const item = document.getElementById("tblmisc");
+    if (item.hasChildNodes) {item.removeChild};
+    let tbl = addTable(3, 3, ["Date", "Description", "Amount"], ["15%", "75%", "10%"]);
+    item.appendChild(tbl);
   }
   
   //update the payroll amounts
-  let item = document.getElementById("sumwage");
-  item.textContent = userpay.totalwage.toLocaleString();
-  item = document.getElementById("sumpera");
-  item.textContent = userpay.pera.toLocaleString();
-  item = document.getElementById("summedicare");
-  item.textContent = userpay.medicare;
-  item = document.getElementById("sumnet");
-  item.textContent = userpay.net;
-  item = document.getElementById("summileage");
-  item.textContent = userpay.mileage;
-  item = document.getElementById("sumphone");
-  item.textContent = userpay.phone;
-  item = document.getElementById("sumint");
-  item.textContent = userpay.internet;
-  item = document.getElementById("summisc");
-  item.textContent = userpay.misc;
-  item = document.getElementById("sumtot");
-  item.textContent = userpay.totalpay;
-  //update the rates table
-  item = document.getElementById("refmeeting");
-  item.textContent = "$" + rates.meetings.rate.toString() + "/mtg"; 
+  AssignOutputs("sum");
+ 
+ // asgin the rates table for reference
+  let item = document.getElementById("refmeeting");
+  item.textContent = "$" + rates.meetings.rate.toString() + rates.meetings.accounting; 
   item = document.getElementById("refmedicare");
-  item.textContent = (100*rates.medicare.rate).toFixed(2).toString() + "%"; 
+  item.textContent = (100*rates.medicare.rate).toFixed(2).toString() + rates.medicare.unit; 
   item = document.getElementById("refpera");
-  item.textContent = (100*rates.pera.rate).toFixed(2).toString() + "%"; 
+  item.textContent = (100*rates.pera.rate).toFixed(2).toString() + rates.pera.unit; 
   item = document.getElementById("refmileage");
-  item.textContent = "$" + rates.mileage.rate.toFixed(3).toString() + "/mile";
+  item.textContent = "$" + rates.mileage.rate.toFixed(3).toString() + rates.mileage.unit;
   item = document.getElementById("refphone");
-  item.textContent = "$" + rates.phone.rate.toFixed(0).toString() + "/qtr";  
-  item = document.getElementById("refint");
-  item.textContent = "$" + rates.internet.rate.toFixed(0).toString() + "/qtr"; 
-  //update the salary table
+  item.textContent = "$" + rates.phone.rate.toFixed(0).toString() + rates.phone.unit;  
+  item = document.getElementById("refinternet");
+  item.textContent = "$" + rates.internet.rate.toFixed(0).toString() + rates.internet.unit; 
   item = document.getElementById("refsup");
   item.textContent = "$" + salaries.supervisor.rate.toString() + salaries.supervisor.unit; 
   item = document.getElementById("refclerk");
@@ -153,41 +161,40 @@ function PrintPDF() {
     width: 190,
     windowWidth: 675
   });
+  //remove all tables
+
 }
 function CheckInputs()  {
-  let field = "complete";
   //check all inputs are completed
   userinputs["name"] = document.getElementById("dropdownList").value;
-  console.log(userinputs.name);
   userinputs["title"] = board[userinputs.name];
   userinputs["hours"] = GetValue("hours");
-  userinputs["bmtgs"] = Number(document.querySelector("input[name=bmtgs]:checked").value);
-  userinputs["omtgs"] = Number(document.querySelector("input[name=omtgs]:checked").value);
-  userinputs["phone"] = Number(document.querySelector("input[name=phone]:checked").value);
-  userinputs["internet"] = Number(document.querySelector("input[name=internet]:checked").value);
+  userinputs["bmtgs"] = GetCheckedValue("bmtgs");
+  userinputs["omtgs"] = GetCheckedValue("omtgs");
+  userinputs["phone"] = GetCheckedValue("phone");
+  userinputs["internet"] = GetCheckedValue("internet");
+  userinputs["pera"] = GetCheckedValue("pera");
   userinputs["miles"] = GetValue("miles");
   userinputs["misc"] = GetValue("misc");
-  userinputs["pera"] = Number(document.querySelector("input[name=pera]:checked").value);
 
   const userobj = Object.entries(userinputs);
   
   for (const [key, value] of userobj) {
-    if (value === undefined) {field=key};
+    if (value === false) {
+      alert(`Please complete the ${key}.`);
+      return;
+    }
   } 
-  if (field === "complete") {
-    Calculate ();
-  }
-  else {
-    alert(`Please complete the ${field}.`);
-  }
+  userinputs["mtgs"] =  sum(GetCheckedValue("bmtgs"), GetCheckedValue("omtgs"));
+  Calculate ();
 }
 function Calculate () {
   // calculate outputs
   userpay["salary"] = getSalary();
   userpay["mtgs"] = Number(multiply(sum(userinputs.bmtgs, userinputs.omtgs),rates.meetings.rate).toFixed(2));
   userpay["totalwage"] = Number(sum(userpay.salary, userpay.mtgs).toFixed(2));
-  userpay["pera"] = Number(multiply(userpay.totalwage, rates.pera.rate*userinputs.pera).toFixed(2));
-  userpay["medicare"] = Number(multiply(userpay.totalwage, rates.medicare.rate).toFixed(2));
+  userpay["pera"] = -1*Number(multiply(userpay.totalwage, rates.pera.rate*userinputs.pera).toFixed(2));
+  userpay["medicare"] = -1*Number(multiply(userpay.totalwage, rates.medicare.rate).toFixed(2));
   userpay["net"] = Number(sum(userpay.totalwage, sum(userpay.pera, userpay.medicare)).toFixed(2));
   userpay["phone"] = Number(multiply(userinputs.phone, rates.phone.rate).toFixed(2));
   userpay["internet"] = Number(multiply(userinputs.internet, rates.internet.rate).toFixed(2));
@@ -201,13 +208,25 @@ function Calculate () {
   outputs.style.display = "flex";
   
   // assign outputs
-  AssignOutputs();
+  AssignOutputs("op");
 }
 function GetValue (myString) {
   const input = document.getElementById(`${myString}`);
   let amtString = input.value;
   if (amtString.charAt(0) === "$") {amtString = amtString.substring(1)};
   return Number(amtString);
+}
+function GetCheckedValue (myName) {
+  const element = document.getElementsByName(`${myName}`);
+  for (let i=0; i<element.length; i++){
+    if (element[i].checked) {
+      const val = Number(element[i].value);
+      console.log(element, val);
+      return val;
+    }
+  }
+  //there are no checked values
+  return false;
 }
 function InputPDF () {
   const entries = Object.entries(userinputs);
@@ -223,10 +242,10 @@ function InputPDF () {
     };
   };
 }
-function AssignOutputs () {
+function AssignOutputs (mytable) {
   const entries = Object.entries(userpay);
   for (const [key, value] of entries) {
-    const myString = "op" + key
+    const myString = mytable + key
     const div = document.getElementById(`${myString}`);
     div.textContent = value.toFixed(2);
   }  
@@ -246,19 +265,28 @@ const getSalary = () => {
     }
   }
 }; 
-function addTable(myrows,mycols){
+function addTable(myrows,mycols, myArray, mywidths){
   let tbl = document.createElement('table');
-  let tblbody = document.createElement('body');
-  tbl.appendChild(tblbody);
-
-  for (let i=0; i<=myrows; i++) {
-    let mytr = document.createElement('tr');
-    tblbody.appendChild(mytr);
+  //create the header
+  tbl.createTHead();
+  let hdrow = tbl.tHead.insertRow(0);
+  for (let i = 0; i<mycols; i++) {
+    let cell = hdrow.insertCell(i);
+    cell.innerHTML = myArray[i];
+  }
+  let tblbody = tbl.createTBody();
+  for (let i=0; i<myrows; i++) {
+    let mytr = tblbody.insertRow(i);
     for (let j=0; j<mycols; j++) {
-      let mytd = document.createElement('td');
-      mytd.innerText = "Cell" + i + "," + j;
-      mytr.appendChild(mytd);
+      let mytd = mytr.insertCell(j);
+      mytd.style.width = mywidths[j];
     }
   }
   return tbl;
+}
+function RemoveCreatedTable(mytable) {
+let div = document.getElementById(`${mytable}`);
+  while (div.firstChild) {
+    div.removeChild(div.lastChild);
+  }
 }

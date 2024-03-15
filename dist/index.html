@@ -75,11 +75,11 @@
         </div>
     </div>
     <div class="outputs">
-           <table>
+           <table id="outputtable">
             <tr>
                 <td>$</td>
                 <td id="opsalary"></td>
-                <td>   Salary or Hourly</tdh>
+                <td> + Salary or Hourly</tdh>
             </tr>
             <tr>
                 <td>$</td>
@@ -94,12 +94,12 @@
             <tr>
                 <td>$</td>
                 <td id="oppera"></td>
-                <td> - Pera</tdh>
+                <td> + Pera</tdh>
             </tr>
             <tr>
                 <td>$</td>
                 <td id="opmedicare"></td>
-                <td> - Medicare</tdh>
+                <td> + Medicare</tdh>
             </tr>
             <tr>
                 <td>$</td>
@@ -141,45 +141,50 @@
         <div>
             <span>Name:  </span>
             <span id="prntname"></span>
-            <span>                   Title:  </span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Title:  </span>
             <span id="prnttitle"></span>
         </div>
         <div>
-            <span>1. Total Haverhill board meetings attended:  </span>
+            <span padding-right="20px">1. Haverhill board meetings attended:  </span>
             <span id="prntbmtgs"></span>
-            <span>Total other official meetings attended:  </span>
+            <span padding-right="20px">&nbsp;&nbsp;Other official meetings attended:  </span>
             <span id="prntomtgs"></span>
+            <span>&nbsp;&nbsp;TOTAL:  </span>
+            <span id="prntmtgs"></span>
         </div>
         <div id="tblmtgs"></div>
-        <div>
-            <span>2. Enter hours (supervisors) and/or miles (all): </span>
-            <span id="prnthoursmiles"></span>
+        <div id="supervisors">
+            <span>2. Total supervisor hours: </span>
+            <span id="prnthours"></span>
+            <span> hours</span>
         </div>
-        <div id="tblhoursmiles"></div>
+        <div id="tblhours"></div>
         <div>
-            <span>3. Phone Reimbursement?   </span>
+            <span>3. Total mileage: </span>
+            <span id="prntmiles"></span>
+            <span> miles</span>
+        </div>
+        <div id="tblmiles"></div>
+        <div>
+            <span>4. Phone Reimbursement:   </span>
             <span id="prntphone"></span>
-            <span>             Internet Reimbursement?  </span>
+            <span>Internet Reimbursement:  </span>
             <span id="prntinternet"></span>
         </div>
         <div>
-            <span>4.  Enter any miscellaneous expenses (attach receipts):  </span>
+            <span>5.  Miscellaneous expenses (attach receipts):  </span>
+            <span>$</span>
             <span id="prntmisc"></span> 
         </div>
+        <div id="tblmisc"></div>
         <div>
             <span>Signature: ______________________________________  Date:  </span>
             <span id="prntdate"></span>
         </div>
-        <div id="summarytable">
-        <table style="width: 100%">
-            <colgroup>
-                <col width: 15%;/>
-                <col width: 30%;/>
-                <col width: 20%;/>
-                <col width: 20%;/>
-                <col width: 15%;/>
-            </colgroup>
+        <div id="summary">
+        <table id="summarytable">
             <tr>
+                <th></th>
                 <th>Amount</th>
                 <th>Description</th>
                 <th>Fund</th>
@@ -187,13 +192,15 @@
                 <th>Obj Code</th>
             </tr>
             <tr>
+                <td>$</td>
                 <td id="sumsalary"></td>
-                <td>   Salary or Hourly</tdh>
+                <td> + Salary or Hourly</tdh>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
+                <td>$</td>
                 <td id="summtgs"></td>
                 <td> + Meetings</tdh>
                 <td></td>
@@ -201,27 +208,31 @@
                 <td></td>
             </tr>
             <tr>
-                <td id="sumwage"></td>
+                <td>$</td>
+                <td id="sumtotalwage"></td>
                 <td> = Total Wages</tdh>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
+                <td>$</td>
                 <td id="sumpera"></td>
-                <td> - PERA</tdh>
+                <td> + PERA</tdh>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
+                <td>$</td>
                 <td id="summedicare"></td>
-                <td> - Medicare</tdh>
+                <td> + Medicare</tdh>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
+                <td>$</td>
                 <td id="sumnet"></td>
                 <td> = NET Wage </tdh>
                 <td></td>
@@ -229,6 +240,7 @@
                 <td></td>
             </tr>
             <tr>
+                <td>$</td>
                 <td id="summileage"></td>
                 <td> + Mileage</tdh>
                 <td></td>
@@ -236,6 +248,7 @@
                 <td></td>
             </tr>
             <tr>
+                <td>$</td>
                 <td id="sumphone"></td>
                 <td> + Phone</td>
                 <td></td>
@@ -243,22 +256,24 @@
                 <td></td>
             </tr>
             <tr>
-                <td id="sumint"></td>
+                <td>$</td>
+                <td id="suminternet"></td>
                 <td> + Internet</td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
+                <td>$</td>
                 <td id="summisc"></td>
                 <td> + Misc expenses</td>
                 <td></td>
                 <td></td>
                 <td></td>
-
             </tr>
             <tr>
-                <td id="sumtot"></td>
+                <td>$</td>
+                <td id="sumtotalpay"></td>
                 <td> = Total Payment</td>
                 <td></td>
                 <td></td>
@@ -267,40 +282,34 @@
         </table>
         </div>
         <div>
-        <table>
-            <tr>
-                <th>meetings</th>
-                <th>PERA</th>
-                <th>medicare</th>
-                <th>mileage</th>
-                <th>phone</th>
-                <th>internet</th>
-            </tr>
-            <tr>
-                <td id="refmeeting"></td>
-                <td id="refpera"></td>
-                <td id="refmedicare"></td>
-                <td id="refmileage"></td>
-                <td id="refphone"></td>
-                <td id="refint"></td>
-        </table>
-        <table>
-            <tr>
-                <th>Supervisor</th>
-                <th>Clerk</th>
-                <th>Dep Clerk</th>
-                <th>Treasurer</th>
-                <th>Dep Treasurer</th>
-            </tr>
-            <tr>
-
-                <td id="refsup"></td>
-                <td id="refclerk"></td>
-                <td id="refdepclerk"></td>
-                <td id="reftreas"></td>
-                <td id="refdeptreas"></td>
-            </tr>
-        </table>
+            <table id="ratetable">
+                <tr>
+                    <th>meetings</th>
+                    <th>PERA</th>
+                    <th>medicare</th>
+                    <th>mileage</th>
+                    <th>phone</th>
+                    <th>internet</th>
+                    <th>Supervisor</th>
+                    <th>Clerk</th>
+                    <th>Dep Clerk</th>
+                    <th>Treasurer</th>
+                    <th>Dep Treasurer</th>
+                </tr>
+                <tr>
+                    <td id="refmeeting"></td>
+                    <td id="refpera"></td>
+                    <td id="refmedicare"></td>
+                    <td id="refmileage"></td>
+                    <td id="refphone"></td>
+                    <td id="refinternet"></td>
+                    <td id="refsup"></td>
+                    <td id="refclerk"></td>
+                    <td id="refdepclerk"></td>
+                    <td id="reftreas"></td>
+                    <td id="refdeptreas"></td>
+                </tr>
+            </table>
         </div>
     </div>
   </div>
