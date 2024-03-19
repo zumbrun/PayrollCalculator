@@ -1,6 +1,6 @@
 import {rates, salaries, board} from './constants.js';
+//import {myeventarray} from './events.js';
 import jsPDF from "jspdf";
-import accounting from "accounting-js";
 
 let userpay = {
   "mtgs": 0,
@@ -28,20 +28,60 @@ let userinputs = {
   "miles": 0,
   "misc":0
 }
+let MyTable = {
+  rows: 0,
+  cols: 0,
+  headings: [],
+  width: [],
+  data: [],
+}
+
+let eventarray = GetStoredValues();
+console.log({eventarray});
 
 const submitButton = document.getElementById('submitbutton');
 const cancelButton = document.getElementById('cancelbutton');
 const printButton = document.getElementById('printbutton');
+const hoursEntry = document.getElementById('hours');
 let usernames = document.getElementById('dropdownList');
 
+if (eventarray.length === 0) {
+  hoursEntry.value = 0;
+}
+else {
+  hoursEntry.value = CalculateTotal(eventarray);
+  console.log(hoursEntry.value);
+}
 submitButton.addEventListener('click', CheckInputs);
 cancelButton.addEventListener('click', Cancel);
 printButton.addEventListener('click', PrintPDF);
-usernames.addEventListener('click', AddHours);
+usernames.addEventListener('click', ViewHours);
+hoursEntry.addEventListener('click', UpdateHours);
 
 DropDownItems();
-AddHours();
+ViewHours();
 
+function GetStoredValues (name) {
+  let myarray = [];
+  Object.keys(localStorage).forEach(function(key) {
+    console.log({key});
+    console.log(localStorage.getItem(key));
+    if (key.includes(name)) {
+      const myevent = [];
+      console.log({key});
+      let text = localStorage.getItem(key);
+      let obj = JSON.parse(text);
+      console.log(obj.date, obj.description, obj.amount);
+      myevent[0] = obj.date;
+      myevent[1] = obj.description;
+      myevent[2] = Number(obj.amount.toFixed(2));
+      myarray.push(myevent);
+      localStorage.removeItem(key); 
+    }
+  });
+  console.log({myarray});
+  return myarray;
+}
 function DropDownItems() {
   for (const [key, value] of Object.entries(board)) {
     let opt = document.createElement("option");
@@ -49,22 +89,37 @@ function DropDownItems() {
     usernames.add(opt);
   }
 }
-function AddHours() {
+function UpdateHours() {
+  if (hoursEntry.value !== 0) {
+    // move user to enter hours page
+    window.location.href = "events.html";
+    console.log('here');
+  }
+}
+function ViewHours() {
   const div = document.getElementById("hrs");
   if (board[usernames.value] === "Supervisor"){
     div.style.display = "block";
-    // move user to enter hours page
-    //window.location.href = "./../src/hours.html";
   }
   else {
     div.style.display = "none";
   }
 }
+function CalculateTotal(array) {
+  let total = 0;
+  for (let i=0; i < array.length; i++) {
+    console.log(array[i][2]);
+    total = total + array[i][2]; 
+  }
+  return total;
+}
+
 //operator functions on most recent 2 numbers
 function sum (a,b) { return(a + b)};
 function subtract (a,b) {return(a - b)};
 function multiply (a,b) {return( a * b) };
 function divide (a,b) { b != 0 ? a / b : "Dividing by zero is not allowed."};
+
 
   //return from outputs to inputs
 function Cancel() {
@@ -84,9 +139,15 @@ function PrintPDF() {
   InputPDF();
   // add any needed tables
   if (userinputs.omtgs > 0) {
+    let mytable = Object.create(MyTable);
+    mytable.rows = userinputs.omtgs;
+    mytable.cols = 2;
+    mytable.headings = ["Date", "Other Official Meeting Description"];
+    mytable.width = ["15%", "85%"];
+    mytable.data = eventarray;
     let item = document.getElementById("tblmtgs");
     if (item.hasChildNodes) {item.removeChild};
-    let tbl = addTable(userinputs.omtgs, 2, ["Date", "Other Official Meeting Description"], ["15%", "85%"]);
+    let tbl = addTable(mytable);
     item.appendChild(tbl);
   }
   // complete the hours for supervisors
@@ -95,9 +156,15 @@ function PrintPDF() {
     let item = document.getElementById("supervisors");
     item.style.display = "block";
     if (userinputs.hours > 0) {
+      let mytable = Object.create(MyTable);
+      mytable.rows = eventarray.length;
+      mytable.cols = 3;
+      mytable.headings = ["Date", "Description", "Hours"];
+      mytable.width = ["15%", "75%", "10%"];
+      mytable.data = eventarray;
       item = document.getElementById("tblhours");
       if (item.hasChildNodes) {item.removeChild};
-      let tbl = addTable(4, 3, ["Date", "Description", "Hours"], ["15%", "75%", "10%"]);
+      let tbl = addTable(mytable);
       item.appendChild(tbl);
     }
   }
@@ -265,23 +332,24 @@ const getSalary = () => {
     }
   }
 }; 
-function addTable(myrows,mycols, myArray, mywidths){
+function addTable(mytable){
   let tbl = document.createElement('table');
   //create the header
   tbl.createTHead();
   let hdrow = tbl.tHead.insertRow(0);
-  for (let i = 0; i<mycols; i++) {
+  for (let i = 0; i < mytable.cols; i++) {
     let cell = hdrow.insertCell(i);
-    cell.innerHTML = myArray[i];
+    cell.innerHTML = mytable.headings[i];
   }
   let tblbody = tbl.createTBody();
-  for (let i=0; i<myrows; i++) {
+  for (let i=0; i < mytable.rows; i++) {
     let mytr = tblbody.insertRow(i);
-    for (let j=0; j<mycols; j++) {
+    for (let j=0; j < mytable.cols; j++) {
       let mytd = mytr.insertCell(j);
-      mytd.style.width = mywidths[j];
-    }
-  }
+      mytd.style.width = mytable.width[j];
+      mytd.innerHTML = mytable.data[i][j];
+    };
+  };
   return tbl;
 }
 function RemoveCreatedTable(mytable) {
