@@ -48,6 +48,15 @@ textarea {
   background-color: aqua;
   width: 100%;
 }
+#bottomamount {
+  display: none
+}
+#bottommtgs {
+  display: none
+}
+#bottomhours {
+  display: none
+}
 .buttons {
   display: flex;
   justify-content: space-between;

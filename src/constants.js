@@ -23,6 +23,4 @@ const board = {
     "John Barlow": "Treasurer",
     "Laura Zumbrunnen": "Deputy Treasurer",
 };
-
-
 export {rates, salaries, board};
