@@ -1,51 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link rel="stylesheet" href="./events.css">
-    <script type="module" defer src="./events.js"></script>-->
-    <title></title>
-<script defer src="events_bundle.js"></script></head>
-<body>
-    <div class="header"></div>
-    <div class="contents">
-        <div class="top">Date
-            <label id="col1lbl" for="day"></label>
-            <input type="date" id="day" name="day">
-        </div>
-        <div class="middle">
-            <textarea id="description" placeholder="Description of Work"></textarea>
-        </div>
-        <div class = "bottom" id="bottomhours">
-            <label for="hr">Enter hours:</label>
-            <select name="hours" id="hr">
-                <option value="0" selected>0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="7">8</option>
-            </select>
-            <label for="min">Enter minutes:</label>
-            <select name="mins" id="min">
-                <option value="0" selected>00</option>
-                <option value="0.25">15</option>
-                <option value="0.50">30</option>
-                <option value="0.75">45</option>
-            </select>
-        </div>
-        <div class = "bottom" id="bottomamount"></div>
-        <div class = "bottom" id="bottommtgs"></div>
-        <div class="buttons">
-            <button id="cancelButton">Cancel</button>
-            <button id="doneButton">Done</button>
-            <button id="addButton">Add</button>
-        </div>
-    </div>
-    <div class="footer">Powered by LMZ</div>
-</body>
-</html>
+<head><script defer src="events_bundle.js"></script></head>Html Webpack Plugin:
+<pre>
+  Error: Child compilation failed:
+  Module not found: Error: Can't resolve '/home/laurazumb/PayrollCalculator/src/events.html' in '/home/laur  azumb/PayrollCalculator'
+  ModuleNotFoundError: Module not found: Error: Can't resolve '/home/laurazumb/PayrollCalculator/src/events  .html' in '/home/laurazumb/PayrollCalculator'
+      at /home/laurazumb/PayrollCalculator/node_modules/webpack/lib/Compilation.js:2029:28
+      at /home/laurazumb/PayrollCalculator/node_modules/webpack/lib/NormalModuleFactory.js:895:13
+      at eval (eval at create (/home/laurazumb/PayrollCalculator/node_modules/tapable/lib/HookCodeFactory.j  s:33:10), <anonymous>:10:1)
+      at /home/laurazumb/PayrollCalculator/node_modules/webpack/lib/NormalModuleFactory.js:332:22
+      at eval (eval at create (/home/laurazumb/PayrollCalculator/node_modules/tapable/lib/HookCodeFactory.j  s:33:10), <anonymous>:9:1)
+      at /home/laurazumb/PayrollCalculator/node_modules/webpack/lib/NormalModuleFactory.js:509:22
+      at /home/laurazumb/PayrollCalculator/node_modules/webpack/lib/NormalModuleFactory.js:155:11
+      at /home/laurazumb/PayrollCalculator/node_modules/webpack/lib/NormalModuleFactory.js:767:25
+      at /home/laurazumb/PayrollCalculator/node_modules/webpack/lib/NormalModuleFactory.js:979:8
+      at /home/laurazumb/PayrollCalculator/node_modules/webpack/lib/NormalModuleFactory.js:1109:5
+  
+  - Compilation.js:2029 
+    [PayrollCalculator]/[webpack]/lib/Compilation.js:2029:28
+  
+  - NormalModuleFactory.js:895 
+    [PayrollCalculator]/[webpack]/lib/NormalModuleFactory.js:895:13
+  
+  
+  - NormalModuleFactory.js:332 
+    [PayrollCalculator]/[webpack]/lib/NormalModuleFactory.js:332:22
+  
+  
+  - NormalModuleFactory.js:509 
+    [PayrollCalculator]/[webpack]/lib/NormalModuleFactory.js:509:22
+  
+  - NormalModuleFactory.js:155 
+    [PayrollCalculator]/[webpack]/lib/NormalModuleFactory.js:155:11
+  
+  - NormalModuleFactory.js:767 
+    [PayrollCalculator]/[webpack]/lib/NormalModuleFactory.js:767:25
+  
+  - NormalModuleFactory.js:979 
+    [PayrollCalculator]/[webpack]/lib/NormalModuleFactory.js:979:8
+  
+  - NormalModuleFactory.js:1109 
+    [PayrollCalculator]/[webpack]/lib/NormalModuleFactory.js:1109:5
+  
+  - child-compiler.js:174 
+    [PayrollCalculator]/[html-webpack-plugin]/lib/child-compiler.js:174:18
+  
+  - Compiler.js:564 finalCallback
+    [PayrollCalculator]/[webpack]/lib/Compiler.js:564:5
+  
+  - Compiler.js:590 
+    [PayrollCalculator]/[webpack]/lib/Compiler.js:590:11
+  
+  - Compiler.js:1213 
+    [PayrollCalculator]/[webpack]/lib/Compiler.js:1213:17
+  
+  
+  - Hook.js:18 Hook.CALL_ASYNC_DELEGATE [as _callAsync]
+    [PayrollCalculator]/[tapable]/lib/Hook.js:18:14
+  
+  - Compiler.js:1209 
+    [PayrollCalculator]/[webpack]/lib/Compiler.js:1209:33
+  
+  - Compilation.js:2802 finalCallback
+    [PayrollCalculator]/[webpack]/lib/Compilation.js:2802:11
+  
+  - Compilation.js:3107 
+    [PayrollCalculator]/[webpack]/lib/Compilation.js:3107:11
+  
+  
+</pre>

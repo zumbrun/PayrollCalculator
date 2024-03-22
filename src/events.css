@@ -12,7 +12,7 @@ body {
   align-items: center;
   background-color: blue;
 }
-.contents{
+.events{
   background-color: pink;
   flex: 1;
   display: flex;
