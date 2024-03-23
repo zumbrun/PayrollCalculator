@@ -1,6 +1,6 @@
 export function showMilespage() {
     const milescontent = `
-    <div class="header"></div>
+    <div class="header">Enter Miles</div>
     <div class="events">
         <div class="top">Date
             <label for="day"></label>

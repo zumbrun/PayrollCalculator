@@ -12,7 +12,7 @@ import {  setupOmtgs } from "./omtgs.js";
 import {  setupOutputs} from './outputs.js';
 
 export function setupInputs(userinputs, datatables) {
-
+  
   const container = document.querySelector(".container");
   container.innerHTML = showInputpage();
   
@@ -99,5 +99,7 @@ function saveUserinputs (userinputs) {
       }
     }
   }
-  userinputs.mtgs = userinputs.omtgs + userinputs.bmtgs
+  userinputs.mtgs = userinputs.omtgs + userinputs.bmtgs;
+  userinputs.title = board[userinputs.name];
+  console.log(userinputs.title);
 }

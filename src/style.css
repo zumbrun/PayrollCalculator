@@ -6,18 +6,12 @@ body {
   flex-direction: column;
   height: 100vh;
   overflow: hidden; 
-  max-width: 900px;
-  min-width: 350px;
+  max-width: 300px;
   margin: auto;
   background-color: #188f20;
   font-family: "Merriweather", sans-serif;
   font-weight: 500;
   font-size: medium;
-}
-.header {
-  display: none;
-  align-items: center;
-  justify-content: center;
 }
 .title {
   display: flex;

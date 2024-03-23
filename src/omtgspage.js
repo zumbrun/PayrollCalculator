@@ -1,6 +1,6 @@
 export function showOmtgspage() {
     const omtgscontent = `
-    <div class="header">Other Official Meetings</div>
+    <div class="header">Enter other official meetings</div>
     <div class="events">
         <div class="top">Date
             <label for="day"></label>

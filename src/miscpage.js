@@ -1,6 +1,6 @@
 export function showMiscpage() {
     const misccontent = `
-    <div class="header"></div>
+    <div class="header">Enter Misc Expenses</div>
     <div class="events">
         <div class="top">Date
             <label id="col1lbl" for="day"></label>
