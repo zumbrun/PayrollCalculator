@@ -4,55 +4,83 @@ html {
 body {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  overflow: hidden; 
-  max-width: 300px;
-  margin: auto;
+  margin: 4px;
   background-color: #188f20;
   font-family: "Merriweather", sans-serif;
   font-weight: 500;
   font-size: medium;
+  min-height: 100vh;
+}
+.footer {
+  background-color: orange;
+  display:flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 4px;
+  padding: 4px;
+  max-width: 350px;
+}
+.title {
+  display:flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 4px;
+  padding: 4px;
+  max-width: 350px;
+}
+.container {
+  display:flex;
+  flex-grow: 1;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: yellow;
+  margin: 4px;
+  padding: 4px;
+  max-width: 350px;
+  gap: 16px;
+}
+.flexdiv {
+  display:flex;
+  flex-wrap: wrap;
+  background-color: aqua;
+  align-items: center;
+  justify-items: center;
+  min-height: 30px;
+  gap: 4px;
 }
 .title {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 25px;
-}
-.container {
-  display:flex;
-  flex: 1;
-  width: 100%;
-}
-.inputs {
-  margin: 8px;
-}
-#hrs {
-  display: none;
-}
-
-select {
-  margin: 4px;
-  padding: 4px;
-}
-#dropdownList {
-  outline: none;
-  margin: 2px;
-  padding: 2px;
-  height: 20px;
-}
-label {
-  padding: 8px;
-  margin-bottom: 20px;
+  padding-left: 25px;
+  background-color: bisque;
 }
 input {
-  padding: 4px;
-  margin-bottom: 20px;
-  max-width: 75px;
-  min-width: 30px;
+  background-color: pink;
+  text-align: center;
+  min-width: 25px;
+  max-width: 40px;
+  font-size: medium;
 }
-#meetings, #miles{
-  max-width: 35px;
+select {
+  background-color: purple;
+  font-size: medium;
+  padding:2px;
+}
+legend {
+  background-color: blue;
+}
+label{
+  background-color: gray;
+  vertical-align: middle;
+}
+#hrs {
+  display:flex;
 }
 .rates {
   display:flex;
@@ -67,14 +95,6 @@ input {
   padding: 5px 10px; 
   margin: 0;
 }
-.outputs{
-  display: none;
-  flex-direction: column;
-  font-size: 18px;
-  padding:0;
-  border-radius: 8px;
-  background-color: gainsboro;
-}
 .line {
   width: 45%;
   text-align: right;
@@ -84,8 +104,10 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 8px;
   font-family: "Arial";
   font-size: medium;
+  gap: 20px;
 }
 #cancelbutton {
   width: 70px;
@@ -93,7 +115,6 @@ input {
   background-color: red;
   border-color: red;
   border-radius: 6px;
-  margin-bottom: 4px;
   padding: 6px;
 }
 #submitbutton, #printbutton{
@@ -102,13 +123,7 @@ input {
   color: white;
   border-color: blue;
   border-radius: 6px;
-  margin-top: 4;
-  margin-bottom: 4;
   padding: 6px;
-}
-#printbutton{
-  margin-left: 50px;
-  margin-right: 10px;
 }
 .printform{
   display: none;

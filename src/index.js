@@ -1,5 +1,6 @@
 
 import './style.css';
+import './events.css';
 import { setupInputs } from './inputs.js';
 
 const userinputs = {

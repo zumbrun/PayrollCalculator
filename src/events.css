@@ -1,89 +1,28 @@
-html {
-  box-sizing: border-box;
+.eventdiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: aqua;
+  gap: 2px;
 }
-body {
+.descdiv {
   display: flex;
   flex-direction: column;
-  background-color: #188f20;
-  height: 100vh;
-}
-.header {
-  display: flex;
-  align-items: center;
-  background-color: blue;
-}
-.events{
-  background-color: pink;
-  flex: 1;
-  display: flex;
-  gap: 16px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.top{
-  display: flex;
-  background-color: red;
-  width: 100%;
+  flex-grow: 1;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  background-color: aqua;
 }
-.middle{
-  height: 70%;
-  display: flex;
-  justify-content: center;
-  background-color: yellow;
-  width: 100%;
+#day {
+  min-width: 120px;
+  padding: 4px;
+  font-size: medium;
 }
 textarea {
   flex: 1;
   background-color: white;
+  padding: 6px;
+  margin: 6px;
+  min-width: 300px;
 }
-.bottom{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background-color: aqua;
-  width: 100%;
-}
-#bottomamount {
-  display: none
-}
-#bottommtgs {
-  display: none
-}
-#bottomhours {
-  display: none
-}
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px;
-}
-button {
-  display:flex;
-  gap: 20px;
-  background-color: blue;
-  color: white;
-  margin: 10px;
-}
-ul {
-  display: flex;
-  margin: 0;
-  padding:0;
-  gap: 20px;
-  list-style: none;
-}
-a {
-  font-size: 22px;
-  background-color: blue;
-  color: white;
-  padding: 8px;
-  text-decoration: none;
-}
-.footer {
-  background-color: purple;
-}
+

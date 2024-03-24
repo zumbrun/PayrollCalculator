@@ -71,7 +71,7 @@ function dropDownItems(usernames) {
 function viewHours(usernames) {
   const div = document.getElementById("hrs");
   if (board[usernames.value] === "Supervisor"){
-    div.style.display = "block";
+    div.style.display = "flex";
   }
   else {
     div.style.display = "none";
