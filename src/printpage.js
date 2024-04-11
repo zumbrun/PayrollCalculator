@@ -95,7 +95,7 @@ export function showPrintpage () {
             <tr>
                 <td>$</td>
                 <td id="sumpera"></td>
-                <td> + PERA</tdh>
+                <td> - PERA</tdh>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -103,7 +103,7 @@ export function showPrintpage () {
             <tr>
                 <td>$</td>
                 <td id="summedicare"></td>
-                <td> + Medicare</tdh>
+                <td> - Medicare</tdh>
                 <td></td>
                 <td></td>
                 <td></td>
