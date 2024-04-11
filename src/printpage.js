@@ -33,7 +33,6 @@ export function showPrintpage () {
         <li>
         <span>Mileage: </span>
         <span id="ipmiles"></span>
-        <span> miles</span>
         </li>
     </div>
     <div id="tblmiles"></div>
@@ -48,7 +47,6 @@ export function showPrintpage () {
     <div>
         <li>
         <span>Miscellaneous expenses (attach receipts):  </span>
-        <span>$</span>
         <span id="ipmisc"></span> 
         </li>
     </div>

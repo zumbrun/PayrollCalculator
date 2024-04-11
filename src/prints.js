@@ -12,11 +12,9 @@ export function printPDF (userinputs, datatables, userpay ) {
     data: [],
   }
   const container = document.querySelector(".container");
-  container.innerHTML = showPrintpage();
-  //const div = document.querySelector(".printform");
-  //div.style.display = "block";
+  //container.innerHTML = showPrintpage();
 
-  //container.insertAdjacentHTML('afterBegin', showPrintpage());
+  container.insertAdjacentHTML('afterBegin', showPrintpage());
   // clear any previous created tables
   /* removeCreatedTable("tblmtgs");
   removeCreatedTable("tblhours");
@@ -53,17 +51,19 @@ export function printPDF (userinputs, datatables, userpay ) {
   const doc = new jsPDF();
 
   const printform = document.querySelector(".printform");
+  //printform.style.display = "block";
+
   doc.html(printform.innerHTML, {
-  callback: function(doc) {
-    doc.save('payroll.pdf');
-  },
-  margin:[0,0,0,0],
-  autoPaging: 'text',
-  x: 10,
-  y: 10,
-  width: 190,
-  windowWidth: 675,
-  }); 
+    callback: function(doc) {
+      doc.save('payroll.pdf');
+    },
+    margin:[10,0,0,10],
+    autoPaging: 'text',
+    x: 0,
+    y: 0,
+    width: 190,
+    windowWidth: 675,
+  });  
 }
 function assignUserinputs (userinputs) {
   let item = document.getElementById("supervisors");
