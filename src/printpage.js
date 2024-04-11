@@ -8,13 +8,13 @@ export function showPrintpage () {
         <li>
         <span>Name:  </span>
         <span id="ipname"></span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Title:  </span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Title:   </span>
         <span id="iptitle"></span>
         </li>
     </div>
     <div>
         <li>
-        <span padding-right="20px">Haverhill board meetings attended:  </span>
+        <span padding-right="20px">Haverhill board meetings attended:   </span>
         <span id="ipbmtgs"></span>
         <span padding-right="20px">&nbsp;&nbsp;Other official meetings attended:  </span>
         <span id="ipomtgs"></span>
@@ -41,7 +41,7 @@ export function showPrintpage () {
         <li>
         <span>Phone Reimbursement:   </span>
         <span id="ipphone"></span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Internet Reimbursement:</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Internet Reimbursement:   </span>
         <span id="ipinternet"></span>
         </li>
     </div>
