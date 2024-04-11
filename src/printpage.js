@@ -3,50 +3,64 @@ import "./prints.js";
 export function showPrintpage () {
     const printcontent = `
     <div class="printform">
-        <div>
-            <span>Name:  </span>
-            <span id="prntname"></span>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Title:  </span>
-            <span id="prnttitle"></span>
-        </div>
-        <div>
-            <span padding-right="20px">1. Haverhill board meetings attended:  </span>
-            <span id="prntbmtgs"></span>
-            <span padding-right="20px">&nbsp;&nbsp;Other official meetings attended:  </span>
-            <span id="prntomtgs"></span>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;TOTAL:  </span>
-            <span id="prntmtgs"></span>
-        </div>
-        <div id="tblmtgs"></div>
-        <div id="supervisors">
-            <span>2. Total supervisor hours: </span>
-            <span id="prnthours"></span>
-            <span> hours</span>
-        </div>
-        <div id="tblhours"></div>
-        <div>
-            <span>3. Total mileage: </span>
-            <span id="prntmiles"></span>
-            <span> miles</span>
-        </div>
-        <div id="tblmiles"></div>
-        <div>
-            <span>4. Phone Reimbursement:   </span>
-            <span id="prntphone"></span>
-            <span>Internet Reimbursement:  </span>
-            <span id="prntinternet"></span>
-        </div>
-        <div>
-            <span>5.  Miscellaneous expenses (attach receipts):  </span>
-            <span>$</span>
-            <span id="prntmisc"></span> 
-        </div>
-        <div id="tblmisc"></div>
-        <div>
-            <span>Signature: ______________________________________  Date:  </span>
-            <span id="prntdate"></span>
-        </div>
-        <div id="summary">
+    <ul>
+    <div>
+        <li>
+        <span>Name:  </span>
+        <span id="ipname"></span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Title:  </span>
+        <span id="iptitle"></span>
+        </li>
+    </div>
+    <div>
+        <li>
+        <span padding-right="20px">Haverhill board meetings attended:  </span>
+        <span id="ipbmtgs"></span>
+        <span padding-right="20px">&nbsp;&nbsp;Other official meetings attended:  </span>
+        <span id="ipomtgs"></span>
+        </li>
+    </div>
+    <div id="tblomtgs"></div>
+    <div id="supervisors">
+        <li>
+        <span>Total supervisor hours: </span>
+        <span id="iphours"></span>
+        <span> hours</span>
+        <li>
+    </div>
+    <div id="tblhours"></div>
+    <div>
+        <li>
+        <span>Mileage: </span>
+        <span id="ipmiles"></span>
+        <span> miles</span>
+        </li>
+    </div>
+    <div id="tblmiles"></div>
+    <div>
+        <li>
+        <span>Phone Reimbursement:   </span>
+        <span id="ipphone"></span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Internet Reimbursement:</span>
+        <span id="ipinternet"></span>
+        </li>
+    </div>
+    <div>
+        <li>
+        <span>Miscellaneous expenses (attach receipts):  </span>
+        <span>$</span>
+        <span id="ipmisc"></span> 
+        </li>
+    </div>
+    <div id="tblmisc"></div>
+    <div>
+        <li>
+        <span>Signature: ______________________________________  Date:  </span>
+        <span id="ipdate"></span>
+        </li>
+    </div>
+    </ul>
+    <div id="summary">
         <table id="summarytable">
             <tr>
                 <th></th>
@@ -145,40 +159,45 @@ export function showPrintpage () {
                 <td></td>
             </tr>
         </table>
-        </div>
-        <div>
-            <table id="ratetable">
-                <tr>
-                    <th>meetings</th>
-                    <th>PERA</th>
-                    <th>medicare</th>
-                    <th>mileage</th>
-                    <th>phone</th>
-                    <th>internet</th>
-                    <th>Supervisor</th>
-                    <th>Clerk</th>
-                    <th>Dep Clerk</th>
-                    <th>Treasurer</th>
-                    <th>Dep Treasurer</th>
-                </tr>
-                <tr>
-                    <td id="refmeeting"></td>
-                    <td id="refpera"></td>
-                    <td id="refmedicare"></td>
-                    <td id="refmileage"></td>
-                    <td id="refphone"></td>
-                    <td id="refinternet"></td>
-                    <td id="refsup"></td>
-                    <td id="refclerk"></td>
-                    <td id="refdepclerk"></td>
-                    <td id="reftreas"></td>
-                    <td id="refdeptreas"></td>
-                </tr>
-            </table>
-        </div>
     </div>
-  </div>
-  <div class="footer">powered by InControl Technologies, LLC</div>
-  `;
+    <div id="reftables">
+        <table id="ratetable">
+            <tr>
+                <th>meetings</th>
+                <th>PERA</th>
+                <th>medicare</th>
+                <th>mileage</th>
+                <th>phone</th>
+                <th>internet</th>
+                
+            </tr>
+            <tr>
+                <td id="refmeetings"></td>
+                <td id="refpera"></td>
+                <td id="refmedicare"></td>
+                <td id="refmileage"></td>
+                <td id="refphone"></td>
+                <td id="refinternet"></td>
+            </tr> 
+        </table>
+        <table id="salarytable">
+            <tr>
+                <th>Supervisor</th>
+                <th>Clerk</th>
+                <th>Dep Clerk</th>
+                <th>Treasurer</th>
+                <th>Dep Treasurer</th>
+            </tr>
+            <tr>  
+                <td id="refsupervisor"></td>
+                <td id="refclerk"></td>
+                <td id="refdeputyclerk"></td>
+                <td id="reftreasurer"></td>
+                <td id="refdeputytreasurer"></td>
+            </tr>
+        </table>
+    </div>
+    </div>
+    `;
   return printcontent;
 }

@@ -1,5 +1,5 @@
 import {board} from './constants.js'
-import { showInputpage } from './inputspage.js';
+import { showInputspage } from './inputspage.js';
 import { showMilespage } from "./milespage.js";
 import { showHourspage } from "./hourspage.js";
 import { showMiscpage  } from "./miscpage.js";
@@ -12,54 +12,86 @@ import {  setupOmtgs } from "./omtgs.js";
 import {  setupOutputs} from './outputs.js';
 
 export function setupInputs(userinputs, datatables) {
-  
   const container = document.querySelector(".container");
-  container.innerHTML = showInputpage();
+  container.innerHTML = showInputspage();
   
-  const submitbtn = document.getElementById("submitbutton");
-  const hoursEntry = document.getElementById('hours');
-  const miscEntry = document.getElementById('misc');
-  const milesEntry = document.getElementById('miles');
-  const omtgsEntry = document.getElementById('omtgs');
-
-  submitbtn.addEventListener("click", () => {
-    if (checkInputs(userinputs)) {
-      saveUserinputs(userinputs);
-      showOutputspage(userinputs);
-      setupOutputs(userinputs, datatables);
-    }
+  // add event listeners to all the inputs so can update userinputs
+  const usernames = document.getElementById('name');
+  usernames.addEventListener('click', () => {
+    // populate hours if default name on dropdown is a supervisor
+    viewHours(usernames.value);
+    userinputs.name = usernames.value;
+    userinputs.title = board[userinputs.name];
   });
+  const hoursEntry = document.getElementById('hours');
   hoursEntry.addEventListener('click', () => {
-      container.innerHTML = showHourspage();
-      setupHours(userinputs, datatables);
+    container.innerHTML = showHourspage();
+    setupHours(userinputs, datatables);
+  });
+  const miscEntry = document.getElementById('misc');
+  miscEntry.addEventListener('click', () => {
+    container.innerHTML = showMiscpage();
+    setupMisc(userinputs, datatables)
+  });
+  const milesEntry = document.getElementById('miles');
+  milesEntry.addEventListener('click', () => {
+    container.innerHTML = showMilespage();
+    setupMiles(userinputs, datatables)
+  });
+  const omtgsEntry = document.getElementById('omtgs');
+  omtgsEntry.addEventListener('click', () => {
+    container.innerHTML = showOmtgspage();
+    setupOmtgs(userinputs, datatables)
+  });  
+  const radiobmtgs = document.forms["inputform"].elements['bmtgs'];
+  for (let i = 0; i < radiobmtgs.length; i++) {
+    radiobmtgs[i].addEventListener("click", () => {
+      userinputs.bmtgs = radiobmtgs[i].value;
     });
-  miscEntry.addEventListener('click', () => 
-    {
-      container.innerHTML = showMiscpage();
-      setupMisc(userinputs, datatables)
+  }
+  const radiophone = document.forms["inputform"].elements['phone'];
+  for (let i = 0; i < radiophone.length; i++) {
+    radiophone[i].addEventListener("click", () => {
+      userinputs.phone = radiophone[i].value;
     });
-  milesEntry.addEventListener('click', () => 
-    {
-      container.innerHTML = showMilespage();
-      setupMiles(userinputs, datatables)
+  }
+  const radiointernet = document.forms["inputform"].elements['internet'];
+  for (let i = 0; i < radiointernet.length; i++) {
+    radiointernet[i].addEventListener("click", () => {
+      userinputs.internet = radiointernet[i].value;
     });
-  omtgsEntry.addEventListener('click', () => 
-    {
-      container.innerHTML = showOmtgspage();
-      setupOmtgs(userinputs, datatables)
+  }
+  const radiopera = document.forms["inputform"].elements['pera'];
+  for (let i = 0; i < radiopera.length; i++) {
+    radiopera[i].addEventListener("click", () => {
+      userinputs.pera = radiopera[i].value;
     });
+  }
+  // add event listener to when submit button is clicked
+  const submitbtn = document.getElementById("submitbutton");
+  submitbtn.addEventListener("click", (e) => {
+    const inputform = document.getElementById('inputform');
+    if(!inputform.checkValidity()) {
+      return false;
+    }
+    e.preventDefault();
+    showOutputspage(userinputs);
+    setupOutputs(userinputs, datatables);
+  });
+  // set up the dropdown of names 
+  dropDownItems(usernames);
+  // show the selected name
+  getSelectedName(userinputs, usernames)
 
+  // assign inputs from userinputs
   hoursEntry.value = userinputs.hours;
   milesEntry.value = userinputs.miles;
-  miscEntry.value = userinputs.misc;
+  miscEntry.value = "$ " + userinputs.misc;
   omtgsEntry.value = userinputs.omtgs;
-
-  let usernames = document.getElementById('dropdownList');
-  dropDownItems(usernames);
-
-  // populate hours if default name on dropdown is a supervisor
-  usernames.addEventListener('click', viewHours);
-  viewHours(usernames);
+  radiobmtgs.value = userinputs.bmtgs;
+  radiointernet.value = userinputs.internet;
+  radiophone.value = userinputs.phone;
+  radiopera.value = userinputs.pera;
 }
 function dropDownItems(usernames) {
   for (const [key, value] of Object.entries(board)) {
@@ -68,38 +100,27 @@ function dropDownItems(usernames) {
     usernames.add(opt);
   }
 }
-function viewHours(usernames) {
-  const div = document.getElementById("hrs");
-  if (board[usernames.value] === "Supervisor"){
-    div.style.display = "flex";
+function getSelectedName(userinputs, usernames) {
+  if (userinputs.name === null) {
+    usernames.selectedIndex = 0;
+    console.log(userinputs.name);
+    userinputs.name = usernames.value;
+    userinputs.title = board[userinputs.name];
   }
   else {
-    div.style.display = "none";
-  }
-}
-function checkInputs(userinputs)  {
-  for (const [key, value] of Object.entries(userinputs)) {
-    let div = document.getElementById(`${key}`);
-    if (div) {
-      if (!(div.value || div.checked)) {
-        alertstr("Please complete the " + key);
-        return false;
+    for (const [key, value] of Object.entries(board)) {
+      if (userinputs.name === key) {
+        usernames.value = key;
       }
     }
   }
-  return true;
 }
-function saveUserinputs (userinputs) { 
-  for (const [key, value] of Object.entries(userinputs)) {
-    let div = document.getElementById(`${key}`);
-    if (div) {
-      if (div.value || div.checked) {
-        if (amtString.charAt(0) === "$") {amtString = amtString.substring(1)};
-        userinputs[key] = div.value;
-      }
-    }
+function viewHours(username) {
+  if (board[username] === "Supervisor") {
+    document.getElementById("hrs").style.display = "flex";
   }
-  userinputs.mtgs = userinputs.omtgs + userinputs.bmtgs;
-  userinputs.title = board[userinputs.name];
-  console.log(userinputs.title);
+  else {
+    document.getElementById("hrs").style.display = "none";
+  }
 }
+

@@ -14,13 +14,14 @@ const salaries = {
     deputytreasurer: {unit:"/qtr", rate: 0},
 };
 const board = {
-    "Steve Pollack": "Supervisor",
+    "John Barlow": "Treasurer",
     "Daryl Felt": "Supervisor",
     "Ben Hane": "Supervisor",
     "John Johnson": "Supervisor",
-    "Joe Mahoney": "Clerk",
     "Jerome Lawler": "Deputy Clerk",
-    "John Barlow": "Treasurer",
+    "Joe Mahoney": "Clerk",
+    "Steve Pollack": "Supervisor",
+    "Paul Uecker": "Supervisor",
     "Laura Zumbrunnen": "Deputy Treasurer",
 };
 export {rates, salaries, board};

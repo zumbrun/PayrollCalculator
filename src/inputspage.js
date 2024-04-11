@@ -1,62 +1,64 @@
-export function showInputpage() {
+export function showInputspage() {
     const inputcontent = `
+    <form id="inputform">
         <div class="title">Quarterly Payroll Input</div> 
         <div class="flexdiv">
-            <label for="dropdownList">Name:</label>
-            <select id="dropdownList"></select>
+            <label for="name">Name:</label>
+            <select autocomplete = "off" id="name"></select>
         </div>
         <div class="flexdiv" id="hrs">
             <label for="hours">Enter hours:</label>
-            <input type="text" step="any" id="hours" name="hours" value="0" required="">
+            <input autocomplete="off" type="text" step="any" id="hours" name="hours" value="0">
         </div>
         <div class="flexdiv">
             <legend>Haverhill board mtgs attended:</legend> 
-            <input id = "bmtg3" type="radio" name="bmtgs" value="3" required="">
-            <label for="bmtg3">3</label>
-            <input id = "bmtg2" type="radio" name="bmtgs" value="2">
-            <label for="bmtg2">2</label>
-            <input id = "bmtg1" type="radio" name="bmtgs" value="1">
-            <label for="bmtg1">1</label>
-            <input id = "bmtg0" type="radio" name="bmtgs" value="0">
-            <label for="bmtg0">0</label>
+            <input id = "bmtgs3" type="radio" name="bmtgs" value="3" required>
+            <label for="bmtgs3">3</label>
+            <input id = "bmtgs2" type="radio" name="bmtgs" value="2">
+            <label for="bmtgs2">2</label>
+            <input id = "bmtgs1" type="radio" name="bmtgs" value="1">
+            <label for="bmtgs1">1</label>
+            <input id = "bmtgs0" type="radio" name="bmtgs" value="0">
+            <label for="bmtgs0">0</label>
         </div>
         <div class="flexdiv">
             <label for="omtgs">Other official meetings attended:</label>
-            <input type="number" step="1" id="omtgs" name="omtgs" value="0" min="0" required="">
+            <input type="number" id="omtgs" name="omtgs" value="0">
         </div>
         <div class="flexdiv">
             <legend>Cell phone reimbursement?</legend>
-            <input id = "phoneY" type="radio" name="phone" value="1" required="">
-            <label id = "phoneY">Yes</label>
-            <input id = "phoneN" type="radio" name="phone" value="0">
-            <label id = "phoneN">No</label>
+            <input autocomplete="off" id = "phone1" type="radio" name="phone" value="1" required/>
+            <label for = "phone1">Yes</label>
+            <input autocomplete="off" id = "phone0" type="radio" name="phone" value="0"/>
+            <label for = "phone0">No</label>
         </div>
         <div class="flexdiv">
             <legend>Internet reimbursement?</legend> 
-            <input id = "internetY" type="radio" name="internet" value="1" required="">
-            <label id = "internetY">Yes</label>
-            <input id = "internetN" type="radio" name="internet" value="0">
-            <label id = "internetN">No</label>
+            <input id = "internet1" type="radio" name="internet" value="1" required>
+            <label for = "internet1">Yes</label>
+            <input id = "internet0" type="radio" name="internet" value="0">
+            <label for = "internet0">No</label>
         </div>
 
         <div class="flexdiv">
             <label for="miles">Enter reimbursement miles:</label>
-            <input type="number" step="any" id="miles" name="miles" min="0" value="0" required="">
+            <input type="number" step="any" id="miles" name="miles" min="0" value="0">
         </div>
         <div class="flexdiv">
             <label for="misc">Enter other expenses:</label>
-            <input type="text" step="any" id="misc" name="misc" value="$0.00" required="">
+            <input type="text" step="any" id="misc" name="misc" value="0">
         </div>
         <div class="flexdiv">
             <legend>Participant in PERA?</legend>
-            <input type="radio" id="peraY" name="pera" value="1" required="">
-            <label for="peraY">Yes</label>
-            <input type="radio" id="peraN" name="pera" value="0" >
-            <label for="peraN">No</label>
+            <input type="radio" id="pera1" name="pera" value="1" required>
+            <label for="pera1">Yes</label>
+            <input type="radio" id="pera0" name="pera" value="0" >
+            <label for="pera0">No</label>
         </div>
         <div class="btn">
             <button id="submitbutton">Submit</button>
         </div>
+    </form>
         `;
     return inputcontent;
 }

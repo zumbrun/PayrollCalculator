@@ -8,7 +8,7 @@ body {
   background-color: #188f20;
   font-family: "Merriweather", sans-serif;
   font-weight: 500;
-  font-size: medium;
+  font-size: smaller;
   min-height: 100vh;
 }
 .footer {
@@ -64,8 +64,8 @@ input {
   background-color: pink;
   text-align: center;
   min-width: 25px;
-  max-width: 40px;
-  font-size: medium;
+  max-width: 70px;
+  font-size: smaller;
 }
 select {
   background-color: purple;
@@ -80,7 +80,7 @@ label{
   vertical-align: middle;
 }
 #hrs {
-  display:flex;
+  display:none;
 }
 .rates {
   display:flex;
@@ -89,16 +89,10 @@ label{
   justify-content: space-around;
   font-family: sans-serif;
   gap: 8px;
-  font-size: 17px;
   background-color: aquamarine;
   border-radius: 8px;
   padding: 5px 10px; 
   margin: 0;
-}
-.line {
-  width: 45%;
-  text-align: right;
-  border-top: 1px solid blue;
 }
 .btn {
   display: flex;
@@ -125,14 +119,10 @@ label{
   border-radius: 6px;
   padding: 6px;
 }
-.printform{
-  display: none;
-}
 table {
   width: 100%;
   border: 1px solid black;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin: 10px;
   border-collapse: collapse;
 }
 th, td{
@@ -143,6 +133,9 @@ th, td{
 tr{
   height: 14px;
   border-collapse: collapse;
+}
+.printform {
+  display: none;
 }
 #outputtable th:nth-child(1) {
   border-right: none;
@@ -176,7 +169,7 @@ tr{
   border-left: none;
 }
 #summarytable th:nth-child(3){
-  width: 22%;
+  width: 25%;
 }
 #summarytable th:nth-child(4){
   width: 20%;
@@ -187,7 +180,10 @@ tr{
 #summarytable th:nth-child(6){
   width: 20%;
 }
-#ratetable{
+#reftables {
+  display: flex;
+}
+#ratetable, #salarytable{
   font-size: x-small;
   font-style: italic;
   color: gray;
@@ -198,5 +194,12 @@ tr{
 }
 #supervisors {
   display: none;
+}
+ul {
+  list-style-type: none;
+}
+ul li {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 

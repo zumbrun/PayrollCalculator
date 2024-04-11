@@ -4,15 +4,15 @@ import './events.css';
 import { setupInputs } from './inputs.js';
 
 const userinputs = {
-    name: "-",
-    title: "-",
+    name: null,
+    title: null,
     hours: 0,
-    bmtgs: 0,
+    bmtgs: null,
     omtgs: 0,
     mtgs: 0,
-    pera: 0,
-    phone: 0,
-    internet: 0,
+    pera: null,
+    phone: null,
+    internet: null,
     miles: 0,
     misc:0,
   }

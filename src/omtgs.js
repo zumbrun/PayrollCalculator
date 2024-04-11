@@ -10,15 +10,27 @@ export function setupOmtgs (userinputs, datatables) {
     clear();
     setupInputs(userinputs, datatables);
   });
-  donebtn.addEventListener('click', () => {
-    save(userinputs, datatables);
-    assignData(userinputs, datatables)
-    setupInputs(userinputs, datatables);
+  donebtn.addEventListener('click', (e) => {
+    if (validateForm(e)) {
+      save(userinputs, datatables);
+      assignData(userinputs, datatables);
+      setupInputs(userinputs, datatables);
+    }
   });
-  addbtn.addEventListener('click', () => {
-    save(userinputs, datatables);
-    clear();
+  addbtn.addEventListener('click', (e) => {
+    if (validateForm(e)) {
+      save(userinputs, datatables);
+      clear();
+    }
   });
+}
+function validateForm(e) {
+  const myform = document.getElementById('omtgsform');
+    if(!myform.checkValidity()) {
+      return false;
+    }
+    e.preventDefault();
+    return true;
 }
 function save(userinputs, datatables)  {
   let myarray = [];

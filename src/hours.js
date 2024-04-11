@@ -10,15 +10,27 @@ export function setupHours (userinputs, datatables) {
     clear();
     setupInputs(userinputs, datatables);
   });
-  donebtn.addEventListener('click', () => {
-    save(userinputs, datatables);
-    assignData(userinputs, datatables)
-    setupInputs(userinputs, datatables);
+  donebtn.addEventListener('click', (e) => {
+    if (validateForm(e)) { 
+      save(userinputs, datatables);
+      assignData(userinputs, datatables);
+      setupInputs(userinputs, datatables);
+    }
   });
-  addbtn.addEventListener('click', () => {
-    save(userinputs, datatables);
-    clear();
+  addbtn.addEventListener('click', (e) => {
+    if (validateForm(e)) { 
+      save(userinputs, datatables);
+      clear();
+    }
   });
+}
+function validateForm(e) {
+  const myform = document.getElementById('hoursform');
+    if(!myform.checkValidity()) {
+      return false;
+    }
+    e.preventDefault();
+    return true;
 }
 function save(userinputs, datatables)  {
   const day = document.getElementById("day");
@@ -28,6 +40,7 @@ function save(userinputs, datatables)  {
   myarray[1] = desc.value;
   myarray[2] = calculateHours();
   datatables.hours.data.push(myarray);
+  console.log(datatables.hours.data);
   assignData(userinputs, datatables);
   clear();
 }
@@ -44,13 +57,13 @@ function calculateHours() {
 
   const hrs = Number(document.getElementById('hr').value).toFixed(2);
   const mins = Number(document.getElementById('min').value).toFixed(2);
-  
-  return hrs + mins;
+  return Number(hrs) + Number(mins);
 }
 function calculateTotals(array) {
   let total = 0;
   for (let i=0; i < array.length; i++) {
-    total = total + Number(array[2]);
+    total = total + Number(array[i][2]);
+    console.log({total});
   }
   return total;
 }

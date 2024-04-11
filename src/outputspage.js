@@ -1,7 +1,7 @@
 
 export function showOutputspage () {
     const outputcontent = `
-        <div class="outputs">
+        <div class="flexdiv">
            <table id="outputtable">
             <tr>
                 <td>$</td>
@@ -21,12 +21,12 @@ export function showOutputspage () {
             <tr>
                 <td>$</td>
                 <td id="oppera"></td>
-                <td> + Pera</tdh>
+                <td> - Pera</tdh>
             </tr>
             <tr>
                 <td>$</td>
                 <td id="opmedicare"></td>
-                <td> + Medicare</tdh>
+                <td> - Medicare</tdh>
             </tr>
             <tr>
                 <td>$</td>
@@ -59,10 +59,10 @@ export function showOutputspage () {
                 <td> = Total Payment</td>
             </tr>
         </table>
-        <div class = "btn">
-            <button id="cancelbutton">Cancel</button>
-            <button id="printbutton">Print</button>
-        </div>
+    </div>
+    <div class="btn">
+        <button id="cancelbutton">Cancel</button>
+        <button id="printbutton">Print</button>
     </div>
     `;
     return outputcontent;

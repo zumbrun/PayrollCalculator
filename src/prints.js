@@ -1,71 +1,50 @@
 import jsPDF from "jspdf";
+import { rates, salaries } from './constants.js';
+import { showPrintpage } from './printpage.js';
 
 //print payroll form
-export function printPDF(userinputs, userpay, datatables) {
-  const mydatatable = {
+export function printPDF (userinputs, datatables, userpay ) {
+  const tablespec = {
     rows: 0,
     cols: 0,
     headings: [],
     width: [],
     data: [],
-}
+  }
+  const container = document.querySelector(".container");
+  container.insertAdjacentHTML('afterBegin', showPrintpage());
   // clear any previous created tables
-  removeCreatedTable("tblmtgs");
+  /* removeCreatedTable("tblmtgs");
   removeCreatedTable("tblhours");
   removeCreatedTable("tblmiles");
-  removeCreatedTable("tblmisc");
-  // complete prnt section for user inputs
-  inputPDF();
-  // add any needed tables
+  removeCreatedTable("tblmisc"); */
+  // complete prnt sections for all userinputs and userpay
+  assignUserinputs(userinputs);
+  assignUserpay(userpay);
+  // add and complete add any needed tables
   if (userinputs.omtgs > 0) {
-    createTable("omtgs");
+    let mytablespec = createTablespec(tablespec, datatables.omtgs.data)
+    const mytable = createTable(mytablespec);  
+    appendTable("omtgs", mytable)
   }
-  // complete the hours for supervisors
-  if (userinputs.title === "Supervisor") {
-    let item = document.getElementById("supervisors");
-    item.style.display = "block";
-    if (userinputs.hours > 0) {
-      createTable("hours")
-    }
+  if (userinputs.hours > 0) {
+    let mytablespec = createTablespec(tablespec, datatables.hours.data)
+    const mytable = createTable(mytablespec);  
+    appendTable("hours", mytable)
   }
-  else {
-    const item = document.getElementById("supervisors");
-    item.style.display = "none";
-  }
-  // complete the miles section
   if (userinputs.miles > 0) {
-     createTable("miles");
+    let mytablespec = createTablespec(tablespec, datatables.miles.data)
+    const mytable = createTable(mytablespec);  
+    appendTable("miles", mytable)
   }
-   // complete the miscs section
    if (userinputs.misc > 0) {
-    createTable("misc");
+    let mytablespec = createTablespec(tablespec, datatables.misc.data)
+    const mytable = createTable(mytablespec);  
+    appendTable("misc", mytable)
   }
-  //update the payroll table
-  assignOutputs("sum");
- 
- // assign the rates table for reference
-  let item = document.getElementById("refmeeting");
-  item.textContent = "$" + rates.meetings.rate.toString() + rates.meetings.accounting; 
-  item = document.getElementById("refmedicare");
-  item.textContent = (100*rates.medicare.rate).toFixed(2).toString() + rates.medicare.unit; 
-  item = document.getElementById("refpera");
-  item.textContent = (100*rates.pera.rate).toFixed(2).toString() + rates.pera.unit; 
-  item = document.getElementById("refmileage");
-  item.textContent = "$" + rates.mileage.rate.toFixed(3).toString() + rates.mileage.unit;
-  item = document.getElementById("refphone");
-  item.textContent = "$" + rates.phone.rate.toFixed(0).toString() + rates.phone.unit;  
-  item = document.getElementById("refinternet");
-  item.textContent = "$" + rates.internet.rate.toFixed(0).toString() + rates.internet.unit; 
-  item = document.getElementById("refsup");
-  item.textContent = "$" + salaries.supervisor.rate.toString() + salaries.supervisor.unit; 
-  item = document.getElementById("refclerk");
-  item.textContent = "$" + salaries.clerk.rate.toString() + salaries.clerk.unit;  
-  item = document.getElementById("refdepclerk");
-  item.textContent = "$" + salaries.deputyclerk.rate.toString() + salaries.deputyclerk.unit;  
-  item = document.getElementById("reftreas");
-  item.textContent = "$" + salaries.treasurer.rate.toString() + salaries.treasurer.unit;  
-  item = document.getElementById("refdeptreas");
-  item.textContent = "$" + salaries.deputytreasurer.rate.toString() + salaries.deputytreasurer.unit;  
+ // assign the rate and salary reference tables
+  createRateTable();
+  createSalaryTable();
   
   const doc = new jsPDF();
 
@@ -74,56 +53,84 @@ export function printPDF(userinputs, userpay, datatables) {
     callback: function(doc) {
       doc.save('payroll.pdf');
     },
-    margin:[10,10,10,10],
+    margin:[0,0,0,0],
     autoPaging: 'text',
-    x: 0,
-    y: 0,
+    x: 10,
+    y: 10,
     width: 190,
-    windowWidth: 675,
+    windowwidth: 675,
   });
 }
-function inputPDF () {
+function assignUserinputs (userinputs) {
+  let item = document.getElementById("supervisors");
+  if (userinputs.title === "Supervisor") {item.style.display = "block";}
+  else {item.style.display = "none"};
   const entries = Object.entries(userinputs);
   for (const [key, value] of entries) {
-    const myString = "prnt" + key
+    const myString = "ip" + key
     const div = document.getElementById(`${myString}`);
     if (div) {
       div.textContent = value;
+      if (Number(value) === 0) {div.textContent = "NONE"};
       if (key === "phone" || key === "internet") {
-        div.textContent = 'NO';
-        if (value === 1) {div.textContent = 'YES'};  
+        if (Number(value) === 1) {div.textContent = 'YES'};  
       };
     };
   };
 }
-function assignOutputs (mytable) {
+function assignUserpay (userpay) {
   const entries = Object.entries(userpay);
   for (const [key, value] of entries) {
-    const myString = mytable + key
+    const myString = "sum" + key
     const div = document.getElementById(`${myString}`);
     div.textContent = value.toFixed(2);
   }  
 }
-
-function addTable(mytable){
+function createTablespec (mytablespec, myarray) {
+  if (myarray.length === 0) {return};
+  mytablespec.rows = myarray.length;
+  mytablespec.cols = myarray[0].length;
+  mytablespec.data = myarray;
+  if (mytablespec.cols === 2) {
+    mytablespec.headings = ["Date", "Description",];
+    mytablespec.width = ["15%", "85%"];}
+  else {
+    mytablespec.headings = ["Date", "Description", "Expense"];
+    mytablespec.width = ["15%", "75%", "10%"];
+  }
+  return mytablespec;
+}
+function createTable(mytablespec) {
   let tbl = document.createElement('table');
   //create the header
   tbl.createTHead();
   let hdrow = tbl.tHead.insertRow(0);
-  for (let i = 0; i < mytable.cols; i++) {
+  for (let i = 0; i < mytablespec.cols; i++) {
     let cell = hdrow.insertCell(i);
-    cell.innerHTML = mytable.headings[i];
+    cell.innerHTML = mytablespec.headings[i];
   }
   let tblbody = tbl.createTBody();
-  for (let i=0; i < mytable.rows; i++) {
+  for (let i=0; i < mytablespec.rows; i++) {
     let mytr = tblbody.insertRow(i);
-    for (let j=0; j < mytable.cols; j++) {
+    for (let j=0; j < mytablespec.cols; j++) {
       let mytd = mytr.insertCell(j);
-      mytd.style.width = mytable.width[j];
-      mytd.innerHTML = mytable.data[i][j];
+      mytd.style.width = mytablespec.width[j];
+      mytd.innerHTML = mytablespec.data[i][j];
     };
   };
   return tbl;
+}
+function addTotalRow(mytable) {
+  let newRow = mytable.insertRow(-1);
+  let cell = newRow.insertCell(0);
+  cell.innerHTML = "Total:";
+  cell.colSpan = 2;
+}
+function appendTable(myname, mytable) {
+  const str = "tbl" + myname;
+  const item = document.getElementById(`${str}`);
+  if (item.hasChildNodes) {item.removeChild};
+  item.appendChild(mytable);
 }
 function removeCreatedTable(mytable) {
 let div = document.getElementById(`${mytable}`);
@@ -131,27 +138,22 @@ let div = document.getElementById(`${mytable}`);
     div.removeChild(div.lastChild);
   }
 }
-function createTable (myname) {
-  let mykeys = ["hours","miles", "misc", "omtgs"];
-  let myarray = [];
-  for (const [key, value] of datatables) {
-    if (key === myname ) {myarray = key.date.value;}
-    if (myarray.length === 0) {return};
+function createRateTable () {
+  for (const [key, value] of Object.entries(rates)) {
+    let str = "ref" + key; 
+    let element = document.getElementById(`${str}`);
+    if ((key === "medicare") || (key === "pera")) {
+      element.textContent = (100*value.rate).toFixed(3) + value.unit;
+    }
+    else {
+      element.textContent = "$" + value.rate + value.unit;
+    }
   }
-  let mytable = Object.create(mydatatable);
-  mytable.rows = myarray.length;
-  mytable.cols = myarray[0].length;
-  if (mytable.cols === 2) {
-    mytable.headings = ["Date", "Description",];
-    mytable.width = ["15%", "85%"];}
-  else {
-    mytable.headings = ["Date", "Description", "Expense"];
-    mytable.width = ["15%", "75%", "10%"];
+}
+function createSalaryTable () {
+  for (const [key, value] of Object.entries(salaries)) {
+    let str = "ref" + key; 
+    let element = document.getElementById(`${str}`);
+    element.textContent = "$" + value.rate + value.unit;
   }
-  mytable.data = myarray;
-  const str = "tbl" + myname;
-  item = document.getElementById(`${str}`);
-  if (item.hasChildNodes) {item.removeChild};
-  let tbl = addTable(mytable);
-  item.appendChild(tbl);
 }
