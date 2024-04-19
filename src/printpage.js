@@ -23,10 +23,9 @@ export function showPrintpage () {
     <div id="tblomtgs"></div>
     <div id="supervisors">
         <li>
-        <span>Total supervisor hours: </span>
+        <span>Supervisor hours: </span>
         <span id="iphours"></span>
-        <span> hours</span>
-        <li>
+        </li>
     </div>
     <div id="tblhours"></div>
     <div>
@@ -196,6 +195,6 @@ export function showPrintpage () {
         </table>
     </div>
     </div>
-    `;
+     `;
   return printcontent;
 }

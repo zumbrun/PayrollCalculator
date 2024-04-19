@@ -12,7 +12,6 @@ body {
   min-height: 100vh;
 }
 .footer {
-  background-color: orange;
   display:flex;
   flex-shrink: 0;
   flex-wrap: wrap;
@@ -39,7 +38,6 @@ body {
   flex-grow: 1;
   flex-direction: column;
   flex-wrap: wrap;
-  background-color: yellow;
   margin: 4px;
   padding: 4px;
   max-width: 350px;
@@ -48,7 +46,6 @@ body {
 .flexdiv {
   display:flex;
   flex-wrap: wrap;
-  background-color: aqua;
   align-items: center;
   justify-items: center;
   min-height: 30px;
@@ -58,25 +55,18 @@ body {
   display: flex;
   align-items: center;
   padding-left: 25px;
-  background-color: bisque;
 }
 input {
-  background-color: pink;
   text-align: center;
   min-width: 25px;
   max-width: 70px;
   font-size: smaller;
 }
 select {
-  background-color: purple;
   font-size: medium;
   padding:2px;
 }
-legend {
-  background-color: blue;
-}
 label{
-  background-color: gray;
   vertical-align: middle;
 }
 #hrs {
@@ -89,7 +79,6 @@ label{
   justify-content: space-around;
   font-family: sans-serif;
   gap: 8px;
-  background-color: aquamarine;
   border-radius: 8px;
   padding: 5px 10px; 
   margin: 0;
@@ -187,6 +176,7 @@ tr{
   font-style: italic;
   color: gray;
   width: fit-content;
+  margin-top: 8px;
 }
 #meetingtable th:nth-child(1) {
   width: 5%;
@@ -202,4 +192,5 @@ ul li {
   padding-top: 8px;
   padding-bottom: 8px;
 }
+
 

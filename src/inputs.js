@@ -81,7 +81,9 @@ export function setupInputs(userinputs, datatables) {
   // set up the dropdown of names 
   dropDownItems(usernames);
   // show the selected name
-  getSelectedName(userinputs, usernames)
+  setDropdownName(userinputs, usernames);
+  // show hours
+  viewHours(userinputs.name);
 
   // assign inputs from userinputs
   hoursEntry.value = userinputs.hours;
@@ -100,18 +102,13 @@ function dropDownItems(usernames) {
     usernames.add(opt);
   }
 }
-function getSelectedName(userinputs, usernames) {
+function setDropdownName(userinputs, usernames) {
   if (userinputs.name === null) {
     usernames.selectedIndex = 0;
-    console.log(userinputs.name);
-    userinputs.name = usernames.value;
-    userinputs.title = board[userinputs.name];
   }
   else {
     for (const [key, value] of Object.entries(board)) {
-      if (userinputs.name === key) {
-        usernames.value = key;
-      }
+      if (userinputs.name === key) {usernames.value = key;}
     }
   }
 }
