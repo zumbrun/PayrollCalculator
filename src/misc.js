@@ -41,7 +41,7 @@ function save(userinputs, datatables)  {
     result = result.slice(1);
   }
   myarray[2] = Number(result).toFixed(2);
-  datatables.misc.data.push(myarray);
+  datatables.misc.push(myarray);
   assignData(userinputs, datatables);
   clear();
 }
@@ -51,7 +51,7 @@ function clear () {
   document.getElementById("bmisc").value = "";
 }
 function assignData (userinputs, datatables ) {
-  userinputs.misc = calculateTotals(datatables.misc.data);
+  userinputs.misc = calculateTotals(datatables.misc);
 }
 function calculateTotals(array) {
   let total = 0;

@@ -36,12 +36,13 @@ function save(userinputs, datatables)  {
   let myarray = [];
   myarray[0] = document.getElementById("day").value;
   myarray[1] = document.getElementById("description").value;
-  datatables.omtgs.data.push(myarray);
+  datatables.omtgs.push(myarray);
   assignData(userinputs, datatables)
   clear();
 }
 function assignData (userinputs, datatables ) {
-  userinputs.omtgs = datatables.omtgs.data.length;
+  userinputs.omtgs = datatables.omtgs.length;
+  userinputs.mtgs = userinputs.bmtgs + userinputs.omtgs;
 }
 function clear () {
   document.getElementById("day").value = "";

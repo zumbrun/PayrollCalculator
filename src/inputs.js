@@ -47,6 +47,7 @@ export function setupInputs(userinputs, datatables) {
   for (let i = 0; i < radiobmtgs.length; i++) {
     radiobmtgs[i].addEventListener("click", () => {
       userinputs.bmtgs = radiobmtgs[i].value;
+      userinputs.mtgs = userinputs.bmtgs + userinputs.omtgs;
     });
   }
   const radiophone = document.forms["inputform"].elements['phone'];
@@ -87,8 +88,8 @@ export function setupInputs(userinputs, datatables) {
 
   // assign inputs from userinputs
   hoursEntry.value = userinputs.hours;
-  milesEntry.value = userinputs.miles;
-  miscEntry.value = "$ " + userinputs.misc;
+  milesEntry.value = Number(userinputs.miles).toFixed(1);
+  miscEntry.value = "$ " + Number(userinputs.misc).toFixed(2);
   omtgsEntry.value = userinputs.omtgs;
   radiobmtgs.value = userinputs.bmtgs;
   radiointernet.value = userinputs.internet;
@@ -105,12 +106,14 @@ function dropDownItems(usernames) {
 function setDropdownName(userinputs, usernames) {
   if (userinputs.name === null) {
     usernames.selectedIndex = 0;
+    userinputs.name = usernames.value;
   }
   else {
     for (const [key, value] of Object.entries(board)) {
       if (userinputs.name === key) {usernames.value = key;}
     }
   }
+  userinputs.title = board[userinputs.name];
 }
 function viewHours(username) {
   if (board[username] === "Supervisor") {

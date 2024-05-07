@@ -6,35 +6,64 @@ export function showPrintpage () {
     <ul>
     <div>
         <li>
-        <span>Name:  </span>
-        <span id="ipname"></span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Title:   </span>
-        <span id="iptitle"></span>
+            <span>Name:  </span>
+            <span id="ipname"></span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Title:   </span>
+            <span id="iptitle"></span>
         </li>
     </div>
-    <div>
-        <li>
-        <span padding-right="20px">Haverhill board meetings attended:   </span>
-        <span id="ipbmtgs"></span>
-        <span padding-right="20px">&nbsp;&nbsp;Other official meetings attended:  </span>
-        <span id="ipomtgs"></span>
-        </li>
+    <div class="flexrow">
+        <div>
+            <span>Meeting Pay:</span>
+            <span id="ipmtgs"></span>
+        </div>
+        <div>
+            <span>Haverhill board meetings:</span>
+            <span id="ipbmtgs"></span>
+        </div>
+        <div>
+            <span>Other official meetings:</span>
+            <span id="ipomtgs"></span>
+        </div>
     </div>
-    <div id="tblomtgs"></div>
+    <div id="prntomtgs">
+        <table class="twocols" id="tblomtgs">
+            <tr>
+                <th>Date</th>
+                <th>Description of Other Official Meetings</th>
+            </tr>
+        </table>
+    </div>
     <div id="supervisors">
         <li>
         <span>Supervisor hours: </span>
         <span id="iphours"></span>
         </li>
     </div>
-    <div id="tblhours"></div>
+    <div id="prnthours">
+        <table class="threecols" id="tblhours">
+            <tr>
+                <th>Date</th>
+                <th>Description of Work</th>
+                <th>Hours</th>
+            </tr>
+        </table>
+    </div>
     <div>
         <li>
-        <span>Mileage: </span>
+        <span>Mileage Reimbursement: </span>
         <span id="ipmiles"></span>
         </li>
     </div>
-    <div id="tblmiles"></div>
+    <div id="prntmiles">
+        <table class="threecols" id="tblmiles">
+            <tr>
+                <th>Date</th>
+                <th>Description of Travel</th>
+                <th>Miles</th>
+            </tr>
+        </table>
+    </div>
     <div>
         <li>
         <span>Phone Reimbursement:   </span>
@@ -49,7 +78,15 @@ export function showPrintpage () {
         <span id="ipmisc"></span> 
         </li>
     </div>
-    <div id="tblmisc"></div>
+    <div id="prntmisc">
+        <table class="threecols" id="tblmisc">
+            <tr>
+                <th>Date</th>
+                <th>Description of Item</th>
+                <th>Expense</th>
+            </tr>
+        </table>
+    </div>
     <div>
         <li>
         <span>Signature: ______________________________________  Date:  </span>
@@ -117,7 +154,7 @@ export function showPrintpage () {
             </tr>
             <tr>
                 <td>$</td>
-                <td id="summileage"></td>
+                <td id="summiles"></td>
                 <td> + Mileage</tdh>
                 <td></td>
                 <td></td>

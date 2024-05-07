@@ -39,8 +39,8 @@ function save(userinputs, datatables)  {
   myarray[0] = day.value;
   myarray[1] = desc.value;
   myarray[2] = calculateHours();
-  datatables.hours.data.push(myarray);
-  console.log(datatables.hours.data);
+  datatables.hours.push(myarray);
+  console.log(datatables.hours);
   assignData(userinputs, datatables);
   clear();
 }
@@ -51,7 +51,7 @@ function clear () {
   document.getElementById("min").value = 0;
 }
 function assignData (userinputs, datatables ) {
-  userinputs.hours = calculateTotals(datatables.hours.data);
+  userinputs.hours = calculateTotals(datatables.hours);
 }
 function calculateHours() {
 

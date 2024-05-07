@@ -51,22 +51,25 @@ body {
   min-height: 30px;
   gap: 4px;
 }
-.title {
+.flexrow {
   display: flex;
-  align-items: center;
-  padding-left: 25px;
+  align-items: left;
+  justify-content: space-between;
+  margin-bottom: 8px;
 }
 input {
   text-align: center;
   min-width: 25px;
   max-width: 70px;
   font-size: smaller;
+  min-height: 14px;
 }
 select {
   font-size: medium;
   padding:2px;
 }
 label{
+  padding-right: 3px;
   vertical-align: middle;
 }
 #hrs {
@@ -87,7 +90,7 @@ label{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 12px;
   font-family: "Arial";
   font-size: medium;
   gap: 20px;
@@ -124,6 +127,9 @@ tr{
 }
 .printform {
   display: none;
+}
+#outputtable{
+  background-color: lightgray;
 }
 #outputtable th:nth-child(1) {
   border-right: none;
@@ -192,5 +198,55 @@ ul li {
   padding-top: 8px;
   padding-bottom: 8px;
 }
+.threecols {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+.threecols tr {
+  max-height: 16px;
+}
+.threecols th:nth-child(1) {
+  width: 15%;
+  text-align: left;
+}
+.threecols th:nth-child(2) {
+  text-align: left;
+  width: 75%;
+}
+.threecols th:nth-child(3) {
+  text-align: right;
+  width: 10%;
+}
+.threecols td:nth-child(1) {
+  text-align: left;
+}
+.threecols td:nth-child(2) {
+  text-align: left;
+}
+.threecols td:nth-child(3) {
+  text-align: right;
+}
+.totalrow td:nth-child(1){
+  border-right: none;
+}
+.totalrow td:nth-child(2){
+  border-left: none;
+  text-align: right;
+}
+.totalrow td:nth-child(3){
+  text-align: right;
+}
+.twocols {
+  border-collapse: collapse;
+  border: 1px solid black;
+  text-align: left;
+}
+.twocols th:nth-child(1) {
+  width: 15%;
+}
+.twocols th:nth-child(2) {
+  width: 85%;
+}
+
 
 

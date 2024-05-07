@@ -7,11 +7,12 @@ export function setupOutputs(userinputs, datatables) {
   const userpay = {
     mtgs: 0,
     salary: 0,
+    hours: 0,
     totalwage: 0,
     pera: 0,
     medicare: 0,
     net: 0,
-    mileage: 0,
+    miles: 0,
     phone: 0,
     internet: 0,
     misc: 0,
@@ -36,16 +37,17 @@ export function setupOutputs(userinputs, datatables) {
 function calculate (userinputs, userpay) {
   // calculate outputs
   userpay.salary = getSalary(userinputs);
+  userpay.hours = getHourly (userinputs);
   userpay.mtgs = Number((( Number(userinputs.bmtgs) + Number(userinputs.omtgs)) * rates.meetings.rate).toFixed(2));
-  userpay.totalwage = userpay.salary + userpay.mtgs;
+  userpay.totalwage = userpay.salary + userpay.hours + userpay.mtgs;
   userpay.pera = Number(( -1 * userpay.totalwage * rates.pera.rate * userinputs.pera).toFixed(2));
   userpay.medicare = Number(( -1 * userpay.totalwage * rates.medicare.rate ).toFixed(2));
   userpay.net = Number(( userpay.totalwage + userpay.pera + userpay.medicare).toFixed(2));
   userpay.phone = Number(( userinputs.phone * rates.phone.rate).toFixed(2));
   userpay.internet = Number(( userinputs.internet * rates.internet.rate).toFixed(2));
-  userpay.mileage = Number(( userinputs.miles * rates.mileage.rate).toFixed(2));
+  userpay.miles = Number(( userinputs.miles * rates.mileage.rate).toFixed(2));
   userpay.misc = userinputs.misc;
-  userpay.totalpay = userpay.net + userpay.mileage + userpay.phone + userpay.internet + userpay.misc;
+  userpay.totalpay = userpay.net + userpay.miles + userpay.phone + userpay.internet + userpay.misc;
   console.log(userinputs);
   console.log(userpay);
 }
@@ -54,22 +56,22 @@ function assignOutputs (userpay) {
   for (const [key, value] of entries) {
     const myString = "op" + key
     const element = document.getElementById(`${myString}`);
+    if (element) {
       element.textContent = value.toFixed(2);
-  }  
+    };
+  };  
 }
 const getSalary = (userinputs) => {
   const str = userinputs.title.replace(/\s/g, "").toLowerCase();
-  for (const [key, value] of Object.entries(salaries)) {
-    console.log({key}, {value})
-    if (str === key) {
-      if (key === "supervisor") {
-        console.log(value.rate)
-       return userinputs.hours * value.rate;
-      } 
-      else {
-        console.log(value.rate)
-        return value.rate;
-      }
-    }
-  }
+  if (str === "supervisor") {return 0}
+  else {return salaries[str].rate};
+  /* for (const [key, value] of Object.entries(salaries)) {
+    if (key === str) {return value.rate}
+    else {return alert ("problem with salary match")};
+  } */
 }; 
+const getHourly = (userinputs) => {
+  const str = userinputs.title.replace(/\s/g, "").toLowerCase();
+  if (str === "supervisor") {return userinputs.hours * salaries[str].rate;}
+  else {return 0;}
+};

@@ -17,10 +17,10 @@ const userinputs = {
     misc:0,
   }
   const datatables = {
-    hours: { data: []},
-    miles: { data: []},
-    misc:  { data: []},
-    omtgs: { data: []},
+    hours: [],
+    miles: [],
+    misc:  [],
+    omtgs: [],
   }
 
 setupInputs(userinputs, datatables);

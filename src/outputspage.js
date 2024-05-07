@@ -35,7 +35,7 @@ export function showOutputspage () {
             </tr>
             <tr>
                 <td>$</td>
-                <td id="opmileage"></td>
+                <td id="opmiles"></td>
                 <td> + Mileage</tdh>
             </tr>
             <tr>

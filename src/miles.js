@@ -42,13 +42,13 @@ function save(userinputs, datatables)  {
   myarray[0] = document.getElementById("day").value;
   myarray[1] = document.getElementById("description").value;
   myarray[2] = Number(document.getElementById("bmiles").value).toFixed(2);
-  datatables.miles.data.push(myarray);
-  console.log(datatables.miles.data);
+  datatables.miles.push(myarray);
+  console.log(datatables.miles);
   assignData(userinputs, datatables);
   clear();
 }
 function assignData (userinputs, datatables ) {
-  userinputs.miles = calculateTotals(datatables.miles.data);
+  userinputs.miles = calculateTotals(datatables.miles);
 }
 function calculateTotals(array) {
   let total = 0;
