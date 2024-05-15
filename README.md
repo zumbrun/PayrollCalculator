@@ -1,2 +1,2 @@
-# PayrollCalculator
+# Calculator
 Haverhill Payroll Calculator
