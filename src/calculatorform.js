@@ -38,7 +38,7 @@ let usernames = document.getElementById('dropdownList');
 // assign values to inputs 
 hoursEntry.value = userinputs.hours;
 milesEntry.value = userinputs.miles;
-miscEntry.value = userinputs.miles;
+miscEntry.value = userinputs.misc;
 omtgsEntry.value = userinputs.omtgs;
 // assign eventlisteners to open data input tables
 hoursEntry.addEventListener('click', UpdateEvent);

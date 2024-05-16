@@ -2,7 +2,7 @@ export function showMilespage() {
     const milescontent = `
     <form id="milesform"
     <div class="title">
-        <div>Enter Hours</div>
+        <div>Enter Miles</div>
     </div>
     <div class="eventdiv">Date
         <label for="day"></label>
