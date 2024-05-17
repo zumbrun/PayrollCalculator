@@ -75,7 +75,7 @@ export function showPrintpage () {
     </div>
     <div>
         <li>
-        <span>Total Miscellaneous Expenses (attach receipts):  </span>
+        <span>Total Miscellaneous Expenses (attach receipts):  $</span>
         <span id="ipmisc"></span> 
         </li>
     </div>

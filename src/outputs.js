@@ -56,7 +56,7 @@ function assignOutputs (userpay) {
     const myString = "op" + key
     const element = document.getElementById(`${myString}`);
     if (element) {
-      element.textContent = value.toFixed(2);
+      element.textContent = value;
     };
   };  
 }

@@ -89,7 +89,7 @@ function assignUserpay (userpay) {
     const myString = "sum" + key
     const div = document.getElementById(`${myString}`);
     if (div) {
-      div.textContent = value.toFixed(2);
+      div.textContent = value;
     }
   }  
 }
@@ -105,7 +105,7 @@ function addTableData(mytable, mydata) {
 }
 function formatCurrency(mytable) {
   for (let i=1; i < mytable.rows.length; i++) {
-    mytable[i][2].textContent = $ + mytable[i][2].textContent;
+    mytable.rows[i].cells[2].textContent = "$" + mytable.rows[i].cells[2].textContent;
   }
   return mytable;
 }
