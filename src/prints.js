@@ -1,4 +1,5 @@
 import jsPDF from "jspdf";
+import autoTable from 'jspdf-autotable';
 import { rates, salaries } from './constants.js';
 import { showPrintpage } from './printpage.js';
 
@@ -89,7 +90,7 @@ function assignUserpay (userpay) {
     const myString = "sum" + key
     const div = document.getElementById(`${myString}`);
     if (div) {
-      div.textContent = value;
+      div.textContent = Number(value).toFixed(2);
     }
   }  
 }
