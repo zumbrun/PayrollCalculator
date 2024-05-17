@@ -40,7 +40,6 @@ function save(userinputs, datatables)  {
   myarray[1] = desc.value;
   myarray[2] = calculateHours();
   datatables.hours.push(myarray);
-  console.log(datatables.hours);
   assignData(userinputs, datatables);
   clear();
 }
@@ -50,21 +49,20 @@ function clear () {
   document.getElementById("hr").value = 0;
   document.getElementById("min").value = 0;
 }
-function assignData (userinputs, datatables ) {
+function assignData (userinputs, datatables ) {userinputs.mtgs
   userinputs.hours = calculateTotals(datatables.hours);
 }
 function calculateHours() {
 
-  const hrs = Number(document.getElementById('hr').value).toFixed(2);
-  const mins = Number(document.getElementById('min').value).toFixed(2);
-  return Number(hrs) + Number(mins);
+  const hrs = Number(document.getElementById('hr').value);
+  const mins = Number(document.getElementById('min').value);
+  return (hrs + mins).toFixed(2);
 }
 function calculateTotals(array) {
   let total = 0;
   for (let i=0; i < array.length; i++) {
     total = total + Number(array[i][2]);
-    console.log({total});
   }
-  return total;
+  return total.toFixed(2);
 }
 

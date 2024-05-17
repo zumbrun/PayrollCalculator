@@ -58,5 +58,5 @@ function calculateTotals(array) {
   for (let i=0; i < array.length; i++) {
     total = total + Number(array[i][2]);
   }
-  return total;
+  return total.toFixed(2);
 }

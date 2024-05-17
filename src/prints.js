@@ -33,10 +33,13 @@ export function printPDF (userinputs, datatables, userpay ) {
         if (mytable.rows.length > 2) {
           mytable = addTotalRow(mytable, userinputs[element]);
         }
+        if (element === "misc") {
+          mytable = formatCurrency(mytable);
+        }
       }
       else {
         mytable.classList.add("twocols");
-      } 
+      }
     }
   }); 
  // assign the rate and salary reference tables
@@ -52,7 +55,7 @@ export function printPDF (userinputs, datatables, userpay ) {
     callback: function(doc) {
       doc.save('payroll.pdf');
     },
-    margin:[10,0,0,10],
+    margin:[10,10,10,10],
     autoPaging: 'text',
     x: 0,
     y: 0,
@@ -96,11 +99,14 @@ function addTableData(mytable, mydata) {
     for (let j=0; j < mydata[i].length; j++) {
       let mytd = mytr.insertCell(j);
       mytd.textContent = mydata[i][j];
-      if (j === 2) {
-        mytd.textContentL = Number(mytd.textContent).toFixed(2);
-      }
     };
   };
+  return mytable;
+}
+function formatCurrency(mytable) {
+  for (let i=1; i < mytable.rows.length; i++) {
+    mytable[i][2].textContent = $ + mytable[i][2].textContent;
+  }
   return mytable;
 }
 function addTotalRow(mytable, mytotal) {
@@ -108,7 +114,7 @@ function addTotalRow(mytable, mytotal) {
   for (let i = 0; i < 3; i++) {
     let td = newrow.insertCell(i);
     if (i === 1) {td.textContent = "TOTAL"};
-    if (i === 2) {td.textContent = mytotal.toFixed(2)};
+    if (i === 2) {td.textContent = mytotal};
   }
   newrow.classList.add("totalrow");
   return mytable;

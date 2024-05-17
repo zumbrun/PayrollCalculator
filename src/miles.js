@@ -41,9 +41,8 @@ function save(userinputs, datatables)  {
   let myarray = [];
   myarray[0] = document.getElementById("day").value;
   myarray[1] = document.getElementById("description").value;
-  myarray[2] = Number(document.getElementById("bmiles").value).toFixed(2);
+  myarray[2] = Number(document.getElementById("bmiles").value).toFixed(1);
   datatables.miles.push(myarray);
-  console.log(datatables.miles);
   assignData(userinputs, datatables);
   clear();
 }
@@ -55,5 +54,5 @@ function calculateTotals(array) {
   for (let i=0; i < array.length; i++) {
     total = total + Number(array[i][2]);
   }
-  return total;
+  return total.toFixed(1);
 }
