@@ -14,7 +14,7 @@ export function showPrintpage () {
     </div>
     <div class="flexrow">
         <div>
-            <span>Meeting Pay:</span>
+            <span>Total Meetings:</span>
             <span id="ipmtgs"></span>
         </div>
         <div>
@@ -36,7 +36,7 @@ export function showPrintpage () {
     </div>
     <div id="supervisors">
         <li>
-        <span>Supervisor Pay: </span>
+        <span>Total Supervisor Hours: </span>
         <span id="iphours"></span>
         </li>
     </div>
@@ -51,8 +51,9 @@ export function showPrintpage () {
     </div>
     <div>
         <li>
-        <span>Mileage Reimbursement: </span>
+        <span>Total Miles: </span>
         <span id="ipmiles"></span>
+
         </li>
     </div>
     <div id="prntmiles">
@@ -74,7 +75,7 @@ export function showPrintpage () {
     </div>
     <div>
         <li>
-        <span>Miscellaneous expenses (attach receipts):  </span>
+        <span>Total Miscellaneous Expenses (attach receipts):  </span>
         <span id="ipmisc"></span> 
         </li>
     </div>

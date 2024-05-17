@@ -69,14 +69,11 @@ function assignUserinputs (userinputs, userpay) {
     const myString = "ip" + key
     const div = document.getElementById(`${myString}`);
     if (div) {
-      const myarray = ["name", "title", "omtgs", "bmtgs"];
-      console.log({key});
       //assign NONE is 0 else nothing
       if (Number(value) === 0) { div.textContent = "NONE" }
-      else if (myarray.includes(key)) { div.textContent = value }
+      else if (myString === "ipphone" || myString === "ipinternet") { div.textContent = "YES" }
       else {
-        console.log(userpay[key]);
-        div.textContent = "$" + userpay[key]
+        div.textContent = userinputs[key];
       }
     }
   };

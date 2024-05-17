@@ -42,7 +42,7 @@ function save(userinputs, datatables)  {
 }
 function assignData (userinputs, datatables ) {
   userinputs.omtgs = datatables.omtgs.length;
-  userinputs.mtgs = userinputs.bmtgs + userinputs.omtgs;
+  userinputs.mtgs = Number(userinputs.bmtgs) + Number(userinputs.omtgs);
 }
 function clear () {
   document.getElementById("day").value = "";

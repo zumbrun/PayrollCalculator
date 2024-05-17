@@ -196,7 +196,6 @@ function CheckInputs()  {
   });
 // all is complete  
   setUserinputs("mtgs", sum(GetCheckedValue("bmtgs"), GetCheckedValue("omtgs")));
-  console.log(userinputs.mtgs);
   Calculate ();
 }
 function Calculate () {

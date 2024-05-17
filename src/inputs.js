@@ -47,7 +47,7 @@ export function setupInputs(userinputs, datatables) {
   for (let i = 0; i < radiobmtgs.length; i++) {
     radiobmtgs[i].addEventListener("click", () => {
       userinputs.bmtgs = radiobmtgs[i].value;
-      userinputs.mtgs = userinputs.bmtgs + userinputs.omtgs;
+      userinputs.mtgs = Number(userinputs.bmtgs) + Number(userinputs.omtgs);
     });
   }
   const radiophone = document.forms["inputform"].elements['phone'];
@@ -87,7 +87,7 @@ export function setupInputs(userinputs, datatables) {
   viewHours(userinputs.name);
 
   // assign inputs from userinputs
-  hoursEntry.value = userinputs.hours;
+  hoursEntry.value = Number(userinputs.hours).toFixed(2);
   milesEntry.value = Number(userinputs.miles).toFixed(1);
   miscEntry.value = "$ " + Number(userinputs.misc).toFixed(2);
   omtgsEntry.value = userinputs.omtgs;

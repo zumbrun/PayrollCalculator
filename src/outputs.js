@@ -7,7 +7,7 @@ export function setupOutputs(userinputs, datatables) {
   const userpay = {
     mtgs: 0,
     salary: 0,
-    hours: 0,
+    hourly: 0,
     totalwage: 0,
     pera: 0,
     medicare: 0,
@@ -37,9 +37,8 @@ export function setupOutputs(userinputs, datatables) {
 function calculate (userinputs, userpay) {
   // calculate outputs
   userpay.salary = getSalary(userinputs);
-  userpay.hours = getHourly (userinputs);
   userpay.mtgs = Number((( Number(userinputs.bmtgs) + Number(userinputs.omtgs)) * rates.meetings.rate).toFixed(2));
-  userpay.totalwage = userpay.salary + userpay.hours + userpay.mtgs;
+  userpay.totalwage = userpay.salary + userpay.mtgs;
   userpay.pera = Number(( -1 * userpay.totalwage * rates.pera.rate * userinputs.pera).toFixed(2));
   userpay.medicare = Number(( -1 * userpay.totalwage * rates.medicare.rate ).toFixed(2));
   userpay.net = Number(( userpay.totalwage + userpay.pera + userpay.medicare).toFixed(2));
@@ -63,15 +62,7 @@ function assignOutputs (userpay) {
 }
 const getSalary = (userinputs) => {
   const str = userinputs.title.replace(/\s/g, "").toLowerCase();
-  if (str === "supervisor") {return 0}
-  else {return salaries[str].rate};
-  /* for (const [key, value] of Object.entries(salaries)) {
-    if (key === str) {return value.rate}
-    else {return alert ("problem with salary match")};
-  } */
-}; 
-const getHourly = (userinputs) => {
-  const str = userinputs.title.replace(/\s/g, "").toLowerCase();
   if (str === "supervisor") {return userinputs.hours * salaries[str].rate;}
-  else {return 0;}
-};
+  else {return salaries[str].rate};
+}; 
+ 
