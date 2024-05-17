@@ -1,5 +1,4 @@
 import jsPDF from "jspdf";
-import autoTable from 'jspdf-autotable';
 import { rates, salaries } from './constants.js';
 import { showPrintpage } from './printpage.js';
 

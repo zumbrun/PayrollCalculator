@@ -144,6 +144,9 @@ tr{
 #outputtable td:nth-child(3) {
   text-align: left;
 }
+#summarytable {
+  break-inside: avoid;
+}
 #summarytable td:nth-child(1) {
   border-right:none;
 }
@@ -183,6 +186,7 @@ tr{
   color: gray;
   width: fit-content;
   margin-top: 8px;
+  break-inside: avoid;
 }
 #meetingtable th:nth-child(1) {
   width: 5%;

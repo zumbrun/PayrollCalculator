@@ -45,7 +45,7 @@ function calculate (userinputs, userpay) {
   userpay.phone = Number(( userinputs.phone * rates.phone.rate).toFixed(2));
   userpay.internet = Number(( userinputs.internet * rates.internet.rate).toFixed(2));
   userpay.miles = Number(( userinputs.miles * rates.mileage.rate).toFixed(2));
-  userpay.misc = userinputs.misc;
+  userpay.misc = Number(userinputs.misc);
   userpay.totalpay = userpay.net + userpay.miles + userpay.phone + userpay.internet + userpay.misc;
   console.log(userinputs);
   console.log(userpay);
@@ -56,7 +56,7 @@ function assignOutputs (userpay) {
     const myString = "op" + key
     const element = document.getElementById(`${myString}`);
     if (element) {
-      element.textContent = value;
+      element.textContent = Number(value).toFixed(2);
     };
   };  
 }
