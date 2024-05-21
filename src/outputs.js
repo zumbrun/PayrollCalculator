@@ -57,7 +57,7 @@ function assignOutputs (userpay) {
     const element = document.getElementById(`${myString}`);
     if (element) {
       element.textContent = Number(value).toFixed(2);
-    };
+    }
     else {
       console.log({myString});
     }
