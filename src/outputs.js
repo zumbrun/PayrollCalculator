@@ -58,6 +58,9 @@ function assignOutputs (userpay) {
     if (element) {
       element.textContent = Number(value).toFixed(2);
     };
+    else {
+      console.log({myString});
+    }
   };  
 }
 const getSalary = (userinputs) => {
