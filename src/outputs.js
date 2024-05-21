@@ -7,7 +7,6 @@ export function setupOutputs(userinputs, datatables) {
   const userpay = {
     mtgs: 0,
     salary: 0,
-    hourly: 0,
     totalwage: 0,
     pera: 0,
     medicare: 0,
