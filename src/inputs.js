@@ -4,12 +4,12 @@ import { showMilespage } from "./milespage.js";
 import { showHourspage } from "./hourspage.js";
 import { showMiscpage  } from "./miscpage.js";
 import { showOmtgspage  } from "./omtgspage.js";
-import { showOutputspage } from './outputspage.js';
+import { showReviewpage } from './reviewpage.js';
 import {  setupMiles } from "./miles.js";
 import {  setupHours } from "./hours.js";
 import {  setupMisc } from "./misc.js";
 import {  setupOmtgs } from "./omtgs.js";
-import {  setupOutputs} from './outputs.js';
+import {  setupReview} from './review.js';
 
 export function setupInputs(userinputs, datatables) {
   const container = document.querySelector(".container");
@@ -77,8 +77,8 @@ export function setupInputs(userinputs, datatables) {
       return false;
     }
     e.preventDefault();
-    showOutputspage(userinputs);
-    setupOutputs(userinputs, datatables);
+    showReviewpage(userinputs);
+    setupReview(userinputs, datatables);
   });
 
   // assign inputs from userinputs
