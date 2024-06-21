@@ -1,4 +1,4 @@
-import {board} from './constants.js'
+import { board } from './constants.js'
 import { showInputspage } from './inputspage.js';
 import { showMilespage } from "./milespage.js";
 import { showHourspage } from "./hourspage.js";
@@ -14,14 +14,15 @@ import {  setupOutputs} from './outputs.js';
 export function setupInputs(userinputs, datatables) {
   const container = document.querySelector(".container");
   container.innerHTML = showInputspage();
-  
+  //initialize dropdown
+  const nameDropdown = initializeDropdown(userinputs);
   // add event listeners to all the inputs so can update userinputs
-  const usernames = document.getElementById('name');
-  usernames.addEventListener('click', () => {
-    // populate hours if default name on dropdown is a supervisor
-    viewHours(usernames.value);
-    userinputs.name = usernames.value;
+  nameDropdown.addEventListener('click', (e) => {
+    const selectedOption = e.target;
+    nameDropdown.value = selectedOption.value;
+    userinputs.name = selectedOption.value;
     userinputs.title = board[userinputs.name];
+    viewHours(userinputs);
   });
   const hoursEntry = document.getElementById('hours');
   hoursEntry.addEventListener('click', () => {
@@ -79,12 +80,6 @@ export function setupInputs(userinputs, datatables) {
     showOutputspage(userinputs);
     setupOutputs(userinputs, datatables);
   });
-  // set up the dropdown of names 
-  dropDownItems(usernames);
-  // show the selected name
-  setDropdownName(userinputs, usernames);
-  // show hours
-  viewHours(userinputs.name);
 
   // assign inputs from userinputs
   hoursEntry.value = Number(userinputs.hours).toFixed(2);
@@ -96,27 +91,30 @@ export function setupInputs(userinputs, datatables) {
   radiophone.value = userinputs.phone;
   radiopera.value = userinputs.pera;
 }
-function dropDownItems(usernames) {
+function initializeDropdown(userinputs) {
+  const dropdown = document.getElementById('name');
+  // populate the dropdown
   for (const [key, value] of Object.entries(board)) {
     let opt = document.createElement("option");
     opt.textContent = key;
-    usernames.add(opt);
+    dropdown.add(opt);
   }
-}
-function setDropdownName(userinputs, usernames) {
-  if (userinputs.name === null) {
-    usernames.selectedIndex = 0;
-    userinputs.name = usernames.value;
-  }
-  else {
+  // setup the username
+  if (userinputs.name !== null) {
     for (const [key, value] of Object.entries(board)) {
-      if (userinputs.name === key) {usernames.value = key;}
+      if (userinputs.name === key) {dropdown.value = key;}
     }
   }
+  else {
+    dropdown.selectedOption = 0;
+    userinputs.name = dropdown.value
+  }
+  // setup the title
   userinputs.title = board[userinputs.name];
+  return dropdown;
 }
-function viewHours(username) {
-  if (board[username] === "Supervisor") {
+function viewHours(userinputs) {
+  if (userinputs.title === "Supervisor") {
     document.getElementById("hrs").style.display = "flex";
   }
   else {

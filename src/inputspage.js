@@ -55,8 +55,9 @@ export function showInputspage() {
             <input type="radio" id="pera0" name="pera" value="0" >
             <label for="pera0">No</label>
         </div>
-        <div class="btn">
-            <button id="submitbutton">Submit</button>
+        <div class="btn" class = "flexdiv">
+            <button id="clearbutton">Clear</button>
+            <button id="submitbutton">REVIEW</button>
         </div>
     </form>
         `;

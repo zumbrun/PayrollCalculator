@@ -16,7 +16,7 @@ const salaries = {
 const board = {
     "John Barlow": "Treasurer",
     "Daryl Felt": "Supervisor",
-    "Ben Hane": "Supervisor",
+    "Ben Hain": "Supervisor",
     "John Johnson": "Supervisor",
     "Jerome Lawler": "Deputy Clerk",
     "Joe Mahoney": "Clerk",

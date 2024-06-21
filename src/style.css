@@ -103,7 +103,7 @@ label{
   border-radius: 6px;
   padding: 6px;
 }
-#submitbutton, #printbutton{
+#submitbutton, #printbutton, #clearbutton{
   width: 70px;
   background-color: blue;
   color: white;
