@@ -1,4 +1,5 @@
 import { setupInputs } from './inputs';
+import { setupForm } from './forms';
 
 export function setupMiles (userinputs, datatables) {
   

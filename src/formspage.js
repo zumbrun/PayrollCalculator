@@ -1,4 +1,4 @@
-export function showHourspage() {
+export function showFormspage() {
     const mycontent = `
     <form id="myform">
     <div class="title">
@@ -11,7 +11,7 @@ export function showHourspage() {
     <div class="descdiv">
         <textarea id="description" placeholder="Description of Work" required></textarea>
     </div>
-    <div class="eventdiv">
+    <div id="myhours" class="eventdiv">
         <label for="hr">Enter hours:</label>
         <select name="hours" id="hr" required>
             <option value="0" selected>0</option>
@@ -32,6 +32,15 @@ export function showHourspage() {
             <option value="0.75">45</option>
         </select> 
     </div>
+    <div id="mymiles" class="eventdiv">
+        <label for="bmiles">Enter miles:</label>
+        <input type="number" step="0.01" id="bmiles" name="bmiles" required>
+    </div>
+    <div class="eventdiv">
+        <label for="bmisc">Enter misc expense:</label>
+        <input type="number" min="0" step="0.01" id="bmisc" name="bmisc" required>
+    </div>
+    
     <div class="btn">
         <button id="cancelbutton">Cancel</button>
         <button id="submitbutton">Done</button>
@@ -40,4 +49,3 @@ export function showHourspage() {
     </form>
     `;
     return mycontent;
-}

@@ -93,7 +93,12 @@ export function showReviewpage () {
         </li>
     </div>
     </ul>
+    <div class="btn" class = "flexdiv">
+        <button id="clearbutton">Back</button>
+        <button id="submitbutton">SUBMIT</button>
     </div>
+    </div>
+
 `;
 return reviewcontent;
 }

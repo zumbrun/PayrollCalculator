@@ -126,6 +126,7 @@ tr{
   border-collapse: collapse;
 }
 .printform {
+  background-color: white;
   display: none;
 }
 #outputtable{
@@ -200,7 +201,7 @@ ul {
 }
 ul li {
   padding-top: 8px;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
 }
 .threecols {
   border-collapse: collapse;

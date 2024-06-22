@@ -18,7 +18,7 @@ export function showMiscpage() {
     <div class="btn">
         <button id="cancelbutton">Cancel</button>
         <button id="submitbutton">Done</button>
-        <button id="printbutton">Add</button>
+        <button id="printbutton">Next</button>
     </div>
     </form>
     `;

@@ -1,13 +1,27 @@
-import { rates, salaries } from './constants.js';
 import { showReviewpage } from './reviewpage.js';
+import { showInputspage } from './inputspage.js';
+import { showOutputspage } from './outputspage.js';
+import { setupOutputs } from './outputs.js';
+import { setupInputs } from './inputs.js';
+import { assignUserinputs } from './prints.js';
 
 export function setupReview (userinputs, datatables, userpay ) {
   const container = document.querySelector(".container");
   container.innerHTML = showReviewpage();
-  // clear any previous created tables
-  //removeAllTables();
+
+   // add event listener to when buttons are clicked
+   const submitbtn = document.getElementById("submitbutton");
+   submitbtn.addEventListener("click", (e) => {
+     showOutputspage(userinputs);
+     setupOutputs(userinputs, datatables);
+   });
+   const clearbtn = document.getElementById("clearbutton");
+   clearbtn.addEventListener("click", (e) => {
+     showInputspage(userinputs);
+     setupInputs(userinputs, datatables);
+   });
   // complete sections for all userinputs
-  assignUserinputs(userinputs, userpay);
+  assignUserinputs(userinputs);
   //assignUserpay(userpay);
   // add and complete add any needed tables
   let mytablenames = ["omtgs", "hours", "misc", "miles"];
@@ -37,43 +51,10 @@ export function setupReview (userinputs, datatables, userpay ) {
       }
     }
   });
-  
-
   const printform = document.querySelector(".printform");
-  //printform.style.display = "block";
+  printform.style.display = "block";    
+}
 
-  doc.html(printform.innerHTML, {
-    callback: function(doc) {
-      doc.save('payroll.pdf');
-    },
-    margin:[10,10,10,10],
-    autoPaging: 'text',
-    x: 0,
-    y: 0,
-    width: 190,
-    windowWidth: 675,
-  });  
-}
-function assignUserinputs (userinputs, userpay) {
-  let item = document.getElementById("supervisors");
-  if (userinputs.title === "Supervisor") {item.style.display = "block";}
-  else {item.style.display = "none"};
-  const entries = Object.entries(userinputs);
-  for (const [key, value] of entries) {
-    const myString = "ip" + key
-    const div = document.getElementById(`${myString}`);
-    if (div) {
-      //assign NONE is 0 else nothing
-      if (Number(value) === 0) { div.textContent = "NONE" }
-      else if (myString === "ipphone" || myString === "ipinternet") { div.textContent = "YES" }
-      else {
-        div.textContent = userinputs[key];
-      }
-    }
-  };
-  const div = document.getElementById('ipdate');
-  div.textContent = Intl.DateTimeFormat('en').format(new Date());
-}
 function addTableData(mytable, mydata) {
   for (let i=0; i < mydata.length; i++) {
     let mytr = mytable.insertRow(-1);

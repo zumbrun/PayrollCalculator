@@ -1,31 +1,14 @@
 import { setupInputs } from './inputs';
+import { setupForm } from './inputs';
+import { setupInputs } from './inputs';
 
-export function setupHours (userinputs, datatables) {
-  
-  const cancelbtn = document.getElementById('cancelbutton');
-  const donebtn = document.getElementById('submitbutton');
-  const addbtn = document.getElementById('printbutton');
- 
-  cancelbtn.addEventListener('click', () => {
-    clear();
-    setupInputs(userinputs, datatables);
-  });
-  donebtn.addEventListener('click', (e) => {
-    if (validateForm(e)) { 
-      save(userinputs, datatables);
-      assignData(userinputs, datatables);
-      setupInputs(userinputs, datatables);
-    }
-  });
-  addbtn.addEventListener('click', (e) => {
-    if (validateForm(e)) { 
-      save(userinputs, datatables);
-      clear();
-    }
-  });
+export function setupHours (userinputs, datatables) { 
+  setupForm(userinputs, datatables)
 }
+
+  
 function validateForm(e) {
-  const myform = document.getElementById('hoursform');
+  const myform = document.getElementById('myform');
     if(!myform.checkValidity()) {
       return false;
     }
@@ -49,7 +32,7 @@ function clear () {
   document.getElementById("hr").value = 0;
   document.getElementById("min").value = 0;
 }
-function assignData (userinputs, datatables ) {userinputs.mtgs
+function assignData (userinputs, datatables ) {
   userinputs.hours = calculateTotals(datatables.hours);
 }
 function calculateHours() {

@@ -63,7 +63,7 @@ export function printPDF (userinputs, datatables, userpay ) {
     windowWidth: 675,
   });  
 }
-function assignUserinputs (userinputs, userpay) {
+export function assignUserinputs (userinputs) {
   let item = document.getElementById("supervisors");
   if (userinputs.title === "Supervisor") {item.style.display = "block";}
   else {item.style.display = "none"};

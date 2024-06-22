@@ -1,15 +1,9 @@
 import { board } from './constants.js'
 import { showInputspage } from './inputspage.js';
-import { showMilespage } from "./milespage.js";
-import { showHourspage } from "./hourspage.js";
-import { showMiscpage  } from "./miscpage.js";
-import { showOmtgspage  } from "./omtgspage.js";
+import { showFormspage } from './formspage.js'
 import { showReviewpage } from './reviewpage.js';
-import {  setupMiles } from "./miles.js";
-import {  setupHours } from "./hours.js";
-import {  setupMisc } from "./misc.js";
-import {  setupOmtgs } from "./omtgs.js";
-import {  setupReview} from './review.js';
+import { setupForm } from './forms.js';
+import { setupReview} from './review.js';
 
 export function setupInputs(userinputs, datatables) {
   const container = document.querySelector(".container");
@@ -26,23 +20,23 @@ export function setupInputs(userinputs, datatables) {
   });
   const hoursEntry = document.getElementById('hours');
   hoursEntry.addEventListener('click', () => {
-    container.innerHTML = showHourspage();
-    setupHours(userinputs, datatables);
+    container.innerHTML = showFormspage();
+    setupForm("hours", userinputs, datatables.hours);
   });
   const miscEntry = document.getElementById('misc');
   miscEntry.addEventListener('click', () => {
-    container.innerHTML = showMiscpage();
-    setupMisc(userinputs, datatables)
+    container.innerHTML = showFormspage();
+    setupForm("misc", userinputs, datatables.misc)
   });
   const milesEntry = document.getElementById('miles');
   milesEntry.addEventListener('click', () => {
-    container.innerHTML = showMilespage();
-    setupMiles(userinputs, datatables)
+    container.innerHTML = showFormspage();
+    setupForm("miles", userinputs, datatables.miles)
   });
   const omtgsEntry = document.getElementById('omtgs');
   omtgsEntry.addEventListener('click', () => {
-    container.innerHTML = showOmtgspage();
-    setupOmtgs(userinputs, datatables)
+    container.innerHTML = showFormspage();
+    setupForm("omtgs", userinputs, datatables.omtgs)
   });  
   const radiobmtgs = document.forms["inputform"].elements['bmtgs'];
   for (let i = 0; i < radiobmtgs.length; i++) {
