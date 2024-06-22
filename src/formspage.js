@@ -1,9 +1,7 @@
 export function showFormspage() {
     const mycontent = `
     <form id="myform">
-    <div class="title">
-        <div>Enter Hours</div>
-    </div>
+    <div class="title">Row 1</div>
     <div class="eventdiv">Date
         <label for="day"></label>
         <input type="date" id="day" name="day" required>

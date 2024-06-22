@@ -2,6 +2,8 @@ import { setupInputs } from "./inputs";
 
 export function setupForm (type, userinputs, myarray) {
   showAmounts(type);
+  let rowcnt = 1;
+  const mytitle = document.querySelector(".title");
   const cancelbtn = document.getElementById('cancelbutton');
   const donebtn = document.getElementById('submitbutton');
   const nextbtn = document.getElementById('printbutton');
@@ -18,6 +20,7 @@ export function setupForm (type, userinputs, myarray) {
   nextbtn.addEventListener('click', (e) => {
     if (validateForm(e)) { 
       save(type, userinputs, myarray);
+      mytitle.textContent = "Row" + (rowcnt + 1).toString();
     }
   });
 }
