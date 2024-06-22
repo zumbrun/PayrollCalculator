@@ -1,6 +1,7 @@
 import { setupInputs } from "./inputs";
 
 export function setupForm (type, userinputs, myarray) {
+  showAmounts(type);
   const cancelbtn = document.getElementById('cancelbutton');
   const donebtn = document.getElementById('submitbutton');
   const nextbtn = document.getElementById('printbutton');
@@ -73,5 +74,28 @@ function calculateTotals(array) {
     total = total + Number(array[i][2]);
   }
   return total.toFixed(2);
+}
+function showAmounts(type) {
+  
+  const hoursdiv = document.getElementById("myhours");
+  const milesdiv = document.getElementById("mymiles");
+  const miscdiv = document.getElementById("mymisc");
+  hoursdiv.style.display = "none";
+  milesdiv.style.display = "none";
+  miscdiv.style.display = "none";
+  switch (type) {
+    case "hours": 
+      hoursdiv.style.display = "flex";
+      break;
+    case "miles": 
+      milesdiv.style.display = "flex";
+      break;
+    case "misc": 
+      miscdiv.style.display = "flex";
+      break;
+    case "omtgs": 
+      break;
+  }
+
 }
 
