@@ -32,11 +32,11 @@ export function showFormspage() {
     </div>
     <div id="mymiles" class="eventdiv">
         <label for="bmiles">Enter miles:</label>
-        <input type="number" step="0.01" id="bmiles" name="bmiles" required>
+        <input type="number" step="0.01" id="bmiles" name="bmiles">
     </div>
     <div id="mymisc" class="eventdiv">
         <label for="bmisc">Enter misc expense:</label>
-        <input type="number" min="0" step="0.01" id="bmisc" name="bmisc" required>
+        <input type="number" min="0" step="0.01" id="bmisc" name="bmisc">
     </div>
     <div class="btn">
         <button id="cancelbutton">Cancel</button>

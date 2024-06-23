@@ -21,22 +21,22 @@ export function setupInputs(userinputs, datatables) {
   const hoursEntry = document.getElementById('hours');
   hoursEntry.addEventListener('click', () => {
     container.innerHTML = showFormspage();
-    setupForm("hours", userinputs, datatables.hours);
+    setupForm("hours", userinputs, datatables);
   });
   const miscEntry = document.getElementById('misc');
   miscEntry.addEventListener('click', () => {
     container.innerHTML = showFormspage();
-    setupForm("misc", userinputs, datatables.misc)
+    setupForm("misc", userinputs, datatables)
   });
   const milesEntry = document.getElementById('miles');
   milesEntry.addEventListener('click', () => {
     container.innerHTML = showFormspage();
-    setupForm("miles", userinputs, datatables.miles)
+    setupForm("miles", userinputs, datatables)
   });
   const omtgsEntry = document.getElementById('omtgs');
   omtgsEntry.addEventListener('click', () => {
     container.innerHTML = showFormspage();
-    setupForm("omtgs", userinputs, datatables.omtgs)
+    setupForm("omtgs", userinputs, datatables)
   });  
   const radiobmtgs = document.forms["inputform"].elements['bmtgs'];
   for (let i = 0; i < radiobmtgs.length; i++) {
@@ -105,6 +105,7 @@ function initializeDropdown(userinputs) {
   }
   // setup the title
   userinputs.title = board[userinputs.name];
+  viewHours(userinputs);
   return dropdown;
 }
 function viewHours(userinputs) {
