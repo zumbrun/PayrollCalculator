@@ -8,56 +8,66 @@ import { setupReview} from './review.js';
 export function setupInputs(userinputs, datatables) {
   const container = document.querySelector(".container");
   container.innerHTML = showInputspage();
-  //initialize dropdown
+  // initialize dropdown
   const nameDropdown = initializeDropdown(userinputs);
+  // collect all form inputs
+  const hoursEntry = document.getElementById('hours');
+  const miscEntry = document.getElementById('misc');
+  const milesEntry = document.getElementById('miles');
+  const omtgsEntry = document.getElementById('omtgs');
+  const radiobmtgs = document.forms["inputform"].elements['bmtgs'];
+  const radiophone = document.forms["inputform"].elements['phone'];
+  const radiointernet = document.forms["inputform"].elements['internet'];
+  const radiopera = document.forms["inputform"].elements['pera'];
+  let currentIndex = 0;
+  console.log({currentIndex}, "initial");
   // add event listeners to all the inputs so can update userinputs
   nameDropdown.addEventListener('click', (e) => {
     const selectedOption = e.target;
-    nameDropdown.value = selectedOption.value;
+    const newIndex = selectedOption.selectedIndex;
+    let diff = newIndex - currentIndex;
+    // it goes through this function twice and I don't want to clear form if it start from null name
+    // because the user just didn't update name until after other fields so needed to check a diff
+    if ((currentIndex !== 0) && (diff !== 0)){
+      clearForm(userinputs, datatables, hoursEntry, miscEntry, milesEntry, omtgsEntry);
+    }
+    currentIndex = newIndex;
     userinputs.name = selectedOption.value;
     userinputs.title = board[userinputs.name];
     viewHours(userinputs);
   });
-  const hoursEntry = document.getElementById('hours');
   hoursEntry.addEventListener('click', () => {
     container.innerHTML = showFormspage();
     setupForm("hours", userinputs, datatables);
   });
-  const miscEntry = document.getElementById('misc');
   miscEntry.addEventListener('click', () => {
     container.innerHTML = showFormspage();
     setupForm("misc", userinputs, datatables)
   });
-  const milesEntry = document.getElementById('miles');
   milesEntry.addEventListener('click', () => {
     container.innerHTML = showFormspage();
     setupForm("miles", userinputs, datatables)
   });
-  const omtgsEntry = document.getElementById('omtgs');
   omtgsEntry.addEventListener('click', () => {
     container.innerHTML = showFormspage();
     setupForm("omtgs", userinputs, datatables)
   });  
-  const radiobmtgs = document.forms["inputform"].elements['bmtgs'];
   for (let i = 0; i < radiobmtgs.length; i++) {
     radiobmtgs[i].addEventListener("click", () => {
       userinputs.bmtgs = radiobmtgs[i].value;
       userinputs.mtgs = Number(userinputs.bmtgs) + Number(userinputs.omtgs);
     });
   }
-  const radiophone = document.forms["inputform"].elements['phone'];
   for (let i = 0; i < radiophone.length; i++) {
     radiophone[i].addEventListener("click", () => {
       userinputs.phone = radiophone[i].value;
     });
   }
-  const radiointernet = document.forms["inputform"].elements['internet'];
   for (let i = 0; i < radiointernet.length; i++) {
     radiointernet[i].addEventListener("click", () => {
       userinputs.internet = radiointernet[i].value;
     });
   }
-  const radiopera = document.forms["inputform"].elements['pera'];
   for (let i = 0; i < radiopera.length; i++) {
     radiopera[i].addEventListener("click", () => {
       userinputs.pera = radiopera[i].value;
@@ -74,7 +84,6 @@ export function setupInputs(userinputs, datatables) {
     showReviewpage(userinputs);
     setupReview(userinputs, datatables);
   });
-
   // assign inputs from userinputs
   hoursEntry.value = Number(userinputs.hours).toFixed(2);
   milesEntry.value = Number(userinputs.miles).toFixed(1);
@@ -87,6 +96,7 @@ export function setupInputs(userinputs, datatables) {
 }
 function initializeDropdown(userinputs) {
   const dropdown = document.getElementById('name');
+  dropdown.innerHTML = '<option value="">Select an option</option>';
   // populate the dropdown
   for (const [key, value] of Object.entries(board)) {
     let opt = document.createElement("option");
@@ -94,18 +104,20 @@ function initializeDropdown(userinputs) {
     dropdown.add(opt);
   }
   // setup the username
+  console.log(userinputs.name, userinputs.title);
   if (userinputs.name !== null) {
     for (const [key, value] of Object.entries(board)) {
-      if (userinputs.name === key) {dropdown.value = key;}
+      if (userinputs.name === key) {
+        dropdown.value = key;
+        userinputs.title = board[userinputs.name];
+        viewHours(userinputs);
+      }
     }
   }
   else {
     dropdown.selectedOption = 0;
-    userinputs.name = dropdown.value
   }
   // setup the title
-  userinputs.title = board[userinputs.name];
-  viewHours(userinputs);
   return dropdown;
 }
 function viewHours(userinputs) {
@@ -115,5 +127,35 @@ function viewHours(userinputs) {
   else {
     document.getElementById("hrs").style.display = "none";
   }
+}
+function clearForm(userinputs, datatables, hours, misc, miles, omtgs) {
+  // clear all userinputs
+  userinputs.name =  null;
+  userinputs.title = null;
+  userinputs.hours = 0;
+  userinputs.bmtgs = null;
+  userinputs.omtgs = 0;
+  userinputs.mtgs = 0;
+  userinputs.pera = null;
+  userinputs.phone = null;
+  userinputs.internet = null;
+  userinputs.miles = 0;
+  userinputs.misc = 0;
+  // clear all datatables
+  datatables.hours = [[]];
+  datatables.miles = [[]];
+  datatables.misc =  [[]];
+  datatables.omtgs = [[]];
+  //clear all radiobuttons
+  const myform = document.getElementById('inputform');
+  const radios = document.querySelectorAll('input[type="radio"]');
+  for (const radio of radios) {
+    radio.checked = false;
+  }
+  // clear all totals
+  hours.value = 0;
+  omtgs.value = 0;
+  miles.value = 0;
+  misc.value = "$0.00";
 }
 

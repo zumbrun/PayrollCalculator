@@ -1,13 +1,14 @@
 export function showFormspage() {
     const mycontent = `
     <form id="myform">
-    <div class="title">Row 1</div>
+    <div class="title"></div>
     <div class="eventdiv">Date
         <label for="day"></label>
         <input type="date" id="day" name="day" required>
-    </div>
+            </div>
     <div class="descdiv">
-        <textarea id="description" placeholder="Description of Work" required></textarea>
+        <label id="desclabel"></label>
+        <textarea id="description" placeholder="Enter description" required></textarea>
     </div>
     <div id="myhours" class="eventdiv">
         <label for="hr">Enter hours:</label>
@@ -31,17 +32,17 @@ export function showFormspage() {
         </select> 
     </div>
     <div id="mymiles" class="eventdiv">
-        <label for="bmiles">Enter miles:</label>
+                <label for="bmiles">Enter miles:</label>
         <input type="number" step="0.01" id="bmiles" name="bmiles">
     </div>
     <div id="mymisc" class="eventdiv">
-        <label for="bmisc">Enter misc expense:</label>
+                <label for="bmisc">Enter misc expense:</label>
         <input type="number" min="0" step="0.01" id="bmisc" name="bmisc">
     </div>
     <div class="btn">
-        <button id="cancelbutton">Cancel</button>
-        <button id="submitbutton">Done</button>
-        <button id="printbutton">Next</button>
+    <button id="cancelbutton">Cancel</button>
+    <button id="submitbutton">Done</button>
+    <button id="printbutton">Next</button>
     </div>
     </form>
     `;

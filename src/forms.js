@@ -1,32 +1,33 @@
 import { setupInputs } from "./inputs";
 
 export function setupForm (type, userinputs, datatables) {
-  showAmounts(type);
-  let rowcnt = 1;
-  initializeData(type, datatables[type], rowcnt-1);
   const mytitle = document.querySelector(".title");
   const cancelbtn = document.getElementById('cancelbutton');
   const donebtn = document.getElementById('submitbutton');
   const nextbtn = document.getElementById('printbutton');
+  // initialize form
+  let rowcnt = 1;
+  customizeBottom(type);
+  customizeTitle(type, rowcnt, mytitle) ;
+  inputRowdata(type, 1, datatables);
  
   cancelbtn.addEventListener('click', () => {
     setupInputs(userinputs, datatables);
-    clear(type);
   });
   donebtn.addEventListener('click', (e) => {
     if (validateForm(e)) { 
-      datatables[type] = save(type, userinputs, datatables[type]);
+      save(type, rowcnt, datatables, userinputs);
       setupInputs(userinputs, datatables);
     }
   });
   nextbtn.addEventListener('click', (e) => {
     if (validateForm(e)) { 
-      datatables[type] = save(type, userinputs, datatables[type]);
-      //clear(type);
+      // save current data
+      save(type, rowcnt, datatables, userinputs);
+      // update for next row
       rowcnt++;
-      console.log(rowcnt);
-      mytitle.textContent = "Row" + rowcnt.toString();
-      initalizeData(type, datatables[type], rowcnt-1);
+      customizeTitle(type, rowcnt, mytitle);
+      inputRowdata(type, rowcnt, datatables);
     }
   });
 }
@@ -38,7 +39,8 @@ function validateForm(e) {
       e.preventDefault();
       return true;
 }
-function save(type, userinputs, array)  {
+function save (type, rowcnt, datatables, userinputs)  {
+  // saving results to an array
   let myarray = [];
   myarray[0] = document.getElementById("day").value;
   myarray[1] = document.getElementById("description").value;
@@ -46,26 +48,24 @@ function save(type, userinputs, array)  {
     case "hours": 
       const hrs = Number(document.getElementById('hr').value);
       const mins = Number(document.getElementById('min').value);
-      myarray[2] = (hrs + mins).toFixed(2);
+      myarray[2] = Number((hrs + mins).toFixed(2));
       break;
     case "miles": 
-      myarray[2] = Number(document.getElementById("bmiles").value).toFixed(1);
+      myarray[2] = Number(Number(document.getElementById("bmiles").value).toFixed(1));
       break;
     case "misc": 
       let result = document.getElementById("bmisc").value;
       if (result.startsWith("$")) {
         result = result.slice(1);
-      }
-      myarray[2] = Number(result).toFixed(2);
+      }inputRowdata
+      myarray[2] = Number(Number(result).toFixed(2));
       break;
     case "omtgs": 
-      array.push(myarray);
-      userinputs.omtgs = array.length;
-      return array;
+      break;
   }
-  array.push(myarray);
-  userinputs[type] = calculateTotals(array);
-  return array;
+  datatables[type][rowcnt-1] = myarray;
+  calculateTotals(type, datatables, userinputs);
+  return ;
 }
 function clear (type) {
   document.getElementById("day").value = "";
@@ -78,65 +78,88 @@ function clear (type) {
     case "miles": 
       document.getElementById("bmiles").value = "";
       break;
-    case "misc": console.log({type});
+    case "misc": 
       document.getElementById("bmisc").value = "";
       break;
     case "omtgs": 
       break;
   }
 }
-function calculateTotals(array) {
+function calculateTotals(type, datatables, userinputs) {
   let total = 0;
-  for (let i=0; i < array.length; i++) {
-    total = total + Number(array[i][2]);
+  const myarray = datatables[type];
+  if (type === "omtgs") {
+    userinputs[type] = myarray.length;
+    return;
   }
-  return total.toFixed(2);
+  for (let i=0; i < myarray.length; i++) {
+    total = total + myarray[i][2];
+  }
+  userinputs[type] = Number(total.toFixed(2));
 }
-function showAmounts(type) {
+function customizeBottom(type) {
   const hoursdiv = document.getElementById("myhours");
   const milesdiv = document.getElementById("mymiles");
   const miscdiv = document.getElementById("mymisc");
+  const desc = document.getElementById("desclabel");
+  
   hoursdiv.style.display = "none";
   milesdiv.style.display = "none";
   miscdiv.style.display = "none";
+  
   switch (type) {
     case "hours": 
+      desc.textContent = "Description of work";
       hoursdiv.style.display = "flex";
       break;
     case "miles": 
+      desc.textContent = "Reason for mileage";
       milesdiv.style.display = "flex";
       document.getElementById("bmiles").attributes.required = true;
       break;
     case "misc": 
+      desc.textContent = "Description of expense";
       miscdiv.style.display = "flex";
       document.getElementById("bmisc").attributes.required = true;
       break;
-    case "omtgs": 
+    case "omtgs":
+      desc.textContent = "Description of meeting";
       break;
   }
 }
-function initalizeData(type, array, i) {
-  console.log(array);
-  if (array.length === 0) {return};
-  document.getElementById("day").value = array[i][0];
-  document.getElementById("description").value = array[i][1];
-  if (array[i][2]) {
-    switch (type) {
-      case "hours": 
-        const hours = Number(array[i][2]);
-        const hr = Number(hours.toFixed(0));
-        const min = (hours - hr);
-        document.getElementById("hr").value = hr;
-        document.getElementById("min").value = min;
-        break;
-      case "miles": 
-        document.getElementById("bmiles").value = array[i][2];
-        break;
-      case "misc": 
-        document.getElementById("bmisc").value = array[i][2];
-        break;
-    }
+function customizeTitle (type, rowcnt, mytitle) {
+  let str = type + " - row " + rowcnt.toString();
+  mytitle.textContent = str.charAt(0).toUpperCase() + str.slice(1);
+}
+function inputRowdata (type, rowcnt, datatables) {
+  let i = rowcnt - 1;
+  let myarray = datatables[type];
+  console.log({myarray}, myarray.length, {rowcnt});
+  if (myarray.length < rowcnt) {
+    clear(type);
+    return;
+  }
+  if (myarray[i].length === 0) {
+    clear (type);
+    return;
+  }
+  document.getElementById("day").value = myarray[i][0];
+  document.getElementById("description").value = myarray[i][1];
+  switch (type) {
+    case "hours": 
+      const hours = Number(myarray[i][2]);
+      const hr = Number(hours.toFixed(0));
+      const min = (hours - hr);
+      document.getElementById("hr").value = hr;
+      document.getElementById("min").value = min;
+      break;
+    case "miles": 
+      document.getElementById("bmiles").value = myarray[i][2];
+      break;
+    case "misc":
+      document.getElementById("bmisc").value = myarray[i][2];
+      break;
+    case "omtgs":
+      break;
   }
 }
-
-
