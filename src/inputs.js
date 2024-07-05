@@ -19,19 +19,19 @@ export function setupInputs(userinputs, datatables) {
   const radiophone = document.forms["inputform"].elements['phone'];
   const radiointernet = document.forms["inputform"].elements['internet'];
   const radiopera = document.forms["inputform"].elements['pera'];
-  let currentIndex = 0;
-  console.log({currentIndex}, "initial");
+  //let currentIndex = 0;
+  //console.log({currentIndex}, "initial");
   // add event listeners to all the inputs so can update userinputs
   nameDropdown.addEventListener('click', (e) => {
     const selectedOption = e.target;
-    const newIndex = selectedOption.selectedIndex;
-    let diff = newIndex - currentIndex;
+    //const newIndex = selectedOption.selectedIndex;
+    //let diff = newIndex - currentIndex;
     // it goes through this function twice and I don't want to clear form if it start from null name
     // because the user just didn't update name until after other fields so needed to check a diff
-    if ((currentIndex !== 0) && (diff !== 0)){
-      clearForm(userinputs, datatables, hoursEntry, miscEntry, milesEntry, omtgsEntry);
-    }
-    currentIndex = newIndex;
+    //if ((currentIndex !== 0) && (diff !== 0)){
+    //  clearForm(userinputs, datatables, hoursEntry, miscEntry, milesEntry, omtgsEntry);
+    //}
+    //currentIndex = newIndex;
     userinputs.name = selectedOption.value;
     userinputs.title = board[userinputs.name];
     viewHours(userinputs);
