@@ -104,7 +104,7 @@ function initializeDropdown(userinputs) {
     dropdown.add(opt);
   }
   // setup the username
-  console.log(userinputs.name, userinputs.title);
+  //console.log(userinputs.name, userinputs.title);
   if (userinputs.name !== null) {
     for (const [key, value] of Object.entries(board)) {
       if (userinputs.name === key) {

@@ -4,7 +4,7 @@ import './events.css';
 import { setupInputs } from './inputs.js';
 
 if (process.env.NODE_ENV !== 'production') {
-  console.log("looks like we are in dev mode!");
+  //console.log("looks like we are in dev mode!");
 };
 
 const userinputs = {

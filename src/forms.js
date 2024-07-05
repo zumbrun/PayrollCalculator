@@ -134,7 +134,7 @@ function customizeTitle (type, rowcnt, mytitle) {
 function inputRowdata (type, rowcnt, datatables) {
   let i = rowcnt - 1;
   let myarray = datatables[type];
-  console.log({myarray}, myarray.length, {rowcnt});
+  //console.log({myarray}, myarray.length, {rowcnt});
   if (myarray.length < rowcnt) {
     clear(type);
     return;
