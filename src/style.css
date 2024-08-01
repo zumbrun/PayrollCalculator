@@ -40,7 +40,6 @@ body {
   flex-wrap: wrap;
   margin: 4px;
   padding: 4px;
-  max-width: 350px;
   gap: 16px;
 }
 .flexdiv {

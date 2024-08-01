@@ -53,7 +53,7 @@ export function printPDF (userinputs, datatables, userpay ) {
 
   doc.html(printform.innerHTML, {
     callback: function(doc) {
-      doc.save('payroll.pdf');
+      doc.save(`${userinputs.name}` + '_payroll.pdf');
     },
     margin:[10,10,10,10],
     autoPaging: 'text',
@@ -72,9 +72,9 @@ export function assignUserinputs (userinputs) {
     const myString = "ip" + key
     const div = document.getElementById(`${myString}`);
     if (div) {
-      //assign NONE is 0 else nothing
+      //assign NONE if 0 else nothing
       if (Number(value) === 0) { div.textContent = "NONE" }
-      else if (myString === "ipphone" || myString === "ipinternet") { div.textContent = "YES" }
+      else if (myString === "ipphone" || myString === "ipinternet" || myString === "ippera") { div.textContent = "YES" }
       else {
         div.textContent = userinputs[key];
       }

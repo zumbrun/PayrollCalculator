@@ -4,7 +4,7 @@ export function showInputspage() {
         <div class="title">Quarterly Payroll Input</div> 
         <div class="flexdiv">
             <label for="name">Name:</label>
-            <select autocomplete = "off" id="name"></select>
+            <select autocomplete = "off" id="name" required></select>
         </div>
         <div class="flexdiv" id="hrs">
             <label for="hours">Enter hours:</label>

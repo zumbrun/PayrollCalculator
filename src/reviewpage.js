@@ -88,7 +88,13 @@ export function showReviewpage () {
             </div>
             <div>
                 <li>
-                <span>Signature: ______________________________________  Date:  </span>
+                <span>PERA:  </span>
+                <span id="ippera"></span>
+                </li>
+            </div>
+            <div>
+                <li>
+                <span>Date:  </span>
                 <span id="ipdate"></span>
                 </li>
             </div>
