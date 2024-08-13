@@ -27,7 +27,7 @@ export function showFormspage() {
         <select name="mins" id="min" required>
             <option value="0">00</option>
             <option value="0.25">15</option>
-            <option value="0.50">30</option>
+            <option value="0.5">30</option>
             <option value="0.75">45</option>
         </select> 
     </div>

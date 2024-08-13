@@ -70,7 +70,8 @@ export function setupInputs(userinputs, datatables) {
   });
   // add event listener to when clear button is clicked
   const clearbtn = document.getElementById("backbutton");
-  clearbtn.addEventListener("click", () => {
+  clearbtn.addEventListener("click", (e) => {
+    e.preventDefault();
     clearStoredData(userinputs,datatables);
     clearInputs();
   });
@@ -113,10 +114,11 @@ function viewHours(userinputs) {
   const div = document.getElementById("hours");
   console.log({div});
   if (userinputs.title === "Supervisor") {
-    div.value = "0.00";
+    div.value = userinputs.hours;
   }
   else {
     div.value = "N.A.";
+    userinputs.hours = 0;
   }
 }
 function clearStoredData(userinputs,datatables) {
