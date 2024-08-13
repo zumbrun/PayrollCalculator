@@ -1,7 +1,7 @@
-import {rates, salaries } from "./constants.js"
-import { setupInputs } from "./inputs.js";
-import { showOutputspage } from "./outputspage.js";
-import { printPDF} from './prints.js';
+import { rates, salaries } from "./constants.js"
+import { setupReview } from "./review.js";
+import { printPDF } from './prints.js';
+import { showOutputspage } from './outputspage.js';
 
 export function setupOutputs(userinputs, datatables) {
   const userpay = {
@@ -24,9 +24,9 @@ export function setupOutputs(userinputs, datatables) {
   printbtn.addEventListener("click", () => {
     printPDF(userinputs, datatables, userpay);
   });
-  const cancelbtn = document.getElementById('cancelbutton');
-  cancelbtn.addEventListener("click", () => {
-    setupInputs(userinputs, datatables);
+  const backbtn = document.getElementById('backbutton');
+  backbtn.addEventListener("click", () => {
+    setupReview(userinputs, datatables);
   });
   // update userpay
   calculate(userinputs, userpay);

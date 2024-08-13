@@ -1,6 +1,6 @@
 export function showReviewpage () {
     const reviewcontent = `
-    <div class="printform">
+    <div class="reviewform">
         <ul>
             <div>
                 <li>
@@ -10,19 +10,18 @@ export function showReviewpage () {
                     <span id="iptitle"></span>
                 </li>
             </div>
-            <div class="flexrow">
-                <div>
-                    <span>Total Meetings:</span>
+            <div>
+                <li>
+                    <span>Total Meetings: </span>
                     <span id="ipmtgs"></span>
-                </div>
-                <div>
-                    <span>Haverhill board meetings:</span>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span>( Haverhill: </span>
                     <span id="ipbmtgs"></span>
-                </div>
-                <div>
-                    <span>Other official meetings:</span>
-                    <span id="ipomtgs"></span>
-                </div>
+                    <span>&nbsp;&nbsp;+&nbsp;&nbsp;</span>
+                    <span>Other: </span>
+                    <span id="ipomtgs"> </span>
+                    <span>)</span>
+                </li>
             </div>
             <div id="prntomtgs">
                 <table class="twocols" id="tblomtgs">
@@ -34,7 +33,7 @@ export function showReviewpage () {
             </div>
             <div id="supervisors">
                 <li>
-                <span>Total Supervisor Hours: </span>
+                <span>Total Hours: </span>
                 <span id="iphours"></span>
                 </li>
             </div>
@@ -73,7 +72,7 @@ export function showReviewpage () {
             </div>
             <div>
                 <li>
-                <span>Total Miscellaneous Expenses (attach receipts):  $</span>
+                <span>Total Miscellaneous Expenses (attach receipts):  </span>
                 <span id="ipmisc"></span> 
                 </li>
             </div>
@@ -88,7 +87,7 @@ export function showReviewpage () {
             </div>
             <div>
                 <li>
-                <span>PERA:  </span>
+                <span>Pera:  </span>
                 <span id="ippera"></span>
                 </li>
             </div>
@@ -101,8 +100,8 @@ export function showReviewpage () {
         </ul>
     </div>
     <div class="btn" class = "flexdiv">
-        <button id="clearbutton">Back</button>
-        <button id="submitbutton">SUBMIT</button>
+        <button type="button" class="singlebutton" id="backbutton">Back</button>
+        <button class="singlebutton" id="submitbutton">SUBMIT</button>
     </div>
 `;
 return reviewcontent;

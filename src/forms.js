@@ -1,21 +1,37 @@
+import { showFormspage } from "./formspage";
 import { setupInputs } from "./inputs";
 
 export function setupForm (type, userinputs, datatables) {
+  const container = document.querySelector(".container");
+  container.innerHTML = showFormspage();
   const mytitle = document.querySelector(".title");
-  const cancelbtn = document.getElementById('cancelbutton');
+  const clearbtn = document.getElementById('cancelbutton');
   const donebtn = document.getElementById('submitbutton');
-  const nextbtn = document.getElementById('printbutton');
+  const nextbtn = document.getElementById('nextbutton');
+  const prevbtn = document.getElementById('previousbutton');
   // initialize form
   let rowcnt = 1;
+  showPrev(rowcnt, prevbtn);
   customizeBottom(type);
   customizeTitle(type, rowcnt, mytitle) ;
   inputRowdata(type, 1, datatables);
- 
-  cancelbtn.addEventListener('click', () => {
-    setupInputs(userinputs, datatables);
+  // add event listerners to buttons
+  clearbtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    clear(type);
   });
   donebtn.addEventListener('click', (e) => {
-    if (validateForm(e)) { 
+    // check if there is anything there
+    const day = document.getElementById("day").value;
+    const desc = document.getElementById("description").value;
+    if (day === null || day === "") {
+      if (desc === null || desc === "") {
+        //clear all fields and go back
+        clear(type);
+        setupInputs(userinputs, datatables);
+      }
+    }
+    else if (validateForm(e)) { 
       save(type, rowcnt, datatables, userinputs);
       setupInputs(userinputs, datatables);
     }
@@ -25,19 +41,59 @@ export function setupForm (type, userinputs, datatables) {
       // save current data
       save(type, rowcnt, datatables, userinputs);
       // update for next row
+      e.preventDefault();
       rowcnt++;
+      showPrev(rowcnt, prevbtn)
       customizeTitle(type, rowcnt, mytitle);
       inputRowdata(type, rowcnt, datatables);
     }
   });
+  prevbtn.addEventListener('click', (e) => {
+    // check if any fields have been filled in
+    const day = document.getElementById("day").value;
+    const desc = document.getElementById("description").value;
+    console.log({day}, {desc});
+    if (day === null || day === "") {
+      if (desc === null || desc === "") {
+        // then clear all fields and go back
+        clear(type);
+        e.preventDefault();
+        rowcnt = rowcnt - 1;
+        console.log({rowcnt});
+        showPrev(rowcnt, prevbtn);
+        customizeTitle(type, rowcnt, mytitle);
+        inputRowdata(type, rowcnt, datatables);
+      }
+    }
+    else {
+      if (validateForm(e)) {
+        // save the data
+        save(type, rowcnt, datatables, userinputs);
+        // update for next row
+        e.preventDefault();
+        rowcnt--;
+        showPrev(rowcnt, prevbtn)
+        customizeTitle(type, rowcnt, mytitle);
+        inputRowdata(type, rowcnt, datatables);
+      }
+    }
+  });
+}
+function showPrev (rowcnt, prevbtn) {
+  if (rowcnt <= 1) {
+    prevbtn.style.display = "none";
+  }
+  else {
+    prevbtn.style.display = "flex";
+  }
 }
 function validateForm(e) {
-    const myform = document.getElementById('myform');
-      if(!myform.checkValidity()) {
-        return false;
-      }
-      e.preventDefault();
-      return true;
+  const myform = document.getElementById('myform');
+  if(!myform.checkValidity()) {
+      return false;
+  }
+  e.preventDefault();
+  return true;
 }
 function save (type, rowcnt, datatables, userinputs)  {
   // saving results to an array
@@ -57,7 +113,7 @@ function save (type, rowcnt, datatables, userinputs)  {
       let result = document.getElementById("bmisc").value;
       if (result.startsWith("$")) {
         result = result.slice(1);
-      }inputRowdata
+      }
       myarray[2] = Number(Number(result).toFixed(2));
       break;
     case "omtgs": 
@@ -83,6 +139,8 @@ function clear (type) {
       break;
     case "omtgs": 
       break;
+    default:
+      break;
   }
 }
 function calculateTotals(type, datatables, userinputs) {
@@ -90,6 +148,7 @@ function calculateTotals(type, datatables, userinputs) {
   const myarray = datatables[type];
   if (type === "omtgs") {
     userinputs[type] = myarray.length;
+    userinputs.mtgs = userinputs.omtgs + userinputs.bmtgs;
     return;
   }
   for (let i=0; i < myarray.length; i++) {
@@ -125,6 +184,8 @@ function customizeBottom(type) {
     case "omtgs":
       desc.textContent = "Description of meeting";
       break;
+    default:
+      break;
   }
 }
 function customizeTitle (type, rowcnt, mytitle) {
@@ -140,7 +201,7 @@ function inputRowdata (type, rowcnt, datatables) {
     return;
   }
   if (myarray[i].length === 0) {
-    clear (type);
+    clear(type);
     return;
   }
   document.getElementById("day").value = myarray[i][0];
@@ -148,8 +209,9 @@ function inputRowdata (type, rowcnt, datatables) {
   switch (type) {
     case "hours": 
       const hours = Number(myarray[i][2]);
-      const hr = Number(hours.toFixed(0));
+      const hr = Math.floor(hours);
       const min = (hours - hr);
+      console.log({hours}, {hr}, {min});
       document.getElementById("hr").value = hr;
       document.getElementById("min").value = min;
       break;
@@ -161,5 +223,8 @@ function inputRowdata (type, rowcnt, datatables) {
       break;
     case "omtgs":
       break;
+    default:
+      break;
   }
+  return;
 }

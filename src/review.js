@@ -1,6 +1,4 @@
 import { showReviewpage } from './reviewpage.js';
-import { showInputspage } from './inputspage.js';
-import { showOutputspage } from './outputspage.js';
 import { setupOutputs } from './outputs.js';
 import { setupInputs } from './inputs.js';
 import { assignUserinputs } from './prints.js';
@@ -8,21 +6,17 @@ import { assignUserinputs } from './prints.js';
 export function setupReview (userinputs, datatables, userpay ) {
   const container = document.querySelector(".container");
   container.innerHTML = showReviewpage();
-
    // add event listener to when buttons are clicked
    const submitbtn = document.getElementById("submitbutton");
    submitbtn.addEventListener("click", (e) => {
-     showOutputspage(userinputs);
      setupOutputs(userinputs, datatables);
    });
-   const clearbtn = document.getElementById("clearbutton");
-   clearbtn.addEventListener("click", (e) => {
-     showInputspage(userinputs);
+   const clearbtn = document.getElementById("backbutton");
+   clearbtn.addEventListener("click", () => {
      setupInputs(userinputs, datatables);
    });
   // complete sections for all userinputs
   assignUserinputs(userinputs);
-  //assignUserpay(userpay);
   // add and complete add any needed tables
   let mytablenames = ["omtgs", "hours", "misc", "miles"];
   mytablenames.forEach(element => {
@@ -51,10 +45,7 @@ export function setupReview (userinputs, datatables, userpay ) {
       }
     }
   });
-  const printform = document.querySelector(".printform");
-  printform.style.display = "block";    
 }
-
 function addTableData(mytable, mydata) {
   for (let i=0; i < mydata.length; i++) {
     let mytr = mytable.insertRow(-1);

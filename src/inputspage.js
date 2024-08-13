@@ -1,17 +1,20 @@
 export function showInputspage() {
     const inputcontent = `
     <form id="inputform">
-        <div class="title">Quarterly Payroll Input</div> 
-        <div class="flexdiv">
-            <label for="name">Name:</label>
+    <div class="title">Quarterly Payroll Input</div>
+    <div class="gridcontainer">
+        <div class="lcol">Name:</div>
+        <div class="rcol">
+            <label for="name"></label>
             <select autocomplete = "off" id="name" required></select>
         </div>
-        <div class="flexdiv" id="hrs">
-            <label for="hours">Enter hours:</label>
+        <div class="lcol">Enter Hours:</div>
+        <div class="rcol">
+            <label for="hours"></label>
             <input autocomplete="off" type="text" step="any" id="hours" name="hours" value="0">
         </div>
-        <div class="flexdiv">
-            <legend>Haverhill board mtgs attended:</legend> 
+        <div class="lcol">Haverhill board mtgs attended:</div>
+        <div class="rcol">
             <input id = "bmtgs3" type="radio" name="bmtgs" value="3" required>
             <label for="bmtgs3">3</label>
             <input id = "bmtgs2" type="radio" name="bmtgs" value="2">
@@ -21,44 +24,47 @@ export function showInputspage() {
             <input id = "bmtgs0" type="radio" name="bmtgs" value="0">
             <label for="bmtgs0">0</label>
         </div>
-        <div class="flexdiv">
-            <label for="omtgs">Other official meetings attended:</label>
+        <div class="lcol">Other official meetings attended:</div>
+        <div class="rcol">
+            <label for="omtgs"></label>
             <input type="number" id="omtgs" name="omtgs" value="0">
         </div>
-        <div class="flexdiv">
-            <legend>Cell phone reimbursement?</legend>
+        <div class="lcol">Cell phone reimbursement?</div>
+        <div class="rcol">
             <input autocomplete="off" id = "phone1" type="radio" name="phone" value="1" required/>
             <label for = "phone1">Yes</label>
             <input autocomplete="off" id = "phone0" type="radio" name="phone" value="0"/>
             <label for = "phone0">No</label>
         </div>
-        <div class="flexdiv">
-            <legend>Internet reimbursement?</legend> 
+        <div class="lcol">Internet reimbursement?</div>
+        <div class="rcol">
             <input id = "internet1" type="radio" name="internet" value="1" required>
             <label for = "internet1">Yes</label>
             <input id = "internet0" type="radio" name="internet" value="0">
             <label for = "internet0">No</label>
         </div>
-
-        <div class="flexdiv">
-            <label for="miles">Enter reimbursement miles:</label>
+        <div class="lcol">Enter reimbursement miles:</div>
+        <div class="rcol">
+            <label for="miles"></label>
             <input type="number" step="any" id="miles" name="miles" min="0" value="0">
         </div>
-        <div class="flexdiv">
-            <label for="misc">Enter other expenses:</label>
+        <div class="lcol">Enter other expenses:</div>
+        <div class="rcol">
+            <label for="misc"></label>
             <input type="text" step="any" id="misc" name="misc" value="0">
         </div>
-        <div class="flexdiv">
-            <legend>Participant in PERA?</legend>
+        <div class="lcol">Participant in PERA?</div>
+        <div class="rcol">
             <input type="radio" id="pera1" name="pera" value="1" required>
             <label for="pera1">Yes</label>
             <input type="radio" id="pera0" name="pera" value="0" >
             <label for="pera0">No</label>
         </div>
-        <div class="btn" class = "flexdiv">
-            <button id="clearbutton">Clear</button>
-            <button id="submitbutton">REVIEW</button>
-        </div>
+    </div>
+    <div class="btn">
+        <button class="singlebutton" type="button" id="backbutton">Clear</button>
+        <button class="singlebutton" id="submitbutton">REVIEW</button>
+    </div>
     </form>
         `;
     return inputcontent;

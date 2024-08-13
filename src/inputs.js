@@ -1,7 +1,5 @@
 import { board } from './constants.js'
 import { showInputspage } from './inputspage.js';
-import { showFormspage } from './formspage.js'
-import { showReviewpage } from './reviewpage.js';
 import { setupForm } from './forms.js';
 import { setupReview} from './review.js';
 
@@ -19,37 +17,24 @@ export function setupInputs(userinputs, datatables) {
   const radiophone = document.forms["inputform"].elements['phone'];
   const radiointernet = document.forms["inputform"].elements['internet'];
   const radiopera = document.forms["inputform"].elements['pera'];
-  //let currentIndex = 0;
-  //console.log({currentIndex}, "initial");
+ 
   // add event listeners to all the inputs so can update userinputs
   nameDropdown.addEventListener('click', (e) => {
     const selectedOption = e.target;
-    //const newIndex = selectedOption.selectedIndex;
-    //let diff = newIndex - currentIndex;
-    // it goes through this function twice and I don't want to clear form if it start from null name
-    // because the user just didn't update name until after other fields so needed to check a diff
-    //if ((currentIndex !== 0) && (diff !== 0)){
-    //  clearForm(userinputs, datatables, hoursEntry, miscEntry, milesEntry, omtgsEntry);
-    //}
-    //currentIndex = newIndex;
     userinputs.name = selectedOption.value;
     userinputs.title = board[userinputs.name];
     viewHours(userinputs);
   });
   hoursEntry.addEventListener('click', () => {
-    container.innerHTML = showFormspage();
     setupForm("hours", userinputs, datatables);
   });
   miscEntry.addEventListener('click', () => {
-    container.innerHTML = showFormspage();
     setupForm("misc", userinputs, datatables)
   });
   milesEntry.addEventListener('click', () => {
-    container.innerHTML = showFormspage();
     setupForm("miles", userinputs, datatables)
   });
   omtgsEntry.addEventListener('click', () => {
-    container.innerHTML = showFormspage();
     setupForm("omtgs", userinputs, datatables)
   });  
   for (let i = 0; i < radiobmtgs.length; i++) {
@@ -81,8 +66,13 @@ export function setupInputs(userinputs, datatables) {
       return false;
     }
     e.preventDefault();
-    showReviewpage(userinputs);
     setupReview(userinputs, datatables);
+  });
+  // add event listener to when clear button is clicked
+  const clearbtn = document.getElementById("backbutton");
+  clearbtn.addEventListener("click", () => {
+    clearStoredData(userinputs,datatables);
+    clearInputs();
   });
   // assign inputs from userinputs
   hoursEntry.value = Number(userinputs.hours).toFixed(2);
@@ -104,7 +94,6 @@ function initializeDropdown(userinputs) {
     dropdown.add(opt);
   }
   // setup the username
-  //console.log(userinputs.name, userinputs.title);
   if (userinputs.name !== null) {
     for (const [key, value] of Object.entries(board)) {
       if (userinputs.name === key) {
@@ -121,14 +110,16 @@ function initializeDropdown(userinputs) {
   return dropdown;
 }
 function viewHours(userinputs) {
+  const div = document.getElementById("hours");
+  console.log({div});
   if (userinputs.title === "Supervisor") {
-    document.getElementById("hrs").style.display = "flex";
+    div.value = "0.00";
   }
   else {
-    document.getElementById("hrs").style.display = "none";
+    div.value = "N.A.";
   }
 }
-function clearForm(userinputs, datatables, hours, misc, miles, omtgs) {
+function clearStoredData(userinputs,datatables) {
   // clear all userinputs
   userinputs.name =  null;
   userinputs.title = null;
@@ -146,6 +137,10 @@ function clearForm(userinputs, datatables, hours, misc, miles, omtgs) {
   datatables.miles = [[]];
   datatables.misc =  [[]];
   datatables.omtgs = [[]];
+  // clear name
+  initializeDropdown(userinputs);
+}
+function clearInputs() {
   //clear all radiobuttons
   const myform = document.getElementById('inputform');
   const radios = document.querySelectorAll('input[type="radio"]');
@@ -153,9 +148,12 @@ function clearForm(userinputs, datatables, hours, misc, miles, omtgs) {
     radio.checked = false;
   }
   // clear all totals
-  hours.value = 0;
+  const hours = document.getElementById('hours');
+  const misc = document.getElementById('misc');
+  const miles = document.getElementById('miles');
+  const omtgs = document.getElementById('omtgs');
+  hours.value = "0.00";
   omtgs.value = 0;
-  miles.value = 0;
+  miles.value = "0.0";
   misc.value = "$0.00";
 }
-

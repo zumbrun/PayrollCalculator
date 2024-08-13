@@ -36,7 +36,7 @@ export function showPrintpage () {
     </div>
     <div id="supervisors">
         <li>
-        <span>Total Supervisor Hours: </span>
+        <span>Total Hours: </span>
         <span id="iphours"></span>
         </li>
     </div>

@@ -5,7 +5,7 @@ export function showFormspage() {
     <div class="eventdiv">Date
         <label for="day"></label>
         <input type="date" id="day" name="day" required>
-            </div>
+    </div>
     <div class="descdiv">
         <label id="desclabel"></label>
         <textarea id="description" placeholder="Enter description" required></textarea>
@@ -23,7 +23,7 @@ export function showFormspage() {
             <option value="7">7</option>
             <option value="8">8</option>
         </select>
-        <label for="min">Enter minutes:</label>
+        <label for="min">  min: </label>
         <select name="mins" id="min" required>
             <option value="0">00</option>
             <option value="0.25">15</option>
@@ -32,17 +32,18 @@ export function showFormspage() {
         </select> 
     </div>
     <div id="mymiles" class="eventdiv">
-                <label for="bmiles">Enter miles:</label>
+        <label for="bmiles">Enter miles:</label>
         <input type="number" step="0.01" id="bmiles" name="bmiles">
     </div>
     <div id="mymisc" class="eventdiv">
-                <label for="bmisc">Enter misc expense:</label>
+        <label for="bmisc">Enter misc expense:</label>
         <input type="number" min="0" step="0.01" id="bmisc" name="bmisc">
     </div>
     <div class="btn">
-    <button id="cancelbutton">Cancel</button>
-    <button id="submitbutton">Done</button>
-    <button id="printbutton">Next</button>
+        <button class="singlebutton" id="previousbutton"><</button>
+        <button class="singlebutton" id="cancelbutton">Clear</button>
+        <button class="singlebutton" id="submitbutton">Return</button>
+        <button class="singlebutton" id="nextbutton">></button>
     </div>
     </form>
     `;

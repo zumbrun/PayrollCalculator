@@ -6,8 +6,6 @@ import { showPrintpage } from './printpage.js';
 export function printPDF (userinputs, datatables, userpay ) {
   
   const container = document.querySelector(".container");
-  //container.innerHTML = showPrintpage();
-
   container.insertAdjacentHTML('afterBegin', showPrintpage());
   // clear any previous created tables
   //removeAllTables();
@@ -72,6 +70,8 @@ export function assignUserinputs (userinputs) {
     const myString = "ip" + key
     const div = document.getElementById(`${myString}`);
     if (div) {
+      //underline the responses
+      div.style.textDecoration = 'underline';
       //assign NONE if 0 else nothing
       if (Number(value) === 0) { div.textContent = "NONE" }
       else if (myString === "ipphone" || myString === "ipinternet" || myString === "ippera") { div.textContent = "YES" }

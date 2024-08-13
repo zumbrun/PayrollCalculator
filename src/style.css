@@ -1,46 +1,45 @@
 html {
   box-sizing: border-box;
+  font-size: 16px;
 }
 body {
   display: flex;
   flex-direction: column;
-  margin: 4px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
   background-color: #188f20;
   font-family: "Merriweather", sans-serif;
-  font-weight: 500;
-  font-size: smaller;
   min-height: 100vh;
-}
-.footer {
-  display:flex;
-  flex-shrink: 0;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 4px;
-  padding: 4px;
-  max-width: 350px;
+  font-size: 1.2rem;
 }
 .title {
-  display:flex;
-  flex-shrink: 0;
-  flex-wrap: wrap;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 4px;
-  padding: 4px;
-  max-width: 350px;
+  text-align: center;
+  margin: 10px 6px 15px 6px;
 }
-.container {
+.footer {
+  margin-top: auto;
+  margin-bottom: 10px;
   display:flex;
-  flex-grow: 1;
-  flex-direction: column;
   flex-wrap: wrap;
-  margin: 4px;
-  padding: 4px;
-  gap: 16px;
+  align-items: center;
+  justify-content:center;
+}
+.gridcontainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr repeat(9, 1fr) 1fr;
+  column-gap: 8px;
+  row-gap: 10px;
+  margin: 6px;
+}
+.lcol {
+  text-align: end;
+}
+.rcol {
+  text-align: left;
 }
 .flexdiv {
   display:flex;
@@ -67,13 +66,6 @@ select {
   font-size: medium;
   padding:2px;
 }
-label{
-  padding-right: 3px;
-  vertical-align: middle;
-}
-#hrs {
-  display:none;
-}
 .rates {
   display:flex;
   flex-wrap: wrap;
@@ -89,26 +81,24 @@ label{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 6px;
   margin-top: 12px;
-  font-family: "Arial";
-  font-size: medium;
+  font-weight: bold;
   gap: 20px;
+  font-family: Arial, sans-serif;
+}
+.singlebutton {
+  min-width: 40px;
+  border-radius: 6px;
+  padding: 6px;
+  color: white;
+  background-color: blue;
+  border-color: blue;
+  font-size: large;
 }
 #cancelbutton {
-  width: 70px;
-  color: white;
   background-color: red;
   border-color: red;
-  border-radius: 6px;
-  padding: 6px;
-}
-#submitbutton, #printbutton, #clearbutton{
-  width: 70px;
-  background-color: blue;
-  color: white;
-  border-color: blue;
-  border-radius: 6px;
-  padding: 6px;
 }
 table {
   width: 100%;
@@ -124,9 +114,16 @@ tr{
   height: 14px;
   border-collapse: collapse;
 }
+.reviewform {
+  background-color: white;
+  min-width: 8in;
+  padding: 10px;
+  font-size: 12px;
+}
 .printform {
   background-color: white;
   display: none;
+  font-size: 12px;
 }
 #outputtable{
   background-color: lightgray;
@@ -188,9 +185,6 @@ tr{
   margin-top: 8px;
   break-inside: avoid;
 }
-#meetingtable th:nth-child(1) {
-  width: 5%;
-}
 #supervisors {
   display: none;
 }
@@ -205,6 +199,7 @@ ul li {
 .threecols {
   border-collapse: collapse;
   border: 1px solid black;
+  font-size: 12px;
 }
 .threecols tr {
   max-height: 16px;
@@ -241,6 +236,7 @@ ul li {
   text-align: right;
 }
 .twocols {
+  font-size: 12px;
   border-collapse: collapse;
   border: 1px solid black;
   text-align: left;

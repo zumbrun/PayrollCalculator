@@ -61,8 +61,8 @@ export function showOutputspage () {
         </table>
     </div>
     <div class="btn">
-        <button id="cancelbutton">Cancel</button>
-        <button id="printbutton">Print</button>
+        <button class="singlebutton" id="backbutton">Back</button>
+        <button class="singlebutton" id="printbutton">PRINT</button>
     </div>
     `;
     return outputcontent;
