@@ -229,6 +229,10 @@ export function showPrintpage () {
         </table>
     </div>
     </div>
+    <div class="btn" class = "flexdiv">
+        <button type="button" class="singlebutton" id="backbutton">Back</button>
+        <button type="button" class="singlebutton" id="submitbutton">PRINT</button>
+    </div>
      `;
   return printcontent;
 }

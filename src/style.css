@@ -122,7 +122,7 @@ tr{
 }
 .printform {
   background-color: white;
-  display: none;
+  display: block;
 }
 #outputtable{
   background-color: lightgray;

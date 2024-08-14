@@ -1,7 +1,4 @@
 import { rates, salaries } from "./constants.js"
-import { setupReview } from "./review.js";
-import { printPDF } from './prints.js';
-import { showOutputspage } from './outputspage.js';
 
 export function setupOutputs(userinputs, datatables) {
   const userpay = {
@@ -17,21 +14,11 @@ export function setupOutputs(userinputs, datatables) {
     misc: 0,
     totalpay: 0
   }
-  const container = document.querySelector(".container");
-  container.innerHTML = showOutputspage();
-  
-  const printbtn = document.getElementById("printbutton");
-  printbtn.addEventListener("click", () => {
-    printPDF(userinputs, datatables, userpay);
-  });
-  const backbtn = document.getElementById('backbutton');
-  backbtn.addEventListener("click", () => {
-    setupReview(userinputs, datatables);
-  });
   // update userpay
   calculate(userinputs, userpay);
   // assign outputs
   assignOutputs(userpay);
+  return userpay;
 }
 function calculate (userinputs, userpay) {
   // calculate outputs
@@ -46,8 +33,6 @@ function calculate (userinputs, userpay) {
   userpay.miles = Number(( userinputs.miles * rates.mileage.rate).toFixed(2));
   userpay.misc = Number(userinputs.misc);
   userpay.totalpay = userpay.net + userpay.miles + userpay.phone + userpay.internet + userpay.misc;
-  //console.log(userinputs);
-  //console.log(userpay);
 }
 function assignOutputs (userpay) {
   const entries = Object.entries(userpay);

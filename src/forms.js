@@ -21,6 +21,7 @@ export function setupForm (type, userinputs, datatables) {
     clear(type);
   });
   donebtn.addEventListener('click', (e) => {
+    e.preventDefault();
     // check if there is anything there
     const day = document.getElementById("day").value;
     const desc = document.getElementById("description").value;

@@ -1,7 +1,7 @@
-import { board } from './constants.js'
+import { board } from './constants.js';
 import { showInputspage } from './inputspage.js';
 import { setupForm } from './forms.js';
-import { setupReview} from './review.js';
+import { setupReview} from './prints.js';
 
 export function setupInputs(userinputs, datatables) {
   const container = document.querySelector(".container");
@@ -76,7 +76,7 @@ export function setupInputs(userinputs, datatables) {
     clearInputs();
   });
   // assign inputs from userinputs
-  hoursEntry.value = Number(userinputs.hours).toFixed(2);
+  //hoursEntry.value = Number(userinputs.hours).toFixed(2);
   milesEntry.value = Number(userinputs.miles).toFixed(1);
   miscEntry.value = "$ " + Number(userinputs.misc).toFixed(2);
   omtgsEntry.value = userinputs.omtgs;
