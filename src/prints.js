@@ -59,6 +59,7 @@ export function printPDF (userinputs, datatables, userpay ) {
     y: 0,
     width: 190,
     windowWidth: 675,
+    fontSize: 8,
   });  
 }
 export function assignUserinputs (userinputs) {
@@ -72,7 +73,7 @@ export function assignUserinputs (userinputs) {
     if (div) {
       //underline the responses
       div.style.textDecoration = 'underline';
-      //assign NONE if 0 else nothing
+      //assign NO if 0 else nothing
       if (Number(value) === 0) { div.textContent = "NONE" }
       else if (myString === "ipphone" || myString === "ipinternet" || myString === "ippera") { div.textContent = "YES" }
       else {

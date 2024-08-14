@@ -148,7 +148,7 @@ function calculateTotals(type, datatables, userinputs) {
   const myarray = datatables[type];
   if (type === "omtgs") {
     userinputs[type] = myarray.length;
-    userinputs.mtgs = userinputs.omtgs + userinputs.bmtgs;
+    userinputs.mtgs = Number(userinputs.omtgs) + Number(userinputs.bmtgs);
     return;
   }
   for (let i=0; i < myarray.length; i++) {

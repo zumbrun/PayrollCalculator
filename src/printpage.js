@@ -13,18 +13,14 @@ export function showPrintpage () {
         </li>
     </div>
     <div class="flexrow">
-        <div>
-            <span>Total Meetings:</span>
+        <li>
+            <span>Total Meetings: </span>
             <span id="ipmtgs"></span>
-        </div>
-        <div>
-            <span>Haverhill board meetings:</span>
+            <span>&nbsp;&nbsp;=&nbsp;&nbsp;Haverhill board meetings: </span>
             <span id="ipbmtgs"></span>
-        </div>
-        <div>
-            <span>Other official meetings:</span>
+            <span>&nbsp;&nbsp;+&nbsp;&nbsp;Other official meetings: </span>
             <span id="ipomtgs"></span>
-        </div>
+        </li>
     </div>
     <div id="prntomtgs">
         <table class="twocols" id="tblomtgs">

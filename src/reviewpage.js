@@ -14,13 +14,11 @@ export function showReviewpage () {
                 <li>
                     <span>Total Meetings: </span>
                     <span id="ipmtgs"></span>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <span>( Haverhill: </span>
+                    <span>&nbsp;&nbsp;=&nbsp;&nbsp;Haverhill Brd: </span>
                     <span id="ipbmtgs"></span>
                     <span>&nbsp;&nbsp;+&nbsp;&nbsp;</span>
-                    <span>Other: </span>
+                    <span>Other Mtgs: </span>
                     <span id="ipomtgs"> </span>
-                    <span>)</span>
                 </li>
             </div>
             <div id="prntomtgs">
