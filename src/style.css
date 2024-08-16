@@ -114,15 +114,13 @@ tr{
   height: 14px;
   border-collapse: collapse;
 }
-.reviewform {
-  background-color: white;
-  min-width: 8in;
-  padding: 10px;
-  font-size: 12px;
-}
 .printform {
   background-color: white;
   display: block;
+  padding: 8px;
+}
+.signature {
+  margin-top: 8px;
 }
 #outputtable{
   background-color: lightgray;

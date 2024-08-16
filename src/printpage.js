@@ -32,8 +32,8 @@ export function showPrintpage () {
     </div>
     <div id="supervisors">
         <li>
-        <span>Total Hours: </span>
-        <span id="iphours"></span>
+            <span>Total Hours: </span>
+            <span id="iphours"></span>
         </li>
     </div>
     <div id="prnthours">
@@ -47,9 +47,8 @@ export function showPrintpage () {
     </div>
     <div>
         <li>
-        <span>Total Miles: </span>
-        <span id="ipmiles"></span>
-
+            <span>Total Miles: </span>
+            <span id="ipmiles"></span>
         </li>
     </div>
     <div id="prntmiles">
@@ -63,16 +62,16 @@ export function showPrintpage () {
     </div>
     <div>
         <li>
-        <span>Phone Reimbursement:   </span>
-        <span id="ipphone"></span>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Internet Reimbursement:   </span>
-        <span id="ipinternet"></span>
+            <span>Phone Reimbursement:   </span>
+            <span id="ipphone"></span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Internet Reimbursement:   </span>
+            <span id="ipinternet"></span>
         </li>
     </div>
     <div>
         <li>
-        <span>Total Miscellaneous Expenses (attach receipts):  $</span>
-        <span id="ipmisc"></span> 
+            <span>Total Miscellaneous Expenses (attach receipts):  $</span>
+            <span id="ipmisc"></span> 
         </li>
     </div>
     <div id="prntmisc">
@@ -84,10 +83,10 @@ export function showPrintpage () {
             </tr>
         </table>
     </div>
-    <div>
+    <div id="signature">
         <li>
-        <span>Signature: ______________________________________  Date:  </span>
-        <span id="ipdate"></span>
+            <span>Signature: ______________________________________  Date:  </span>
+            <span id="ipdate"></span>
         </li>
     </div>
     </ul>

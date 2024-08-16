@@ -1,7 +1,7 @@
 export function showFormspage() {
     const mycontent = `
-    <form id="myform">
-    <div class="title"></div>
+    <div class="title" id="title"></div>
+    <div class="title" id="rowtitle"></div>
     <div class="eventdiv">Date
         <label for="day"></label>
         <input type="date" id="day" name="day" required>
@@ -45,7 +45,6 @@ export function showFormspage() {
         <button class="singlebutton" id="submitbutton">Return</button>
         <button class="singlebutton" id="nextbutton">></button>
     </div>
-    </form>
     `;
     return mycontent;
 }

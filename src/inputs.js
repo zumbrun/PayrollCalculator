@@ -21,9 +21,15 @@ export function setupInputs(userinputs, datatables) {
   // add event listeners to all the inputs so can update userinputs
   nameDropdown.addEventListener('click', (e) => {
     const selectedOption = e.target;
-    userinputs.name = selectedOption.value;
-    userinputs.title = board[userinputs.name];
-    viewHours(userinputs);
+    if (selectedOption !== 0) {
+      userinputs.name = selectedOption.value;
+      userinputs.title = board[userinputs.name];
+    }
+    else {
+      userinputs.name = null;
+      userinputs.title = null;
+    }
+    hoursEntry.value = updateHours(userinputs);
   });
   hoursEntry.addEventListener('click', () => {
     setupForm("hours", userinputs, datatables);
@@ -76,7 +82,7 @@ export function setupInputs(userinputs, datatables) {
     clearInputs();
   });
   // assign inputs from userinputs
-  //hoursEntry.value = Number(userinputs.hours).toFixed(2);
+  hoursEntry.value = updateHours(userinputs);
   milesEntry.value = Number(userinputs.miles).toFixed(1);
   miscEntry.value = "$ " + Number(userinputs.misc).toFixed(2);
   omtgsEntry.value = userinputs.omtgs;
@@ -100,26 +106,26 @@ function initializeDropdown(userinputs) {
       if (userinputs.name === key) {
         dropdown.value = key;
         userinputs.title = board[userinputs.name];
-        viewHours(userinputs);
       }
     }
   }
-  else {
-    dropdown.selectedOption = 0;
-  }
-  // setup the title
   return dropdown;
 }
-function viewHours(userinputs) {
-  const div = document.getElementById("hours");
-  console.log({div});
-  if (userinputs.title === "Supervisor") {
-    div.value = userinputs.hours;
+function updateHours(userinputs) {
+  let hours = "";  
+  if (userinputs.name) {
+    if (userinputs.title === "Supervisor") {
+      hours = Number(userinputs.hours).toFixed(2);
+    }
+    else {
+      hours = "N.A.";
+      userinputs.hours = 0;
+    }
   }
   else {
-    div.value = "N.A.";
-    userinputs.hours = 0;
+    hours = Number(userinputs.hours).toFixed(2);
   }
+  return hours;
 }
 function clearStoredData(userinputs,datatables) {
   // clear all userinputs

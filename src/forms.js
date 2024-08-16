@@ -4,79 +4,66 @@ import { setupInputs } from "./inputs";
 export function setupForm (type, userinputs, datatables) {
   const container = document.querySelector(".container");
   container.innerHTML = showFormspage();
-  const mytitle = document.querySelector(".title");
   const clearbtn = document.getElementById('cancelbutton');
   const donebtn = document.getElementById('submitbutton');
   const nextbtn = document.getElementById('nextbutton');
   const prevbtn = document.getElementById('previousbutton');
   // initialize form
   let rowcnt = 1;
-  showPrev(rowcnt, prevbtn);
+  setTitle(type);
   customizeBottom(type);
-  customizeTitle(type, rowcnt, mytitle) ;
-  inputRowdata(type, 1, datatables);
+  setupRow(rowcnt, prevbtn, type, datatables);
   // add event listerners to buttons
-  clearbtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    clear(type);
-  });
-  donebtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    // check if there is anything there
-    const day = document.getElementById("day").value;
-    const desc = document.getElementById("description").value;
-    if (day === null || day === "") {
-      if (desc === null || desc === "") {
-        //clear all fields and go back
-        clear(type);
-        setupInputs(userinputs, datatables);
-      }
+  clearbtn.addEventListener('click', () => {
+    datatables[type] = removeRow(datatables[type], rowcnt);
+    calculateTotals(type, datatables, userinputs);
+    if (datatables[type].length === 0) {
+      clear(type);
     }
-    else if (validateForm(e)) { 
+    else {
+      setupRow(rowcnt, prevbtn, type, datatables);
+    }
+  });
+  donebtn.addEventListener('click', () => {
+    let array = checkInputs(type);
+    if (array.length === 0 ) {
+      // form is complete
       save(type, rowcnt, datatables, userinputs);
       setupInputs(userinputs, datatables);
     }
-  });
-  nextbtn.addEventListener('click', (e) => {
-    if (validateForm(e)) { 
-      // save current data
-      save(type, rowcnt, datatables, userinputs);
-      // update for next row
-      e.preventDefault();
-      rowcnt++;
-      showPrev(rowcnt, prevbtn)
-      customizeTitle(type, rowcnt, mytitle);
-      inputRowdata(type, rowcnt, datatables);
-    }
-  });
-  prevbtn.addEventListener('click', (e) => {
-    // check if any fields have been filled in
-    const day = document.getElementById("day").value;
-    const desc = document.getElementById("description").value;
-    console.log({day}, {desc});
-    if (day === null || day === "") {
-      if (desc === null || desc === "") {
-        // then clear all fields and go back
-        clear(type);
-        e.preventDefault();
-        rowcnt = rowcnt - 1;
-        console.log({rowcnt});
-        showPrev(rowcnt, prevbtn);
-        customizeTitle(type, rowcnt, mytitle);
-        inputRowdata(type, rowcnt, datatables);
-      }
+    else if (array.length === 3 ) {
+      // form is blank
+      setupInputs(userinputs, datatables);
     }
     else {
-      if (validateForm(e)) {
-        // save the data
-        save(type, rowcnt, datatables, userinputs);
-        // update for next row
-        e.preventDefault();
-        rowcnt--;
-        showPrev(rowcnt, prevbtn)
-        customizeTitle(type, rowcnt, mytitle);
-        inputRowdata(type, rowcnt, datatables);
-      }
+      alert("Please complete " + array[0]);
+    }
+  });
+  nextbtn.addEventListener('click', () => {
+    let array = checkInputs(type);
+    if (array.length === 0 ) {
+      save(type, rowcnt, datatables, userinputs);
+      rowcnt++;
+      setupRow(rowcnt, prevbtn, type, datatables);
+    }
+    else {
+      alert("Please complete " + array[0]);
+    }
+  });
+  prevbtn.addEventListener('click', () => {
+    let array = checkInputs(type);
+    if (array.length === 0 ) {
+      save(type, rowcnt, datatables, userinputs);
+      rowcnt--;
+      setupRow(rowcnt, prevbtn, type, datatables);
+    }
+    else if (array.length === 3 ) {
+      // form is blank
+      rowcnt--;
+      setupRow(rowcnt, prevbtn, type, datatables);
+    }
+    else {
+      alert("Please complete " + array[0]);
     }
   });
 }
@@ -87,14 +74,6 @@ function showPrev (rowcnt, prevbtn) {
   else {
     prevbtn.style.display = "flex";
   }
-}
-function validateForm(e) {
-  const myform = document.getElementById('myform');
-  if(!myform.checkValidity()) {
-      return false;
-  }
-  e.preventDefault();
-  return true;
 }
 function save (type, rowcnt, datatables, userinputs)  {
   // saving results to an array
@@ -122,7 +101,6 @@ function save (type, rowcnt, datatables, userinputs)  {
   }
   datatables[type][rowcnt-1] = myarray;
   calculateTotals(type, datatables, userinputs);
-  return ;
 }
 function clear (type) {
   document.getElementById("day").value = "";
@@ -155,7 +133,7 @@ function calculateTotals(type, datatables, userinputs) {
   for (let i=0; i < myarray.length; i++) {
     total = total + myarray[i][2];
   }
-  userinputs[type] = Number(total.toFixed(2));
+  userinputs[type] = total;
 }
 function customizeBottom(type) {
   const hoursdiv = document.getElementById("myhours");
@@ -175,12 +153,10 @@ function customizeBottom(type) {
     case "miles": 
       desc.textContent = "Reason for mileage";
       milesdiv.style.display = "flex";
-      document.getElementById("bmiles").attributes.required = true;
       break;
     case "misc": 
       desc.textContent = "Description of expense";
       miscdiv.style.display = "flex";
-      document.getElementById("bmisc").attributes.required = true;
       break;
     case "omtgs":
       desc.textContent = "Description of meeting";
@@ -189,19 +165,22 @@ function customizeBottom(type) {
       break;
   }
 }
-function customizeTitle (type, rowcnt, mytitle) {
-  let str = type + " - row " + rowcnt.toString();
+function setTitle (type) {
+  const mytitle = document.getElementById("title");
+  let str = type;
+  if (type === "omtgs") {str = "Other Meetings"}
   mytitle.textContent = str.charAt(0).toUpperCase() + str.slice(1);
+}
+function setupRow (rowcnt, prevbtn, type, datatables) {
+  const myrow = document.getElementById("rowtitle");
+  myrow.textContent = "Row " + rowcnt.toString();
+  showPrev(rowcnt, prevbtn);
+  inputRowdata(type, rowcnt, datatables);
 }
 function inputRowdata (type, rowcnt, datatables) {
   let i = rowcnt - 1;
   let myarray = datatables[type];
-  //console.log({myarray}, myarray.length, {rowcnt});
-  if (myarray.length < rowcnt) {
-    clear(type);
-    return;
-  }
-  if (myarray[i].length === 0) {
+  if (myarray.length < rowcnt || myarray[i].length === 0) {
     clear(type);
     return;
   }
@@ -212,15 +191,14 @@ function inputRowdata (type, rowcnt, datatables) {
       const hours = Number(myarray[i][2]);
       const hr = Math.floor(hours);
       const min = (hours - hr);
-      console.log({hours}, {hr}, {min});
       document.getElementById("hr").value = hr;
       document.getElementById("min").value = min;
       break;
     case "miles": 
-      document.getElementById("bmiles").value = myarray[i][2];
+      document.getElementById("bmiles").value = myarray[i][2].toFixed(1);
       break;
     case "misc":
-      document.getElementById("bmisc").value = myarray[i][2];
+      document.getElementById("bmisc").value = myarray[i][2].toFixed(2);
       break;
     case "omtgs":
       break;
@@ -228,4 +206,48 @@ function inputRowdata (type, rowcnt, datatables) {
       break;
   }
   return;
+}
+function removeRow(array, index) {
+  if (array.length <= 1) {
+    array.length = 0;
+    return array;
+  }
+  const newArray = [];
+  // copy rows before the removed row
+  for (let i = 0; i < index; i++) {
+    newArray.push(array[i]);
+  }
+  for (let i = index + 1; i < array.length; i++) {
+    newArray.push(array[i]);
+  }
+  console.log({newArray});
+  return newArray;
+}
+function checkInputs(type) {
+  let array = [];
+  if (!document.getElementById("day").value) {array.push("date")};
+  if (!document.getElementById("description").value) {array.push("description")};
+  switch (type) {
+    case "hours": 
+      const hr = Number(document.getElementById('hr').value);
+      const min = Number(document.getElementById('min').value);
+      if (hr + min === 0) {
+        array.push("hours");
+      }
+      break;
+    case "miles": 
+      if (!document.getElementById("bmiles").value) { array.push("miles") }
+      break;
+    case "misc": 
+      if (!document.getElementById("bmisc").value) { array.push("misc expense")}
+      break;
+    case "omtgs": 
+      if (array.length === 2) {
+        //make it appear to be blank
+        array.push("omtgs");
+      }
+      break;
+  }
+  console.log({array});
+  return array;
 }

@@ -7,7 +7,6 @@ import { setupOutputs } from "./outputs.js";
 export function setupReview(userinputs, datatables) {
   const container = document.querySelector(".container");
   container.innerHTML = showPrintpage();
-  //container.insertAdjacentHTML('afterBegin', showPrintpage());
   // complete prnt sections for all userinputs and userpay
   const userpay = setupOutputs(userinputs, datatables);
   assignUserinputs(userinputs, userpay);
@@ -28,7 +27,7 @@ export function setupReview(userinputs, datatables) {
       //add css styling depending on column length
       if (mytable.rows[0].cells.length > 2) {
         mytable.classList.add("threecols");
-        if (mytable.rows.length > 2) {
+        if (mytable.rows.length > 1) {
           mytable = addTotalRow(mytable, userinputs[element]);
         }
         if (element === "misc") { mytable = formatCurrency(mytable)}
@@ -117,7 +116,7 @@ function addTableData(mytable, mydata) {
 }
 function formatCurrency(mytable) {
   for (let i=1; i < mytable.rows.length; i++) {
-    mytable.rows[i].cells[2].textContent = "$" + mytable.rows[i].cells[2].textContent;
+    mytable.rows[i].cells[2].textContent = "$" + Number(mytable.rows[i].cells[2].textContent).toFixed(2);
   }
   return mytable;
 }
@@ -126,10 +125,10 @@ function formatFixed(mytable, n) {
   for (let i=1; i < mytable.rows.length; i++) {
     str = mytable.rows[i].cells[2].textContent;
     str = str + "0001";
-    if (n=1) {
+    if (n === 1) {
       str = Number(mytable.rows[i].cells[2].textContent).toFixed(1);
     }
-    if (n=2) {
+    else {
       str = Number(mytable.rows[i].cells[2].textContent).toFixed(2);
     }
     mytable.rows[i].cells[2].textContent = str;
