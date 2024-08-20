@@ -19,6 +19,7 @@ const userinputs = {
     internet: null,
     miles: 0,
     misc:0,
+    signature: null,
   }
   const datatables = {
     hours: [[]],

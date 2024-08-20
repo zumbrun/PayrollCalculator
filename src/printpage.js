@@ -83,9 +83,11 @@ export function showPrintpage () {
             </tr>
         </table>
     </div>
-    <div id="signature">
-        <li>
-            <span>Signature: ______________________________________  Date:  </span>
+    <div>
+        <li id="signaturelist">
+            <span>Signature: </span>
+            <div class="signature"></div>
+            <span> Date:  </span>
             <span id="ipdate"></span>
         </li>
     </div>
@@ -230,7 +232,8 @@ export function showPrintpage () {
     </div>
     <div class="btn" class = "flexdiv">
         <button type="button" class="singlebutton" id="backbutton">Back</button>
-        <button type="button" class="singlebutton" id="submitbutton">PRINT</button>
+        <button type="button" class="singlebutton" id="submitbutton">SIGN</button>
+        <button class="singlebutton" id="printbutton">PRINT</button>
     </div>
      `;
   return printcontent;

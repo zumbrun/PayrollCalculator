@@ -140,6 +140,7 @@ function clearStoredData(userinputs,datatables) {
   userinputs.internet = null;
   userinputs.miles = 0;
   userinputs.misc = 0;
+  userinputs.signature=null;
   // clear all datatables
   datatables.hours = [[]];
   datatables.miles = [[]];

@@ -3,6 +3,7 @@ import { rates, salaries } from './constants.js';
 import { showPrintpage } from './printpage.js';
 import { setupInputs } from "./inputs.js";
 import { setupOutputs } from "./outputs.js";
+import { setupSign } from "./sign.js";
 
 export function setupReview(userinputs, datatables) {
   const container = document.querySelector(".container");
@@ -44,14 +45,19 @@ export function setupReview(userinputs, datatables) {
   createSalaryTable();
 // add event listener to when buttons are clicked
    const submitbtn = document.getElementById("submitbutton");
-   submitbtn.addEventListener("click", (e) => {
-    e.preventDefault();
-     printPDF(userinputs);
+   submitbtn.addEventListener("click", () => {
+    //e.preventDefault();
+    setupSign(userinputs, datatables);
+    // printPDF(userinputs);
    });
    const clearbtn = document.getElementById("backbutton");
-   clearbtn.addEventListener("click", (e) => {
-    e.preventDefault();
+   clearbtn.addEventListener("click", () => {
+    //e.preventDefault();
     setupInputs(userinputs, datatables);
+   });
+   const printbtn = document.getElementById("printbutton");
+   printbtn.addEventListener("click", (e) => {
+    printPDF(userinputs);;
    });
 }
 export function printPDF (userinputs) {
@@ -70,7 +76,8 @@ export function printPDF (userinputs) {
     width: 190,
     windowWidth: 675,
     fontSize: 8,
-  });  
+  });
+  window.location.href = ('https://haverhilltwp.org');  
 }
 export function assignUserinputs (userinputs) {
   let item = document.getElementById("supervisors");
@@ -91,8 +98,15 @@ export function assignUserinputs (userinputs) {
       }
     }
   };
-  const div = document.getElementById('ipdate');
-  div.textContent = Intl.DateTimeFormat('en').format(new Date());
+  if (userinputs.signature) {
+    console.log("userinputs.signature");
+    let img = new Image();
+    img.src = userinputs.signature;
+    img.classList.add("image");
+    document.querySelector('.signature').appendChild(img);
+  }
+  let mydate = document.getElementById('ipdate');
+  mydate.textContent = Intl.DateTimeFormat('en').format(new Date());
 }
 function assignUserpay (userpay) {
   const entries = Object.entries(userpay);
