@@ -68,6 +68,7 @@ export function printPDF (userinputs) {
   doc.html(printform.innerHTML, {
     callback: function(doc) {
       doc.save(`${userinputs.name}` + '_payroll.pdf');
+      window(close);
     },
     margin:[10,10,10,10],
     autoPaging: 'text',
@@ -77,6 +78,7 @@ export function printPDF (userinputs) {
     windowWidth: 675,
     fontSize: 8,
   });
+
 }
 export function assignUserinputs (userinputs) {
   let item = document.getElementById("supervisors");
