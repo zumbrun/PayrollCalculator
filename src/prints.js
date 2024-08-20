@@ -77,7 +77,6 @@ export function printPDF (userinputs) {
     windowWidth: 675,
     fontSize: 8,
   });
-  window.location.href = ('https://haverhilltwp.org');  
 }
 export function assignUserinputs (userinputs) {
   let item = document.getElementById("supervisors");
