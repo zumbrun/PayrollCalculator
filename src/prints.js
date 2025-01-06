@@ -61,16 +61,16 @@ export function setupReview(userinputs, datatables) {
    });
 }
 export function printPDF (userinputs) {
-  const doc = new jsPDF();
+  const doc = new jsPDF('p', 'pt', [612.0, 792.0]);
 
   const printform = document.querySelector(".printform");
 
   doc.html(printform.innerHTML, {
     callback: function(doc) {
       doc.save(`${userinputs.name}` + '_payroll.pdf');
-      window(close);
+      window.close();
     },
-    margin:[10,10,10,10],
+    margin:[20,20,20,20],
     autoPaging: 'text',
     x: 0,
     y: 0,
