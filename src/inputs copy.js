@@ -29,23 +29,24 @@ export function setupInputs(userinputs, datatables) {
       userinputs.name = null;
       userinputs.title = null;
     }
+    hoursEntry.value = updateHours(userinputs);
   });
   hoursEntry.addEventListener('click', () => {
     setupForm("hours", userinputs, datatables);
   });
-  milesEntry.addEventListener('click', () => {
-    setupForm("miles", userinputs, datatables)
-  });
   miscEntry.addEventListener('click', () => {
     setupForm("misc", userinputs, datatables)
+  });
+  milesEntry.addEventListener('click', () => {
+    setupForm("miles", userinputs, datatables)
   });
   omtgsEntry.addEventListener('click', () => {
     setupForm("omtgs", userinputs, datatables)
   });  
   for (let i = 0; i < radiobmtgs.length; i++) {
     radiobmtgs[i].addEventListener("click", () => {
-      userinputs.bmtgs = Number(radiobmtgs[i].value);
-      userinputs.mtgs = userinputs.bmtgs + userinputs.omtgs;
+      userinputs.bmtgs = radiobmtgs[i].value;
+      userinputs.mtgs = Number(userinputs.bmtgs) + Number(userinputs.omtgs);
     });
   }
   for (let i = 0; i < radiophone.length; i++) {
@@ -78,13 +79,12 @@ export function setupInputs(userinputs, datatables) {
   clearbtn.addEventListener("click", (e) => {
     e.preventDefault();
     clearStoredData(userinputs,datatables);
-    clearRadioButtons();
-    setupInputs(userinputs, datatables);
+    clearInputs();
   });
   // assign inputs from userinputs
-  hoursEntry.value = userinputs.hours.toFixed(2);
-  milesEntry.value = userinputs.miles;
-  miscEntry.value = "$ " + userinputs.misc.toFixed(2);
+  hoursEntry.value = updateHours(userinputs);
+  milesEntry.value = Number(userinputs.miles).toFixed(1);
+  miscEntry.value = "$ " + Number(userinputs.misc).toFixed(2);
   omtgsEntry.value = userinputs.omtgs;
   radiobmtgs.value = userinputs.bmtgs;
   radiointernet.value = userinputs.internet;
@@ -111,36 +111,58 @@ function initializeDropdown(userinputs) {
   }
   return dropdown;
 }
+function updateHours(userinputs) {
+  let hours = "";  
+  if (userinputs.name) {
+    if (userinputs.title === "Supervisor") {
+      hours = Number(userinputs.hours).toFixed(2);
+    }
+    else {
+      hours = "N.A.";
+      userinputs.hours = 0;
+    }
+  }
+  else {
+    hours = Number(userinputs.hours).toFixed(2);
+  }
+  return hours;
+}
 function clearStoredData(userinputs,datatables) {
   // clear all userinputs
   userinputs.name =  null;
   userinputs.title = null;
   userinputs.hours = 0;
-  userinputs.hoursmiles = 0;
   userinputs.bmtgs = null;
   userinputs.omtgs = 0;
-  userinputs.omtgsmiles = 0;
   userinputs.mtgs = 0;
   userinputs.pera = null;
   userinputs.phone = null;
   userinputs.internet = null;
-  userinputs.milesother = 0;
   userinputs.miles = 0;
   userinputs.misc = 0;
   userinputs.signature=null;
   // clear all datatables
-  datatables.hours = [];
-  datatables.miles = [];
-  datatables.misc =  [];
-  datatables.omtgs = [];
+  datatables.hours = [[]];
+  datatables.miles = [[]];
+  datatables.misc =  [[]];
+  datatables.omtgs = [[]];
   // clear name
   initializeDropdown(userinputs);
 }
-function clearRadioButtons() {
+function clearInputs() {
   //clear all radiobuttons
   const myform = document.getElementById('inputform');
   const radios = document.querySelectorAll('input[type="radio"]');
   for (const radio of radios) {
     radio.checked = false;
   }
+  // clear all totals
+  const hours = document.getElementById('hours');
+  const misc = document.getElementById('misc');
+  const miles = document.getElementById('miles');
+  const omtgs = document.getElementById('omtgs');
+  hours.value = "0.00";
+  omtgs.value = 0;
+  miles.value = "0.0";
+  misc.value = "$0.00";
 }

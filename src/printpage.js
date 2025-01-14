@@ -23,11 +23,23 @@ export function showPrintpage () {
         </li>
     </div>
     <div id="prntomtgs">
-        <table class="twocols" id="tblomtgs">
-            <tr>
-                <th>Date</th>
-                <th>Description of Other Official Meetings</th>
-            </tr>
+        <table class="threecols" id="tblomtgs">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description of Other Official Meetings</th>
+                    <th>Miles</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr class="totalrow">
+                    <td>TOTAL</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
     <div id="supervisors">
@@ -37,12 +49,25 @@ export function showPrintpage () {
         </li>
     </div>
     <div id="prnthours">
-        <table class="threecols" id="tblhours">
-            <tr>
-                <th>Date</th>
-                <th>Description of Work</th>
-                <th>Hours</th>
-            </tr>
+        <table class="fourcols" id="tblhours">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description of Work</th>
+                    <th>Hours</th>
+                    <th>Miles</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr class="totalrow">
+                    <td></td>
+                    <td>TOTALS</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
     <div>
@@ -53,11 +78,23 @@ export function showPrintpage () {
     </div>
     <div id="prntmiles">
         <table class="threecols" id="tblmiles">
-            <tr>
-                <th>Date</th>
-                <th>Description of Travel</th>
-                <th>Miles</th>
-            </tr>
+            <thead>
+                <caption>Other Mileage</caption>
+                <tr>
+                    <th>Date</th>
+                    <th>Description of Travel</th>
+                    <th>Miles</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr class="totalrow">
+                    <td></td>
+                    <td>TOTALS</td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
     <div>
@@ -76,11 +113,22 @@ export function showPrintpage () {
     </div>
     <div id="prntmisc">
         <table class="threecols" id="tblmisc">
-            <tr>
-                <th>Date</th>
-                <th>Description of Item</th>
-                <th>Expense</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description of Item</th>
+                    <th>Expense</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr class="totalrow">
+                    <td></td>
+                    <td>TOTALS</td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
     <div>

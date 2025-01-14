@@ -1,6 +1,6 @@
 import { rates, salaries } from "./constants.js"
 
-export function setupOutputs(userinputs, datatables) {
+export function setupOutputs(userinputs) {
   const userpay = {
     mtgs: 0,
     salary: 0,
@@ -23,7 +23,8 @@ export function setupOutputs(userinputs, datatables) {
 function calculate (userinputs, userpay) {
   // calculate outputs
   userpay.salary = getSalary(userinputs);
-  userpay.mtgs = Number((( Number(userinputs.bmtgs) + Number(userinputs.omtgs)) * rates.meetings.rate).toFixed(2));
+  userpay.mtgs = Number((userinputs.mtgs*rates.meetings.rate).toFixed(2));
+  //userpay.mtgs = Number((( Number(userinputs.bmtgs) + Number(userinputs.omtgs)) * rates.meetings.rate).toFixed(2));
   userpay.totalwage = userpay.salary + userpay.mtgs;
   userpay.pera = Number(( -1 * userpay.totalwage * rates.pera.rate * userinputs.pera).toFixed(2));
   userpay.medicare = Number(( -1 * userpay.totalwage * rates.medicare.rate ).toFixed(2));

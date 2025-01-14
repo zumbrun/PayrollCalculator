@@ -55,6 +55,10 @@ body {
   justify-content: space-between;
   margin-bottom: 0px;
 }
+.ip {
+  padding: 2px;
+  border: none;
+}
 input {
   text-align: center;
   min-width: 25px;
@@ -100,18 +104,23 @@ select {
   background-color: red;
   border-color: red;
 }
+#trashbutton, #addbutton {
+  border: none;
+  padding: 2px;
+}
 table {
   width: 100%;
   border: 1px solid black;
   border-collapse: collapse;
+  background-color: white;
 }
-th, td{
-  padding: 8px;
+th, td {
+  padding: 2px;
   border-collapse: collapse;
   border: 1px solid black;
 }
 tr{
-  height: 14px;
+  height: 12px;
   border-collapse: collapse;
 }
 .printform {
@@ -184,7 +193,7 @@ tr{
   break-inside: avoid;
 }
 #supervisors {
-  display: none;
+  display: block;
 }
 ul {
   list-style-type: none;
@@ -195,13 +204,12 @@ ul li {
   padding-bottom: 10px;
   font-size: 12px;
 }
-.threecols {
-  border-collapse: collapse;
-  border: 1px solid black;
+.threecols, .fourcols {
   font-size: 12px;
+  text-align: left;
 }
-.threecols tr {
-  max-height: 16px;
+.threecols tr, .fourcols tr {
+  max-height: 14px;
 }
 .threecols th:nth-child(1) {
   width: 15%;
@@ -224,6 +232,22 @@ ul li {
 .threecols td:nth-child(3) {
   text-align: right;
 }
+.fourcols th:nth-child(1) {
+  width: 15%;
+  text-align: left;
+}
+.fourcols th:nth-child(2) {
+  text-align: left;
+  width: 65%;
+}
+.fourcols th:nth-child(3) {
+  text-align: right;
+  width: 10%;
+}
+.fourcols th:nth-child(4) {
+  text-align: right;
+  width: 10%;
+}
 .totalrow td:nth-child(1){
   border-right: none;
 }
@@ -234,17 +258,8 @@ ul li {
 .totalrow td:nth-child(3){
   text-align: right;
 }
-.twocols {
-  font-size: 12px;
-  border-collapse: collapse;
-  border: 1px solid black;
-  text-align: left;
-}
-.twocols th:nth-child(1) {
-  width: 15%;
-}
-.twocols th:nth-child(2) {
-  width: 85%;
+.totalrow td:nth-child(4){
+  text-align: right;
 }
 #signatureCanvas {
   background-color: white;
@@ -267,6 +282,10 @@ ul li {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+.mysvg {
+  width: 15px;
+  height: 15px;
 }
 #signaturelist {
   padding: 0px;

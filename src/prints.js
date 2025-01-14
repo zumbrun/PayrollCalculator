@@ -9,35 +9,22 @@ export function setupReview(userinputs, datatables) {
   const container = document.querySelector(".container");
   container.innerHTML = showPrintpage();
   // complete prnt sections for all userinputs and userpay
-  const userpay = setupOutputs(userinputs, datatables);
+  const userpay = setupOutputs(userinputs);
   assignUserinputs(userinputs, userpay);
   assignUserpay(userpay);
   // add and complete add any needed tables
-  let mytablenames = ["omtgs", "hours", "misc", "miles"];
-  mytablenames.forEach(element => {
-    let myid = 'prnt' + element;
+  let types = ["omtgs", "hours", "misc", "miles"];
+  types.forEach(type => {
+    let myid = 'prnt' + type;
     let div = document.getElementById(`${myid}`);
     div.style.display = "none";
-    if (userinputs[element] > 0) {
+    if (datatables[type].length > 0) {
       div.style.display = "block";
-      // add data to table
-      const str = "tbl" + element;
+      // get table
+      const str = "tbl" + type;
       let mytable = document.getElementById(`${str}`);
-      mytable = deleteTableRows(mytable);
-      mytable = addTableData(mytable, datatables[element]);
-      //add css styling depending on column length
-      if (mytable.rows[0].cells.length > 2) {
-        mytable.classList.add("threecols");
-        if (mytable.rows.length > 1) {
-          mytable = addTotalRow(mytable, userinputs[element]);
-        }
-        if (element === "misc") { mytable = formatCurrency(mytable)}
-        else if (element === "miles") {mytable = formatFixed(mytable, 1)}
-        else if (element === "hours") {mytable = formatFixed(mytable, 2)}
-      }
-      else {
-        mytable.classList.add("twocols");
-      }
+      mytable = addTableData(type, mytable, datatables[type]);
+      mytable = fillFooterRow(type, mytable, userinputs);
     }
   }); 
  // assign the rate and salary reference tables
@@ -81,9 +68,6 @@ export function printPDF (userinputs) {
 
 }
 export function assignUserinputs (userinputs) {
-  let item = document.getElementById("supervisors");
-  if (userinputs.title === "Supervisor") {item.style.display = "block";}
-  else {item.style.display = "none"};
   const entries = Object.entries(userinputs);
   for (const [key, value] of entries) {
     const myString = "ip" + key
@@ -100,7 +84,6 @@ export function assignUserinputs (userinputs) {
     }
   };
   if (userinputs.signature) {
-    console.log("userinputs.signature");
     let img = new Image();
     img.src = userinputs.signature;
     img.classList.add("image");
@@ -119,54 +102,63 @@ function assignUserpay (userpay) {
     }
   }  
 }
-function addTableData(mytable, mydata) {
-  for (let i=0; i < mydata.length; i++) {
-    let mytr = mytable.insertRow(-1);
-    for (let j=0; j < mydata[i].length; j++) {
-      let mytd = mytr.insertCell(j);
-      mytd.textContent = mydata[i][j];
+function addTableData(type, table, data) {
+  console.log({data});
+  const tbody = table.tBodies[0];
+  for (let i=0; i < data.length; i++) {
+    const newRow = document.createElement('tr');
+    for (let j=0; j < data[i].length; j++) {
+      console.log(data[i][j]);
+      let cell  = document.createElement('td');
+      if (type === "hours") {
+        switch (j) {
+          case 0, 1:
+            cell.textContent = data[i][j];
+          case 2:
+            // add minutes data to hours
+            cell.textContent = Number(Number(data[i][j]) + Number(data[i][j+1])).toFixed(2);
+            break;
+          case 3:
+            cell.textContent = data[i][j+1];
+            break;
+          case 4:
+            cell = null;
+            break;
+        }
+      }
+      else {
+        cell.textContent = data[i][j];
+      }
+      if (cell) {
+        newRow.appendChild(cell);
+      }
     };
+    tbody.appendChild(newRow);
   };
-  return mytable;
+  return table;
 }
-function formatCurrency(mytable) {
-  for (let i=1; i < mytable.rows.length; i++) {
-    mytable.rows[i].cells[2].textContent = "$" + Number(mytable.rows[i].cells[2].textContent).toFixed(2);
+function fillFooterRow(type, table, userinputs) {
+  //get last row in array
+  const tfoot = table.tFoot;
+  const row = tfoot.rows[0];
+  const cells = row.cells;
+  switch (type) {
+    case "hours": 
+      cells[2].textContent = userinputs.hours.toFixed(2) +  " hrs";
+      cells[3].textContent = userinputs.hoursmiles.toFixed(1) +  " miles";
+      break;
+    case "miles": 
+      cells[2].textContent = userinputs.milesothers.toFixed(1) +  " miles";
+      break;
+    case "misc": 
+      cells[2].textContent = userinputs.misc.toFixed(2) +  " miles";
+      break;
+    case "omtgs": 
+      cells[1].textContent = userinputs.omtgs +  " mtgs";
+      cells[2].textContent = userinputs.omtgsmiles.toFixed(1) +  " miles";
+      break;
   }
-  return mytable;
-}
-function formatFixed(mytable, n) {
-  let str = "0";
-  for (let i=1; i < mytable.rows.length; i++) {
-    str = mytable.rows[i].cells[2].textContent;
-    str = str + "0001";
-    if (n === 1) {
-      str = Number(mytable.rows[i].cells[2].textContent).toFixed(1);
-    }
-    else {
-      str = Number(mytable.rows[i].cells[2].textContent).toFixed(2);
-    }
-    mytable.rows[i].cells[2].textContent = str;
-  }
-  return mytable;
-}
-function addTotalRow(mytable, mytotal) {
-  let newrow = mytable.insertRow(-1);
-  for (let i = 0; i < 3; i++) {
-    let td = newrow.insertCell(i);
-    if (i === 1) {td.textContent = "TOTAL"};
-    if (i === 2) {td.textContent = mytotal};
-  }
-  newrow.classList.add("totalrow");
-  return mytable;
-}
-function deleteTableRows(mytable) {
-  for ( let i = 1; i < mytable.rows.length; i++ ) {
-    mytable.deleteRow(i);
-  };
-//    if (item.hasChildNodes) {item.removeChild};
-//    item.appendChild(mytable);
-  return mytable;
+  return table;
 }
 function createRateTable () {
   for (const [key, value] of Object.entries(rates)) {
