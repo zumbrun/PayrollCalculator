@@ -192,9 +192,6 @@ tr{
   margin-top: 8px;
   break-inside: avoid;
 }
-#supervisors {
-  display: block;
-}
 ul {
   list-style-type: none;
   padding-left: 0px;
@@ -206,7 +203,6 @@ ul li {
 }
 .threecols, .fourcols {
   font-size: 12px;
-  text-align: left;
 }
 .threecols tr, .fourcols tr {
   max-height: 14px;
@@ -217,11 +213,11 @@ ul li {
 }
 .threecols th:nth-child(2) {
   text-align: left;
-  width: 75%;
+  width: 70%;
 }
 .threecols th:nth-child(3) {
   text-align: right;
-  width: 10%;
+  width: 15%;
 }
 .threecols td:nth-child(1) {
   text-align: left;
@@ -238,15 +234,28 @@ ul li {
 }
 .fourcols th:nth-child(2) {
   text-align: left;
-  width: 65%;
+  width: 55%;
 }
 .fourcols th:nth-child(3) {
   text-align: right;
-  width: 10%;
+  width: 15%;
 }
 .fourcols th:nth-child(4) {
   text-align: right;
-  width: 10%;
+  width: 15%;
+}
+.fourcols td:nth-child(1) {
+  text-align: left;
+}
+.fourcols td:nth-child(2) {
+  text-align: left;
+}
+.fourcols td:nth-child(3) {
+  text-align: right;
+}
+.fourcols td:nth-child(4) {
+  text-align: right;
+
 }
 .totalrow td:nth-child(1){
   border-right: none;

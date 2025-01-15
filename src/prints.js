@@ -24,7 +24,9 @@ export function setupReview(userinputs, datatables) {
       const str = "tbl" + type;
       let mytable = document.getElementById(`${str}`);
       mytable = addTableData(type, mytable, datatables[type]);
-      mytable = fillFooterRow(type, mytable, userinputs);
+      if (datatables[type].length > 1) {
+        mytable = addFooterRow(type, mytable, userinputs);
+      }
     }
   }); 
  // assign the rate and salary reference tables
@@ -103,31 +105,38 @@ function assignUserpay (userpay) {
   }  
 }
 function addTableData(type, table, data) {
-  console.log({data});
   const tbody = table.tBodies[0];
   for (let i=0; i < data.length; i++) {
     const newRow = document.createElement('tr');
     for (let j=0; j < data[i].length; j++) {
-      console.log(data[i][j]);
       let cell  = document.createElement('td');
-      if (type === "hours") {
-        switch (j) {
-          case 0, 1:
-            cell.textContent = data[i][j];
-          case 2:
-            // add minutes data to hours
-            cell.textContent = Number(Number(data[i][j]) + Number(data[i][j+1])).toFixed(2);
-            break;
-          case 3:
-            cell.textContent = data[i][j+1];
-            break;
-          case 4:
-            cell = null;
-            break;
-        }
+      if (j < 2) {
+        //date or description
+        cell.textContent = data[i][j];
       }
       else {
-        cell.textContent = data[i][j];
+        if (type === "hours") {
+          switch (j) {
+            case 2:
+              // add minutes data to hours
+              cell.textContent = Number(Number(data[i][j]) + Number(data[i][j+1])).toFixed(2) + " hrs";
+              break;
+            case 3:
+              cell.textContent = Number(data[i][j+1]).toFixed(1) + " miles";
+              break;
+            case 4:
+              cell = null;
+              break;
+          }
+        }
+        else {
+          if (type === "miles" || type === "omtgs") {
+            cell.textContent = Number(data[i][j]).toFixed(1) + " miles";
+          }
+          else if (type === "misc") {
+            cell.textContent = "$ " + Number(data[i][j]).toFixed(1);
+          }
+        }
       }
       if (cell) {
         newRow.appendChild(cell);
@@ -137,27 +146,33 @@ function addTableData(type, table, data) {
   };
   return table;
 }
-function fillFooterRow(type, table, userinputs) {
-  //get last row in array
-  const tfoot = table.tFoot;
-  const row = tfoot.rows[0];
+function addFooterRow(type, table, userinputs) {
+  //create a footer
+  const tfoot = document.createElement('tfoot');
+  tfoot.classList.add("totalrow");
+  const row = tfoot.insertRow();
+  for (let i=0; i < table.rows[0].cells.length; i++) {
+    const cell = row.insertCell();
+  }
   const cells = row.cells;
+  cells[1].textContent = "TOTALS"
   switch (type) {
     case "hours": 
       cells[2].textContent = userinputs.hours.toFixed(2) +  " hrs";
       cells[3].textContent = userinputs.hoursmiles.toFixed(1) +  " miles";
       break;
     case "miles": 
-      cells[2].textContent = userinputs.milesothers.toFixed(1) +  " miles";
+      cells[2].textContent = userinputs.milesother.toFixed(1) +  " miles";
       break;
     case "misc": 
-      cells[2].textContent = userinputs.misc.toFixed(2) +  " miles";
+      cells[2].textContent = "$ " + userinputs.misc.toFixed(2);
       break;
     case "omtgs": 
-      cells[1].textContent = userinputs.omtgs +  " mtgs";
+      cells[1].textContent = "TOTALS  " + userinputs.omtgs +  " mtgs";
       cells[2].textContent = userinputs.omtgsmiles.toFixed(1) +  " miles";
       break;
   }
+  table.appendChild(tfoot);
   return table;
 }
 function createRateTable () {

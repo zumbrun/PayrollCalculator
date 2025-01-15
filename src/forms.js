@@ -98,31 +98,33 @@ function calculateTotals(table) {
   //trash btn column is removed
   const tbody = table.tBodies[0];
   const rows = tbody.rows;
-  //calculate and store totals
   let totals = [];
-  totals.push(0); //cell0
-  totals.push(rows.length);//cell1
-  for (let j = 2; j < rows[0].cells.length; j++) {
-    let total = 0.0;
-    for (let i = 0; i < rows.length; i++) {
-      const cells = rows[i].cells;
-      const cell = cells[j];
-      for(let k=0; k < cell.childNodes.length; k++) {
-        const child = cell.childNodes[k];
-        if (child.tagName === 'SELECT') {
-          const selectElement = child;
-          const selectedOption = selectElement.options[selectElement.selectedIndex];
-          const selectedValue = selectedOption.value;
-          total = total + Number(selectedValue);
-        }
-        else if (child.tagName === 'INPUT') {
-          const inputElement = child;
-          const inputValue = inputElement.value;
-          total = total + Number(inputValue);
+  if (rows.length > 0) {
+    //calculate and store totals
+    totals.push(0); //cell0
+    totals.push(rows.length);//cell1
+    for (let j = 2; j < rows[0].cells.length; j++) {
+      let total = 0.0;
+      for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].cells;
+        const cell = cells[j];
+        for(let k=0; k < cell.childNodes.length; k++) {
+          const child = cell.childNodes[k];
+          if (child.tagName === 'SELECT') {
+            const selectElement = child;
+            const selectedOption = selectElement.options[selectElement.selectedIndex];
+            const selectedValue = selectedOption.value;
+            total = total + Number(selectedValue);
+          }
+          else if (child.tagName === 'INPUT') {
+            const inputElement = child;
+            const inputValue = inputElement.value;
+            total = total + Number(inputValue);
+          }
         }
       }
+      totals.push(total);
     }
-    totals.push(total);
   }
   return totals;
 }

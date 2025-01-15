@@ -33,16 +33,9 @@ export function showPrintpage () {
             </thead>
             <tbody>
             </tbody>
-            <tfoot>
-                <tr class="totalrow">
-                    <td>TOTAL</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tfoot>
         </table>
     </div>
-    <div id="supervisors">
+    <div>
         <li>
             <span>Total Hours: </span>
             <span id="iphours"></span>
@@ -60,14 +53,6 @@ export function showPrintpage () {
             </thead>
             <tbody>
             </tbody>
-            <tfoot>
-                <tr class="totalrow">
-                    <td></td>
-                    <td>TOTALS</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tfoot>
         </table>
     </div>
     <div>
@@ -88,22 +73,7 @@ export function showPrintpage () {
             </thead>
             <tbody>
             </tbody>
-            <tfoot>
-                <tr class="totalrow">
-                    <td></td>
-                    <td>TOTALS</td>
-                    <td></td>
-                </tr>
-            </tfoot>
         </table>
-    </div>
-    <div>
-        <li>
-            <span>Phone Reimbursement:   </span>
-            <span id="ipphone"></span>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Internet Reimbursement:   </span>
-            <span id="ipinternet"></span>
-        </li>
     </div>
     <div>
         <li>
@@ -122,14 +92,15 @@ export function showPrintpage () {
             </thead>
             <tbody>
             </tbody>
-            <tfoot>
-                <tr class="totalrow">
-                    <td></td>
-                    <td>TOTALS</td>
-                    <td></td>
-                </tr>
-            </tfoot>
         </table>
+    </div>
+    <div>
+        <li>
+            <span>Phone Reimbursement:   </span>
+            <span id="ipphone"></span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Internet Reimbursement:   </span>
+            <span id="ipinternet"></span>
+        </li>
     </div>
     <div>
         <li id="signaturelist">
