@@ -21,6 +21,7 @@ export function setupForm (type, userinputs, datatables) {
   trashbtn.addEventListener('click', (e) => {
     const cell = trashbtn.closest('td');
     if (cell) {
+      console.log({cell});
       let row = cell.parentElement;
       row.parentNode.removeChild(row);
     }
@@ -126,6 +127,10 @@ function calculateTotals(table) {
       totals.push(total);
     }
   }
+  else {
+    //there are no longer rows in table
+    totals = [0,0,0,0,0];
+  }
   return totals;
 }
 function readStoredData (table, emptyRow, array) {
@@ -151,7 +156,7 @@ function deleteColumns (table, columnArray) {
   return table;
 }
 function saveTableToArray (table) {
-  //trash button removed from table
+  //trash button column has been removed from table
   const tbody = table.tBodies[0];
   const rows = tbody.rows;
   //calculate and store totals
@@ -219,7 +224,8 @@ function writeDataToTable (table, array) {
   return table;
 }
 function updateUserinputs (type, totals, userinputs) {
-  //trash button removed from table
+  //note: trash button column removed from table
+
   switch (type) {
     case "hours": 
       const hrs = totals[2] + totals[3];
