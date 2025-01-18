@@ -60,14 +60,17 @@ export function printPDF (userinputs) {
       window.close();
     },
     margin:[20,20,20,20],
-    autoPaging: 'text',
     x: 0,
     y: 0,
-    width: 190,
-    windowWidth: 675,
-    fontSize: 8,
+    width: 552,
+    height: 732,
   });
 
+}
+export function printPDF2 (userinputs) {
+  const doc = new jsPDF('p', 'pt', [612.0, 792.0]);
+  doc.rect(30,30,552,732);
+  doc.save('rectangle.pdf');
 }
 export function assignUserinputs (userinputs) {
   const entries = Object.entries(userinputs);
@@ -134,7 +137,7 @@ function addTableData(type, table, data) {
             cell.textContent = Number(data[i][j]).toFixed(1) + " miles";
           }
           else if (type === "misc") {
-            cell.textContent = "$ " + Number(data[i][j]).toFixed(1);
+            cell.textContent = "$ " + Number(data[i][j]).toFixed(2);
           }
         }
       }
@@ -180,7 +183,7 @@ function createRateTable () {
     let str = "ref" + key; 
     let element = document.getElementById(`${str}`);
     if ((key === "medicare") || (key === "pera")) {
-      element.textContent = (100*value.rate).toFixed(3) + value.unit;
+      element.textContent = (100*value.rate).toFixed(2) + value.unit;
     }
     else {
       element.textContent = "$" + value.rate + value.unit;
