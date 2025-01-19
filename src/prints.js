@@ -1,14 +1,33 @@
-import jsPDF from "jspdf";
 import { rates, salaries } from './constants.js';
 import { showPrintpage } from './printpage.js';
 import { setupInputs } from "./inputs.js";
 import { setupOutputs } from "./outputs.js";
 import { setupSign } from "./sign.js";
 
+
 export function setupReview(userinputs, datatables) {
   const container = document.querySelector(".container");
   container.innerHTML = showPrintpage();
   // complete prnt sections for all userinputs and userpay
+  setupPrintpage (userinputs, datatables);
+// add event listener to when buttons are clicked
+   const submitbtn = document.getElementById("submitbutton");
+   submitbtn.addEventListener("click", () => {
+    //e.preventDefault();
+    setupSign(userinputs, datatables);
+    // printPDF(userinputs);
+   });
+   const clearbtn = document.getElementById("backbutton");
+   clearbtn.addEventListener("click", () => {
+    //e.preventDefault();
+    setupInputs(userinputs, datatables);
+   });
+   const printbtn = document.getElementById("printbutton");
+   printbtn.addEventListener("click", () => {
+    printPDF (userinputs);
+   });
+}
+function setupPrintpage (userinputs, datatables) {
   const userpay = setupOutputs(userinputs);
   assignUserinputs(userinputs, userpay);
   assignUserpay(userpay);
@@ -32,45 +51,21 @@ export function setupReview(userinputs, datatables) {
  // assign the rate and salary reference tables
   createRateTable();
   createSalaryTable();
-// add event listener to when buttons are clicked
-   const submitbtn = document.getElementById("submitbutton");
-   submitbtn.addEventListener("click", () => {
-    //e.preventDefault();
-    setupSign(userinputs, datatables);
-    // printPDF(userinputs);
-   });
-   const clearbtn = document.getElementById("backbutton");
-   clearbtn.addEventListener("click", () => {
-    //e.preventDefault();
-    setupInputs(userinputs, datatables);
-   });
-   const printbtn = document.getElementById("printbutton");
-   printbtn.addEventListener("click", (e) => {
-    printPDF(userinputs);;
-   });
 }
-export function printPDF (userinputs) {
-  const doc = new jsPDF('p', 'pt', [612.0, 792.0]);
-
-  const printform = document.querySelector(".printform");
-
-  doc.html(printform.innerHTML, {
-    callback: function(doc) {
-      doc.save(`${userinputs.name}` + '_payroll.pdf');
-      window.close();
-    },
-    margin:[20,20,20,20],
-    x: 0,
-    y: 0,
-    width: 552,
-    height: 732,
-  });
-
-}
-export function printPDF2 (userinputs) {
-  const doc = new jsPDF('p', 'pt', [612.0, 792.0]);
-  doc.rect(30,30,552,732);
-  doc.save('rectangle.pdf');
+function printPDF (userinputs) {
+  let section = document.getElementById('btnsection');
+  section.remove();
+  section = document.getElementById('foot');
+  section.remove();
+  const body = document.querySelector('body');
+  body.style.alignItems = 'flex-start';
+  body.style.justifyContent = 'flex-start';
+  section = document.querySelector('.printform');
+  section.style.padding = '0px';
+  const date = (new Date()).toLocaleDateString('en-US');
+  document.title = userinputs.name + '_' + date + '_payroll.pdf'
+  window.print();
+  window.close();
 }
 export function assignUserinputs (userinputs) {
   const entries = Object.entries(userinputs);

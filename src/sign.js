@@ -1,7 +1,6 @@
-import jsPDF from "jspdf";
-import { printPDF, setupReview } from "./prints.js";
 import SignaturePad from "signature_pad";
 import { showSignpage } from './signpage.js';
+import { setupReview} from './prints.js';
 
 export function setupSign(userinputs, datatables) {
     const container = document.querySelector(".container");

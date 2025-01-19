@@ -1,8 +1,15 @@
-import "./prints.js";
-
-export function showPrintpage () {
-    const printcontent = `
-    <div class="printform">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    @page {
+        size: 8.5in 11in;
+        margin: 0.5in;
+    }
+  </style>
+</head>
+<body>
+<div class="printform">
     <ul>
     <div>
         <li>
@@ -248,12 +255,6 @@ export function showPrintpage () {
             </tr>
         </table>
     </div>
-    </div>
-    <div class="btn" class = "flexdiv" id="btnsection">
-        <button type="button" class="singlebutton" id="backbutton">Back</button>
-        <button type="button" class="singlebutton" id="submitbutton">SIGN</button>
-        <button class="singlebutton" id="printbutton">PRINT</button>
-    </div>
-     `;
-  return printcontent;
-}
+</div>
+</body>
+
