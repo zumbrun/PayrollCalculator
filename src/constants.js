@@ -11,7 +11,7 @@ const salaries = {
     clerk: {unit:"/qtr", rate: 750},
     deputyclerk: {unit:"/qtr", rate: 150},
     treasurer: {unit:"/qtr", rate: 550},
-    deputytreasurer: {unit:"/qtr", rate: 0},
+    deputytreasurer: {unit:"/qtr", rate: 150},
 };
 const board = {
     "John Barlow": "Treasurer",
