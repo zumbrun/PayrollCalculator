@@ -20,9 +20,13 @@ export function setupInputs(userinputs, datatables) {
  
   // add event listeners to all the inputs so can update userinputs
   nameDropdown.addEventListener('click', (e) => {
-    const selectedOption = e.target;
-    if (selectedOption !== 0) {
-      userinputs.name = selectedOption.value;
+    const selectedOption = e.target.value;
+    const selectedIndex = e.target.selectedIndex;
+    console.log('name is: ', selectedOption);
+    console.log('text: ', e.target.options[e.target.selectedIndex].text);
+    console.log('selectedIndex; ', selectedIndex);
+    if (selectedIndex !== 0) {
+      userinputs.name = selectedOption;
       userinputs.title = board[userinputs.name];
     }
     else {
