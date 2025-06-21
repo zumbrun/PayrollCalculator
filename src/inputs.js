@@ -19,7 +19,7 @@ export function setupInputs(userinputs, datatables) {
   const radiopera = document.forms["inputform"].elements['pera'];
  
   // add event listeners to all the inputs so can update userinputs
-  nameDropdown.addEventListener('click', (e) => {
+  nameDropdown.addEventListener('change', (e) => {
     const selectedOption = e.target.value;
     const selectedIndex = e.target.selectedIndex;
     console.log('name is: ', selectedOption);
