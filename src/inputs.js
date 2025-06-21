@@ -25,7 +25,8 @@ export function setupInputs(userinputs, datatables) {
     console.log('name is: ', selectedOption);
     console.log('text: ', e.target.options[e.target.selectedIndex].text);
     console.log('selectedIndex; ', selectedIndex);
-    if (selectedIndex != 0) {
+    console.log(typeof selectedIndex);
+    if (selectedIndex !== 0) {
       userinputs.name = selectedOption;
       userinputs.title = board[userinputs.name];
     }
